@@ -1,4 +1,15 @@
 .card-container {
-    width: 250px;
-    background-color: #33866d;
+  width: 250px;
+  background-color: #33866d;
+}
+
+.card-container:hover {
+  cursor: pointer;
+}
+
+button {
+  background: paleturquoise;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
