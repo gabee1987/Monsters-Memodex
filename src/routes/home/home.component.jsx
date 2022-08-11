@@ -19,10 +19,15 @@ const Home = () => {
 
 const createInitialCardDeck = () => {
   // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
-  const numOfCards = 20;
+  const numOfCards = 10;
   let monsters = [];
 
   for (let index = 0; index < numOfCards; index++) {
+    monsters.push({
+      id: index,
+      isShown: false,
+      isInGame: true,
+    });
     monsters.push({
       id: index,
       isShown: false,
