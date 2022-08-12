@@ -17,25 +17,38 @@ const CardList = () => {
     const cardDeck = createInitialCardDeck();
     setCardDeck(cardDeck);
     //setTurns(0);
-    console.log('cardsAfterSet: ', cardDeck);
+    // console.log('cardsAfterSet: ', cardDeck);
   }, []);
 
   // Compare selected cards
   useEffect(() => {
-    if (firstChoice === null || secondChoice === null) {
-      console.log('not enough cards');
-      return;
-    } else if (firstChoice.pictureId === secondChoice.pictureId) {
-      resetTurn();
-      console.log('the same');
-    } else {
-      console.log('not the same');
-      resetTurn();
+    // Is any selected cards?
+    if (firstChoice && secondChoice) {
+      // IS the selected cards match?
+      if (firstChoice.pictureId === secondChoice.pictureId) {
+        //If so, set those cards property to paired
+        setCardDeck((prevCards) => {
+          // We generate a new carddeck with those 2 cards that matched with paired property
+          return prevCards.map((card) => {
+            if (card.pictureId === firstChoice.pictureId) {
+              return { ...card, isPaired: true };
+            } else {
+              return card;
+            }
+          });
+        });
+        console.log('its a match!');
+        resetTurn();
+      } else {
+        console.log('not a match...');
+        resetTurn();
+      }
     }
 
     console.log('firstChoice: ', firstChoice);
     console.log('secondChoice: ', secondChoice);
   }, [firstChoice, secondChoice]);
+  console.log('cardsAfterSet: ', cardDeck);
 
   const handleChoice = (card) => {
     if (firstChoice != null) {
