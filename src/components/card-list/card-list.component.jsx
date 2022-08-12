@@ -60,12 +60,14 @@ const CardList = () => {
       cards.push({
         id: 'pairOne-' + index,
         pictureId: index,
-        paired: false,
+        isPaired: false,
+        isActive: false,
       });
       cards.push({
         id: 'pairTwo-' + index,
         pictureId: index,
-        paired: false,
+        isPaired: false,
+        isActive: false,
       });
     }
     return cards;
