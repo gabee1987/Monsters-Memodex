@@ -1,10 +1,38 @@
 .card-container {
   width: 250px;
-  background-color: #33866d;
+  height: 250px;
+  padding: 0;
+  perspective: 600px;
 }
 
 .card-container:hover {
   cursor: pointer;
+}
+
+.card-body {
+  background-color: #33866d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  /* transform-origin: center right; */
+  transition: transform 500ms ease-in-out;
+}
+
+.card-container:hover .card-body {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
 }
 
 
