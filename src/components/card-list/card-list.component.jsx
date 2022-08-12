@@ -44,23 +44,25 @@ const CardList = () => {
           });
         });
         console.log('its a match!');
-        resetTurn();
+        setTimeout(() => resetTurn(), 1000);
       } else {
         console.log('not a match...');
-        resetTurn();
+        setTimeout(() => resetTurn(), 1000);
       }
     }
 
-    console.log('firstChoice: ', firstChoice);
-    console.log('secondChoice: ', secondChoice);
+    //console.log('firstChoice: ', firstChoice);
+    //console.log('secondChoice: ', secondChoice);
   }, [firstChoice, secondChoice]);
   console.log('cardsAfterSet: ', cardDeck);
 
   const handleChoice = (card) => {
     if (firstChoice != null) {
       setSecondChoice(card);
+      console.log('the choice is: ', firstChoice);
     } else {
       setFirstChoice(card);
+      console.log('the second choice is: ', firstChoice);
     }
   };
 

@@ -13,7 +13,7 @@ const Card = ({ card, onClick, flipped }) => {
   };
 
   return (
-    <div className="card-container" onClick={handleClick}>
+    <div className="card-container">
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>
         <div className="card-front">
           <img
@@ -22,7 +22,7 @@ const Card = ({ card, onClick, flipped }) => {
             src={`https://robohash.org/${pictureId}?set=set1&size=250x250`}
           />
         </div>
-        <div className="card-back">
+        <div className="card-back" onClick={handleClick}>
           <img src={CardBack} alt={`card-back-${id}`} />
         </div>
       </div>
