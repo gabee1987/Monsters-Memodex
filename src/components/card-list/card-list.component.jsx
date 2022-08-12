@@ -8,6 +8,7 @@ const CardList = () => {
   //const [selectedCards, setSelectedCards] = useState([]);
 
   const [cardDeck, setCardDeck] = useState([]);
+  //const [shuffledCardDeck, setShuffledCardDeck] = useState([]);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   //const [turns, setTurns] = useState(0);
@@ -16,6 +17,11 @@ const CardList = () => {
   useEffect(() => {
     const cardDeck = createInitialCardDeck();
     setCardDeck(cardDeck);
+
+    // Shuffling the cards
+    // const shuffledCardDeck = shufflingCards();
+    // setShuffledCardDeck(shuffledCardDeck);
+
     //setTurns(0);
     // console.log('cardsAfterSet: ', cardDeck);
   }, []);
@@ -81,10 +87,20 @@ const CardList = () => {
         isPaired: false,
       });
     }
+
+    // shuffle cards
+    //cards = shufflingCards(cards);
+    //console.log('shuffled cards: ', cards);
     return cards;
   };
 
-  const shufflingCards = () => {};
+  const shufflingCards = (cards) => {
+    let shuffledCardDeck = [...cards, ...cards]
+      .sort(() => Math.random() - 0.5)
+      .map((card) => ({ ...card, id: Math.random() }));
+
+    return shuffledCardDeck;
+  };
 
   return (
     <div className="card-list">
