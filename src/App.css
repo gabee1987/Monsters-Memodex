@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background: url(./assets/bg-pattern.png);
+  background-repeat: repeat;
+  text-align: center;
+}
