@@ -13,7 +13,7 @@ const Card = ({ card, onClick, flipped }) => {
   };
 
   return (
-    <div className="card-container">
+    <div className={`card-container ${isPaired ? 'isPaired' : ''}`}>
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>
         <div className="card-front">
           <img
@@ -26,6 +26,7 @@ const Card = ({ card, onClick, flipped }) => {
           <img src={CardBack} alt={`card-back-${id}`} />
         </div>
       </div>
+      {/* <script src="./card.styles.js"></script> */}
     </div>
   );
 };
