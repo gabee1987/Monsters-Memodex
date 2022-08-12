@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom'; // Have to run "yarn add react
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component';
 
-import './App.css';
+import './App.scss';
 
 const App = () => {
   // this.state = {

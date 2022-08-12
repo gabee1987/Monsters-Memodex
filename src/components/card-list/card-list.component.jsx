@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import Card from '../card/card.component.jsx';
 
-import './card-list.styles.css';
+import './card-list.styles.scss';
 
 const CardList = () => {
   //const [selectedCards, setSelectedCards] = useState([]);
@@ -33,8 +33,8 @@ const CardList = () => {
       resetTurn();
     }
 
-    // console.log('firstChoice: ', firstChoice);
-    // console.log('secondChoice: ', secondChoice);
+    console.log('firstChoice: ', firstChoice);
+    console.log('secondChoice: ', secondChoice);
   }, [firstChoice, secondChoice]);
 
   const handleChoice = (card) => {
@@ -61,13 +61,11 @@ const CardList = () => {
         id: 'pairOne-' + index,
         pictureId: index,
         isPaired: false,
-        isActive: false,
       });
       cards.push({
         id: 'pairTwo-' + index,
         pictureId: index,
         isPaired: false,
-        isActive: false,
       });
     }
     return cards;
@@ -76,7 +74,16 @@ const CardList = () => {
   return (
     <div className="card-list">
       {cardDeck.map((card) => {
-        return <Card key={card.id} card={card} onClick={handleChoice} />;
+        return (
+          <Card
+            key={card.id}
+            card={card}
+            onClick={handleChoice}
+            flipped={
+              card === firstChoice || card === secondChoice || card.isPaired
+            }
+          />
+        );
       })}
     </div>
   );
