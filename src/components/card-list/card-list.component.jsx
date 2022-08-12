@@ -6,83 +6,75 @@ import './card-list.styles.css';
 
 const CardList = () => {
   //const [selectedCards, setSelectedCards] = useState([]);
-  //let selectedCardIds = [];
 
-  const [firstSelectedCard, setfirstSelectedCard] = useState(null);
-  const [secondSelectedCard, setsecondSelectedCard] = useState(null);
   const [cardDeck, setCardDeck] = useState([]);
-  const [filteredCardDeck, setFilteredCardDeck] = useState(cardDeck);
-  //const { id, pictureId, isShown, isInGame } = monstersDeck;
+  const [firstChoice, setFirstChoice] = useState(null);
+  const [secondChoice, setSecondChoice] = useState(null);
+  //const [turns, setTurns] = useState(0);
 
+  // Create initial card deck
   useEffect(() => {
-    createCardDeck();
+    const cardDeck = createInitialCardDeck();
+    setCardDeck(cardDeck);
+    //setTurns(0);
+    console.log('cardsAfterSet: ', cardDeck);
   }, []);
 
+  // Compare selected cards
   useEffect(() => {
-    // TODO here comes the filtering of the deck after a successful pairing
-    const newFilteredCardDeck = cardDeck.filter((card) => {
-      return card.id !== selectedCardId;
-    });
-
-    console.log('lefut');
-    setFilteredCardDeck(newFilteredCardDeck);
-  }, [cardDeck, selectedCardId]);
-
-  console.log('selectedCardToSet: ', selectedCardId);
-
-  const handleClick = (event) => {
-    // event.preventDefault();
-    const cardId = event.target.id;
-
-    // Store the selected card id if no card is selected yet
-    if (selectedCardId == null) {
-      setselectedCardId(cardId);
+    if (firstChoice === null || secondChoice === null) {
+      console.log('not enough cards');
+      return;
+    } else if (firstChoice.pictureId === secondChoice.pictureId) {
+      resetTurn();
+      console.log('the same');
+    } else {
+      console.log('not the same');
+      resetTurn();
     }
-    // If the same id selected again, store it and then remove the selected cards from the main deck
-    else if (selectedCardId === cardId) {
-      console.log('before filter: ', selectedCardId);
-      // const newFilteredCardDeck = cardDeck.filter((card) => {
-      //   return card.pictureId !== selectedCardId;
-      // });
 
-      let newFilteredCardDeck = [5];
-      console.log('filteredCardDeck: ', newFilteredCardDeck);
-      setFilteredCardDeck(newFilteredCardDeck);
-    }
-    // If a different card was selected, delete the selected id
-    else {
-      setselectedCardId(cardId);
+    // console.log('firstChoice: ', firstChoice);
+    // console.log('secondChoice: ', secondChoice);
+  }, [firstChoice, secondChoice]);
+
+  const handleChoice = (card) => {
+    if (firstChoice != null) {
+      setSecondChoice(card);
+    } else {
+      setFirstChoice(card);
     }
   };
 
-  const removeSelectedCardsFromDeck = ({ selectedCardIds }) => {};
+  // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
+  const resetTurn = () => {
+    setFirstChoice(null);
+    setSecondChoice(null);
+  };
 
-  const createCardDeck = () => {
+  const createInitialCardDeck = () => {
     // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
     const numOfCards = 10;
     let cards = [];
 
     for (let index = 0; index < numOfCards; index++) {
       cards.push({
-        id: 'pairOne' + index,
+        id: 'pairOne-' + index,
         pictureId: index,
-        isShown: false,
-        isInGame: true,
+        paired: false,
       });
       cards.push({
-        id: 'pairTwo' + index,
+        id: 'pairTwo-' + index,
         pictureId: index,
-        isShown: false,
-        isInGame: true,
+        paired: false,
       });
     }
-    setCardDeck(cards);
+    return cards;
   };
 
   return (
     <div className="card-list">
-      {filteredCardDeck.map((card) => {
-        return <Card key={card.id} monster={card} onClick={handleClick} />;
+      {cardDeck.map((card) => {
+        return <Card key={card.id} card={card} onClick={handleChoice} />;
       })}
     </div>
   );
