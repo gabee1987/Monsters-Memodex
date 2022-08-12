@@ -84,6 +84,8 @@ const CardList = () => {
     return cards;
   };
 
+  const shufflingCards = () => {};
+
   return (
     <div className="card-list">
       {cardDeck.map((card) => {

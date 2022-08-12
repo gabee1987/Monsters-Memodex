@@ -10,6 +10,7 @@ import CardList from '../../components/card-list/card-list.component.jsx';
 const Home = () => {
   return (
     <div>
+      <button>NEW GAME</button>
       <CardList />
     </div>
   );
