@@ -10,12 +10,7 @@ import './home.styles.scss';
 // };
 
 const Home = () => {
-  // const onClick = () =>
-
-  //const [selectedCards, setSelectedCards] = useState([]);
-
   const [cardDeck, setCardDeck] = useState([]);
-  //const [shuffledCardDeck, setShuffledCardDeck] = useState([]);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   //const [turns, setTurns] = useState(0);
@@ -25,9 +20,9 @@ const Home = () => {
     const cardDeck = createInitialCardDeck();
     setCardDeck(cardDeck);
 
-    // Shuffling the cards
-    // const shuffledCardDeck = shufflingCards();
-    // setShuffledCardDeck(shuffledCardDeck);
+    // Shuffling the cards at start
+    // const shuffledCardDeck = shufflingCards(cardDeck);
+    // setCardDeck(shuffledCardDeck);
 
     //setTurns(0);
     // console.log('cardsAfterSet: ', cardDeck);
@@ -96,24 +91,32 @@ const Home = () => {
         isPaired: false,
       });
     }
-
-    // shuffle cards
-    //cards = shufflingCards(cards);
     //console.log('shuffled cards: ', cards);
     return cards;
   };
 
   const shufflingCards = (cards) => {
-    let shuffledCardDeck = [...cards, ...cards]
+    let shuffledCardDeck = [...cards]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
     return shuffledCardDeck;
   };
 
+  // Shuffle cards on New Game click
+  const handleNewGameClick = () => {
+    const shuffledCardDeck = shufflingCards(cardDeck);
+    setCardDeck(shuffledCardDeck);
+
+    //setTurns(0);
+    console.log('cardsAfterShuffle: ', cardDeck);
+  };
+
   return (
     <div className="card-list-container">
-      <button className="btn new-game-btn">NEW GAME</button>
+      <button className="btn new-game-btn" onClick={handleNewGameClick}>
+        NEW GAME
+      </button>
       {/* <button>SETTINGS</button> */}
       <CardList
         cards={cardDeck}
