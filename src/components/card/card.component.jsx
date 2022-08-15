@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import './card.styles.scss';
-import CardBack from '../../assets/card-back.png';
 
 const Card = ({ card, onClick, flipped }) => {
   const { id, pictureId, isPaired } = card;
@@ -23,7 +22,8 @@ const Card = ({ card, onClick, flipped }) => {
           />
         </div>
         <div className="card-back" onClick={handleClick}>
-          <img src={CardBack} alt={`card-back-${id}`} />
+          {/* <img src={CardBack} alt={`card-back-${id}`} />
+          <div></div> */}
         </div>
       </div>
       {/* <script src="./card.styles.js"></script> */}

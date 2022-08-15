@@ -27,6 +27,7 @@
     // background-color: #4ad1af; // brighter
     // background-color: #cddd2b; // Yellow
     // background-color: #35a8f3; // Blue
+    // background-color: #dedaba; // Birght Yellow
     background-color: #009485;
     position: relative;
     width: 100%;
@@ -54,6 +55,11 @@
 
   .card-front {
     transform: rotateY(180deg);
+  }
+
+  .card-back {
+    border-radius: 10px;
+    background-image: url('../../assets/card-back-hexagon.png');
   }
 
   img {
