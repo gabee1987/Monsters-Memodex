@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import CardList from '../../components/card-list/card-list.component.jsx';
 
+import './home.styles.scss';
+
 // const defaultCardDeck = {
 //   id: 0,
 //   isShown: false,
@@ -9,8 +11,9 @@ import CardList from '../../components/card-list/card-list.component.jsx';
 
 const Home = () => {
   return (
-    <div>
-      <button>NEW GAME</button>
+    <div className="card-list-container">
+      <button className="btn new-game-btn">NEW GAME</button>
+      {/* <button>SETTINGS</button> */}
       <CardList />
     </div>
   );

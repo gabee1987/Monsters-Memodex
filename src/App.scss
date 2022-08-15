@@ -41,4 +41,15 @@ body {
   background: url(./assets/bg-pattern.png);
   background-repeat: repeat;
   text-align: center;
+  padding: 1em;
+
+  // font-family: 'Cairo', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Mouse Memoirs', sans-serif;
 }

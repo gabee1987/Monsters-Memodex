@@ -1,8 +1,15 @@
 .card-list {
+  width: 100%;
   margin: 0 auto;
+  margin-top: 1em;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: center;
-  gap: 3em;
-  padding: 1em;
+  // grid-template-rows: auto;
+  column-gap: 1em;
+  row-gap: 1em;
+
+  justify-content: space-evenly;
+  justify-items: center;
+  align-content: space-evenly;
+  align-items: center;
 }

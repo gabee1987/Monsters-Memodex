@@ -1,0 +1,18 @@
+.navigation {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  //   background-color: #4ad1af;
+  background-color: #009485;
+  border-radius: 10px;
+  padding: 0 1em;
+
+  .nav-link {
+    text-decoration: none;
+    font-size: 1.5em;
+    margin: 0 0.5em;
+    color: #dedaba;
+  }
+}
