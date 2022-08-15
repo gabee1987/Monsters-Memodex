@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './card.styles.scss';
 
-const Card = ({ card, onClick, flipped }) => {
+const Card = ({ card, onClick, flipped, isShuffling }) => {
   const { id, pictureId, isPaired } = card;
 
   const handleClick = () => {
@@ -12,7 +12,11 @@ const Card = ({ card, onClick, flipped }) => {
   };
 
   return (
-    <div className={`card-container ${isPaired ? 'isPaired' : ''}`}>
+    <div
+      className={`card-container ${isPaired ? 'isPaired' : ''} ${
+        isShuffling ? 'isShuffling' : ''
+      }`}
+    >
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>
         <div className="card-front">
           <img

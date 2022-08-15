@@ -4,7 +4,13 @@ import Card from '../card/card.component.jsx';
 
 import './card-list.styles.scss';
 
-const CardList = ({ cards, handleChoice, firstChoice, secondChoice }) => {
+const CardList = ({
+  cards,
+  handleChoice,
+  firstChoice,
+  secondChoice,
+  isShufflingActive,
+}) => {
   return (
     <div className="card-list">
       {cards.map((card) => {
@@ -16,6 +22,7 @@ const CardList = ({ cards, handleChoice, firstChoice, secondChoice }) => {
             flipped={
               card === firstChoice || card === secondChoice || card.isPaired
             }
+            isShuffling={isShufflingActive}
           />
         );
       })}

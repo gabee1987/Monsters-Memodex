@@ -13,6 +13,7 @@ const Home = () => {
   const [cardDeck, setCardDeck] = useState([]);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
+  const [isShufflingActive, setIsShufflingActive] = useState(false);
   //const [turns, setTurns] = useState(0);
 
   // Create initial card deck
@@ -98,15 +99,22 @@ const Home = () => {
   const shufflingCards = (cards) => {
     let shuffledCardDeck = [...cards]
       .sort(() => Math.random() - 0.5)
-      .map((card) => ({ ...card, id: Math.random() }));
+      .map((card) => ({ ...card, id: Math.random(), isPaired: false }));
 
     return shuffledCardDeck;
   };
 
   // Shuffle cards on New Game click
   const handleNewGameClick = () => {
+    // Set the shuffle animation state
+    setIsShufflingActive(true);
+
     const shuffledCardDeck = shufflingCards(cardDeck);
-    setCardDeck(shuffledCardDeck);
+    // setTimeout(() => cardDeck.forEach((card) => (card.isPaired = false)), 1450);
+    setTimeout(() => setCardDeck(shuffledCardDeck), 855);
+
+    // Remove the animation state
+    setTimeout(() => setIsShufflingActive(false), 860);
 
     //setTurns(0);
     console.log('cardsAfterShuffle: ', cardDeck);
@@ -123,6 +131,7 @@ const Home = () => {
         handleChoice={handleChoice}
         firstChoice={firstChoice}
         secondChoice={secondChoice}
+        isShufflingActive={isShufflingActive}
       />
     </div>
   );
