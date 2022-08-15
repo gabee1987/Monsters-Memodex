@@ -9,11 +9,24 @@
   border-radius: 10px;
   padding: 0 1em;
 
+  .nav-links-container {
+    box-sizing: border-box;
+    position: relative;
+  }
+
   .nav-link {
+    display: inline-block;
     text-decoration: none;
     font-size: 1.5em;
     margin: 0 0.5em;
     // color: #dedaba; // Bright greenish
     color: #ffff00;
+    transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms;
+
+    &:hover {
+      color: #303030;
+      //   text-shadow: rgba($color: #000000, $alpha: 0.5) 1px 1px 5px 1px;
+      transform: translateY(-0.05em) scale(1.2, 1.2) rotate(1.2deg);
+    }
   }
 }
