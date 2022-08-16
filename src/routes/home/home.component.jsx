@@ -14,6 +14,7 @@ const Home = () => {
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   const [isShufflingActive, setIsShufflingActive] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   //const [turns, setTurns] = useState(0);
 
   // Create initial card deck
@@ -31,8 +32,11 @@ const Home = () => {
 
   // Compare selected cards
   useEffect(() => {
+    console.log('setDisabledState', disabled);
     // Is any selected cards?
     if (firstChoice && secondChoice) {
+      // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
+      setDisabled(true);
       // IS the selected cards match?
       if (firstChoice.pictureId === secondChoice.pictureId) {
         //If so, set those cards property to paired
@@ -56,7 +60,7 @@ const Home = () => {
 
     //console.log('firstChoice: ', firstChoice);
     //console.log('secondChoice: ', secondChoice);
-  }, [firstChoice, secondChoice]);
+  }, [firstChoice, secondChoice, disabled]);
   console.log('cardsAfterSet: ', cardDeck);
 
   const handleChoice = (card) => {
@@ -73,6 +77,8 @@ const Home = () => {
   const resetTurn = () => {
     setFirstChoice(null);
     setSecondChoice(null);
+    // Cancle the disabled state of the cards
+    setTimeout(() => setDisabled(false), 200);
   };
 
   const createInitialCardDeck = () => {
@@ -132,6 +138,7 @@ const Home = () => {
         firstChoice={firstChoice}
         secondChoice={secondChoice}
         isShufflingActive={isShufflingActive}
+        disabled={disabled}
       />
     </div>
   );

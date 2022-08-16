@@ -2,11 +2,16 @@ import { useState } from 'react';
 
 import './card.styles.scss';
 
-const Card = ({ card, onClick, flipped, isShuffling }) => {
+const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
   const { id, pictureId, isPaired } = card;
 
   const handleClick = () => {
-    onClick(card);
+    // Only handle click if the card is not disabled
+    console.log('isDisabled? ', disabled);
+    if (!disabled) {
+      // onClick(card);
+      setTimeout(() => onClick(card), 500);
+    }
     console.log('isFlipped after click?', flipped);
     console.log('singleCard clicked: ', card);
   };

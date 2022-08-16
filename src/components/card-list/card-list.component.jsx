@@ -10,6 +10,7 @@ const CardList = ({
   firstChoice,
   secondChoice,
   isShufflingActive,
+  disabled,
 }) => {
   return (
     <div className="card-list">
@@ -23,6 +24,7 @@ const CardList = ({
               card === firstChoice || card === secondChoice || card.isPaired
             }
             isShuffling={isShufflingActive}
+            disabled={disabled}
           />
         );
       })}
