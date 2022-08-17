@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'; // Have to run "yarn add react
 
 // Components
 import Navigation from './routes/navigation/navigation.component';
-import Home from './routes/home/home.component';
+import Game from './routes/game/game.component';
 import MainMenu from './routes/main-menu/main-menu.component';
 
 import './App.scss';
@@ -11,8 +11,8 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
-        <Route path="/" index element={<MainMenu />} />
-        <Route path="game" index element={<Home />} />
+        <Route index element={<MainMenu />} />
+        <Route path="game" element={<Game />} />
       </Route>
     </Routes>
   );

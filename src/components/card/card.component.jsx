@@ -27,7 +27,7 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
           <img
             id={pictureId}
             alt={`card-${id}`}
-            src={`https://robohash.org/${pictureId}?set=set1&size=250x250`}
+            src={`https://robohash.org/${pictureId}?set=set2&size=250x250`}
           />
         </div>
         <div className="card-back" onClick={handleClick}>

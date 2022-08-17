@@ -1,6 +1,7 @@
 .app-title {
   font-family: 'Mouse Memoirs', sans-serif;
   //   color: #95dada;
+  // color: #ffff00;
   color: #ffff00;
   font-size: 6em;
   margin: 0.3em;
@@ -25,7 +26,11 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    transform: translateZ(40px);
+    transform: translateZ(50px);
+    // fix the jagged animation by forcing hardware acceleration
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
   }
 
   // &:after {
@@ -48,14 +53,14 @@
     display: inline-block;
     font-size: 5em;
     text-decoration: none;
-    color: #ffff00;
+    color: #73ffca;
     padding: 0em;
     transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
       color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
     text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
 
     &:hover {
-      color: #303030;
+      color: #ffff00;
       text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
       transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
         rotate(1.4deg);

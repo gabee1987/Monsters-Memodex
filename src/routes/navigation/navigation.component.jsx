@@ -29,7 +29,7 @@ const Navigation = () => {
           </Link> */}
         </div>
       </div>
-      {/* This Outlet represents the home component */}
+      {/* This Outlet represents the game component */}
       <Outlet />
     </Fragment>
   );

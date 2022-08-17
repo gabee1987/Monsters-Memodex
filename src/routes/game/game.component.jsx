@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import CardList from '../../components/card-list/card-list.component.jsx';
+import GameControls from '../../components/game-control/game-control.component.jsx';
 
-import './home.styles.scss';
+import './game.styles.scss';
 
 // const defaultCardDeck = {
 //   id: 0,
@@ -9,7 +10,7 @@ import './home.styles.scss';
 //   isInGame: true,
 // };
 
-const Home = () => {
+const Game = () => {
   const [cardDeck, setCardDeck] = useState([]);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
@@ -128,10 +129,7 @@ const Home = () => {
 
   return (
     <div className="card-list-container">
-      <button className="btn new-game-btn" onClick={handleNewGameClick}>
-        NEW GAME
-      </button>
-      {/* <button>SETTINGS</button> */}
+      <GameControls newGameClick={handleNewGameClick} />
       <CardList
         cards={cardDeck}
         handleChoice={handleChoice}
@@ -144,4 +142,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Game;
