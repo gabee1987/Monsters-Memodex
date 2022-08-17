@@ -17,11 +17,13 @@ const Game = () => {
   const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [turns, setTurns] = useState(0);
+  const [isWon, setIsWon] = useState(false);
 
   // Create initial card deck
   useEffect(() => {
     const cardDeck = createInitialCardDeck();
     setCardDeck(cardDeck);
+    setIsWon(false);
 
     // Shuffling the cards at start
     // setCardDeck(shuffledCardDeck);
@@ -46,6 +48,7 @@ const Game = () => {
   // Compare selected cards
   useEffect(() => {
     //console.log('setDisabledState', disabled);
+    setIsWon(false);
 
     // Is any selected cards?
     if (firstChoice && secondChoice) {
@@ -76,9 +79,15 @@ const Game = () => {
       }
     }
 
+    const iswon = checkWinCondition();
+    console.log('won?', iswon);
+    setIsWon(iswon);
+    // if (isWon) {
+    //   alert('Congratulation!');
+    // }
     //console.log('firstChoice: ', firstChoice);
     //console.log('secondChoice: ', secondChoice);
-  }, [firstChoice, secondChoice, disabled]);
+  }, [firstChoice, secondChoice, disabled, isWon]);
   //console.log('cardsAfterSet: ', cardDeck);
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
@@ -88,13 +97,28 @@ const Game = () => {
     // Count the turns
     setTurns((prevTurns) => prevTurns + 1);
     console.log('turns: ', turns);
-    // Cancle the disabled state of the cards
+    // Cancel the disabled state of the cards
     setTimeout(() => setDisabled(false), 200);
+  };
+
+  const checkWinCondition = () => {
+    console.log('cards:', cardDeck);
+    const result = cardDeck.every((card) => {
+      if (card.isPaired) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    console.log('result: ', result);
+
+    return result;
   };
 
   const createInitialCardDeck = () => {
     // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
-    const numOfCards = 12;
+    const numOfCards = 2;
     let cards = [];
 
     for (let index = 0; index < numOfCards; index++) {
