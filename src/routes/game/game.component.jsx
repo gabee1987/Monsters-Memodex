@@ -79,9 +79,18 @@ const Game = () => {
       }
     }
 
-    const iswon = checkWinCondition();
-    console.log('won?', iswon);
-    setIsWon(iswon);
+    //const iswon = checkWinCondition(cardDeck);
+    //console.log('won?', iswon);
+    setIsWon((winCondition) => {
+      return cardDeck.every((card) => {
+        if (card.isPaired) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    });
+    console.log('isWon?', isWon);
     // if (isWon) {
     //   alert('Congratulation!');
     // }
@@ -89,6 +98,8 @@ const Game = () => {
     //console.log('secondChoice: ', secondChoice);
   }, [firstChoice, secondChoice, disabled, isWon]);
   //console.log('cardsAfterSet: ', cardDeck);
+
+  useEffect(() => {}, []);
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {
@@ -101,9 +112,9 @@ const Game = () => {
     setTimeout(() => setDisabled(false), 200);
   };
 
-  const checkWinCondition = () => {
-    console.log('cards:', cardDeck);
-    const result = cardDeck.every((card) => {
+  const checkWinCondition = (cards) => {
+    console.log('cards:', cards);
+    const result = cards.every((card) => {
       if (card.isPaired) {
         return true;
       } else {
