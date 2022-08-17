@@ -8,13 +8,6 @@ import MainMenu from './routes/main-menu/main-menu.component';
 import './App.scss';
 
 const App = () => {
-  // this.state = {
-  //   monstersDeck: [],
-  //   selectedCards: [],
-  //   numberOfCardsLeft: 0,
-  //   numberOfAllCards: 0,
-  // };
-
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
