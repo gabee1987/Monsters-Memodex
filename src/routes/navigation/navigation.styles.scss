@@ -3,15 +3,21 @@
   height: 40px;
   line-height: 40px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+
   //   background-color: #4ad1af;
   background-color: #009485;
   border-radius: 10px;
   padding: 0 1em;
 
+  .brand-container {
+    justify-self: flex-start;
+  }
+
   .nav-links-container {
     box-sizing: border-box;
     position: relative;
+    justify-content: flex-end;
   }
 
   .nav-link {

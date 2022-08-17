@@ -9,8 +9,9 @@ const Navigation = () => {
     // This Fragment element wont be rendered in the browser, we wont see it in the DOM tree
     <Fragment>
       <div className="navigation">
-        <Link className="brand-container" to="/">
+        <Link className="nav-link brand-container" to="/">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
+          <span>Home</span>
         </Link>
         <div className="nav-links-container">
           <Link className="nav-link" to="/sign-in">
