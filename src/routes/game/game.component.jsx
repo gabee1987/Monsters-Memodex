@@ -31,6 +31,9 @@ const Game = () => {
   }, []);
 
   const handleChoice = (card) => {
+    if (card === firstChoice) {
+      return;
+    }
     if (firstChoice != null) {
       setSecondChoice(card);
       //console.log('the choice is: ', firstChoice);
