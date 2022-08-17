@@ -7,13 +7,13 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
 
   const handleClick = () => {
     // Only handle click if the card is not disabled
-    console.log('isDisabled? ', disabled);
+    //console.log('isDisabled? ', disabled);
     if (!disabled) {
       // onClick(card);
       setTimeout(() => onClick(card), 300);
     }
-    console.log('isFlipped after click?', flipped);
-    console.log('singleCard clicked: ', card);
+    //console.log('isFlipped after click?', flipped);
+    //console.log('singleCard clicked: ', card);
   };
 
   return (
