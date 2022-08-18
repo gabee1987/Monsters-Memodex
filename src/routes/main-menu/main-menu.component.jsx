@@ -1,10 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
+
+import { GameStateContext } from '../../contexts/game-state.context';
 
 import './main-menu.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const MainMenu = () => {
+  const { gameInProgress } = useContext(GameStateContext);
+
   // 3D perspective effect with Vanilla Tilt
   const tilt = useRef(null);
   useEffect(() => {
@@ -21,7 +25,16 @@ const MainMenu = () => {
       <h1 className="app-title">Monsters Memodex</h1>
       <div className="main-menu-container" id="mainMenu" ref={tilt}>
         <div className="main-menu-inner-container" id="mainMenuInner">
-          <Link className="menu-link" to="/game">
+          {gameInProgress && (
+            <Link
+              className="menu-link"
+              to="/game"
+              state={{ fromNewGame: false }}
+            >
+              Continue
+            </Link>
+          )}
+          <Link className="menu-link" to="/game" state={{ fromNewGame: true }}>
             New Game
           </Link>
           <Link className="menu-link" to="/sign-up">

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 
@@ -7,19 +8,30 @@ import GameControls from '../../components/game-control/game-control.component.j
 
 import './game.styles.scss';
 
-const Game = () => {
+const Game = (props) => {
   const [cardDeck, setCardDeck] = useState([]);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
+
   const { turns, setTurns } = useContext(GameStateContext);
+  const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
+  const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
+
+  // Need new game?
+  const location = useLocation();
+  const { fromNewGame } = location.state;
 
   // Create initial card deck
   useEffect(() => {
-    const cardDeck = createInitialCardDeck();
-    setCardDeck(cardDeck);
+    if (fromNewGame) {
+      const newCardDeck = createInitialCardDeck();
+      setCardDeck(newCardDeck);
+    } else {
+      setCardDeck(inProgressDeck);
+    }
   }, []);
 
   // Check win condition
@@ -55,6 +67,8 @@ const Game = () => {
         setTimeout(() => resetTurn(), 1000);
       }
     }
+    // Save the current progress to the context
+    setInProgressDeck(cardDeck);
   }, [firstChoice, secondChoice]);
 
   // Handle the card choice upon click
@@ -62,14 +76,15 @@ const Game = () => {
     if (card === firstChoice) {
       return;
     }
+    // Set game in progress state
+    setGameInProgress(true);
+
     if (firstChoice != null) {
       setSecondChoice(card);
     } else {
       setFirstChoice(card);
     }
   };
-
-  //useEffect(() => {}, []);
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {
@@ -131,11 +146,9 @@ const Game = () => {
     return shuffledCardDeck;
   };
 
-  // Shuffle cards on New Game click
-  const handleNewGameClick = () => {
+  const initiateNewGame = () => {
     // Set the shuffle animation state
     setIsShufflingActive(true);
-
     const shuffledCardDeck = shufflingCards(cardDeck);
     // setTimeout(() => cardDeck.forEach((card) => (card.isPaired = false)), 1450);
     setTimeout(() => setCardDeck(shuffledCardDeck), 855);
@@ -145,6 +158,12 @@ const Game = () => {
 
     setTurns(-1);
     resetTurn();
+  };
+
+  // Shuffle cards on New Game click
+  const handleNewGameClick = () => {
+    //console.log('new game runs...');
+    initiateNewGame();
   };
 
   return (
