@@ -1,3 +1,10 @@
 .button-container {
-  margin: 2em auto;
+  margin: 3em 0.5em 1em 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.turn-counter {
+  pointer-events: none;
+  margin: 0 0 0 1em;
 }

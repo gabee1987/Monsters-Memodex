@@ -144,7 +144,7 @@ const Game = () => {
   };
 
   return (
-    <div className="card-list-container">
+    <div className="game-container">
       <GameControls newGameClick={handleNewGameClick} />
       <CardList
         cards={cardDeck}

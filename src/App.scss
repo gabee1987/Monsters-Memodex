@@ -55,13 +55,14 @@ body {
 * {
   box-sizing: border-box;
   font-family: 'Mouse Memoirs', sans-serif;
+  letter-spacing: 1px;
 }
 
 .btn {
-  padding: 0.3em 1em;
+  padding: 0.1em 1em;
   font-size: 1.5em;
+  line-height: 40px;
   border-radius: 10px;
-  margin: 1em;
   // transition: all 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.675) 250ms,
     background-color cubic-bezier(0.175, 0.185, 0.32, 1.175) 200ms;
