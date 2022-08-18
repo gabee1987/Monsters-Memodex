@@ -4,52 +4,32 @@ import GameControls from '../../components/game-control/game-control.component.j
 
 import './game.styles.scss';
 
-// const defaultCardDeck = {
-//   id: 0,
-//   isShown: false,
-//   isInGame: true,
-// };
-
 const Game = () => {
   const [cardDeck, setCardDeck] = useState([]);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [turns, setTurns] = useState(0);
+  const [turns, setTurns] = useState(1);
   const [isWon, setIsWon] = useState(false);
 
   // Create initial card deck
   useEffect(() => {
     const cardDeck = createInitialCardDeck();
     setCardDeck(cardDeck);
-    setIsWon(false);
-
-    // Shuffling the cards at start
-    // setCardDeck(shuffledCardDeck);
-
-    //console.log('initial turns: ', turns);
-    // console.log('cardsAfterSet: ', cardDeck);
   }, []);
 
-  const handleChoice = (card) => {
-    if (card === firstChoice) {
-      return;
+  // Check win condition
+  useEffect(() => {
+    const winState = checkWinCondition(cardDeck);
+    setIsWon(winState);
+    if (winState) {
+      alert('Congratulations! Your memory still works!');
     }
-    if (firstChoice != null) {
-      setSecondChoice(card);
-      //console.log('the choice is: ', firstChoice);
-    } else {
-      setFirstChoice(card);
-      //console.log('the second choice is: ', firstChoice);
-    }
-  };
+  }, [cardDeck]);
 
   // Compare selected cards
   useEffect(() => {
-    //console.log('setDisabledState', disabled);
-    setIsWon(false);
-
     // Is any selected cards?
     if (firstChoice && secondChoice) {
       // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
@@ -67,53 +47,44 @@ const Game = () => {
             }
           });
         });
-        //console.log('its a match!');
-        //console.log('before match the turns: ', turns);
         resetTurn();
-        // setTimeout(() => resetTurn(), 1000);
       } else {
-        //console.log('not a match...');
-        //console.log('before not match the turns: ', turns);
         setTimeout(() => resetTurn(), 1000);
-        //resetTurn();
       }
     }
+  }, [firstChoice, secondChoice]);
 
-    //const iswon = checkWinCondition(cardDeck);
-    //console.log('won?', iswon);
-    setIsWon((winCondition) => {
-      return cardDeck.every((card) => {
-        if (card.isPaired) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-    });
-    console.log('isWon?', isWon);
-    // if (isWon) {
-    //   alert('Congratulation!');
-    // }
-    //console.log('firstChoice: ', firstChoice);
-    //console.log('secondChoice: ', secondChoice);
-  }, [firstChoice, secondChoice, disabled, isWon]);
-  //console.log('cardsAfterSet: ', cardDeck);
+  // Handle the card choice upon click
+  const handleChoice = (card) => {
+    if (card === firstChoice) {
+      return;
+    }
+    if (firstChoice != null) {
+      setSecondChoice(card);
+    } else {
+      setFirstChoice(card);
+    }
+  };
 
-  useEffect(() => {}, []);
+  //useEffect(() => {}, []);
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {
     setFirstChoice(null);
     setSecondChoice(null);
+
     // Count the turns
     setTurns((prevTurns) => prevTurns + 1);
-    console.log('turns: ', turns);
+
     // Cancel the disabled state of the cards
     setTimeout(() => setDisabled(false), 200);
   };
 
   const checkWinCondition = (cards) => {
-    console.log('cards:', cards);
+    //console.log('cards:', cards);
+    if (cards.length < 1) {
+      return false;
+    }
     const result = cards.every((card) => {
       if (card.isPaired) {
         return true;
@@ -121,9 +92,6 @@ const Game = () => {
         return false;
       }
     });
-
-    console.log('result: ', result);
-
     return result;
   };
 
@@ -144,7 +112,10 @@ const Game = () => {
         isPaired: false,
       });
     }
-    //console.log('shuffled cards: ', cards);
+
+    // Shuffling the cards at start
+    // setCardDeck(shuffledCardDeck);
+
     return cards;
   };
 
@@ -170,7 +141,6 @@ const Game = () => {
     setTimeout(() => setIsShufflingActive(false), 860);
 
     resetTurn();
-    //console.log('cardsAfterShuffle: ', cardDeck);
   };
 
   return (
