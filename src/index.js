@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { GameStateProvider } from './contexts/game-state.context';
 
 import './index.css';
 
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <GameStateProvider>
+        <App />
+      </GameStateProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

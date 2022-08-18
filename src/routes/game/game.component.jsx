@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { GameStateContext } from '../../contexts/game-state.context.jsx';
+
 import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
 
@@ -10,8 +13,8 @@ const Game = () => {
   const [secondChoice, setSecondChoice] = useState(null);
   const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [turns, setTurns] = useState(1);
-  const [isWon, setIsWon] = useState(false);
+  const { turns, setTurns } = useContext(GameStateContext);
+  const { isWon, setIsWon } = useContext(GameStateContext);
 
   // Create initial card deck
   useEffect(() => {
@@ -23,9 +26,9 @@ const Game = () => {
   useEffect(() => {
     const winState = checkWinCondition(cardDeck);
     setIsWon(winState);
-    if (winState) {
-      alert('Congratulations! Your memory still works!');
-    }
+    // if (winState) {
+    //   alert('Congratulations! Your memory still works!');
+    // }
   }, [cardDeck]);
 
   // Compare selected cards
@@ -140,6 +143,7 @@ const Game = () => {
     // Remove the animation state
     setTimeout(() => setIsShufflingActive(false), 860);
 
+    setTurns(-1);
     resetTurn();
   };
 
