@@ -7,6 +7,7 @@ import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
 
 import './game.styles.scss';
+import WinModal from '../../components/win-modal/win-modal.component.jsx';
 
 const Game = (props) => {
   const [cardDeck, setCardDeck] = useState([]);
@@ -14,6 +15,7 @@ const Game = (props) => {
   const [secondChoice, setSecondChoice] = useState(null);
   const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [showWinModal, setShowWinModal] = useState(false);
 
   const { turns, setTurns } = useContext(GameStateContext);
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
@@ -42,6 +44,10 @@ const Game = (props) => {
     //   alert('Congratulations! Your memory still works!');
     // }
   }, [cardDeck]);
+
+  useEffect(() => {
+    setShowWinModal(!showWinModal);
+  }, [isWon]);
 
   // Compare selected cards
   useEffect(() => {
@@ -166,6 +172,10 @@ const Game = (props) => {
     initiateNewGame();
   };
 
+  const handleWinModalClose = () => {
+    setShowWinModal(false);
+  };
+
   return (
     <div className="game-container">
       <GameControls newGameClick={handleNewGameClick} />
@@ -176,6 +186,11 @@ const Game = (props) => {
         secondChoice={secondChoice}
         isShufflingActive={isShufflingActive}
         disabled={disabled}
+      />
+      <WinModal
+        show={showWinModal}
+        turns={turns}
+        onClose={handleWinModalClose}
       />
     </div>
   );
