@@ -40,14 +40,10 @@ const Game = (props) => {
   useEffect(() => {
     const winState = checkWinCondition(cardDeck);
     setIsWon(winState);
-    // if (winState) {
-    //   alert('Congratulations! Your memory still works!');
-    // }
-  }, [cardDeck]);
 
-  useEffect(() => {
-    setShowWinModal(!showWinModal);
-  }, [isWon]);
+    // Show the win modal
+    setShowWinModal(winState);
+  }, [cardDeck]);
 
   // Compare selected cards
   useEffect(() => {

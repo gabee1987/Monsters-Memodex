@@ -13,7 +13,7 @@ const WinModal = (props) => {
 
   return (
     <div className="win-modal">
-      <div className="modal-content">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h1>Congratulations!</h1>
         </div>
