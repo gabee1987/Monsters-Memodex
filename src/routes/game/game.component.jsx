@@ -31,8 +31,12 @@ const Game = (props) => {
     if (fromNewGame) {
       const newCardDeck = createInitialCardDeck();
       setCardDeck(newCardDeck);
+      setTurns(0);
     } else {
+      // setInProgressDeck(inProgressDeck);
       setCardDeck(inProgressDeck);
+      console.log('continue progressDeck...', inProgressDeck);
+      console.log('continue cardDeck...', cardDeck);
     }
   }, []);
 
@@ -100,6 +104,7 @@ const Game = (props) => {
     setTimeout(() => setDisabled(false), 200);
   };
 
+  // Check win condition
   const checkWinCondition = (cards) => {
     //console.log('cards:', cards);
     if (cards.length < 1) {
@@ -115,6 +120,7 @@ const Game = (props) => {
     return result;
   };
 
+  // Create the initial card deck on game start
   const createInitialCardDeck = () => {
     // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
     const numOfCards = 2;
