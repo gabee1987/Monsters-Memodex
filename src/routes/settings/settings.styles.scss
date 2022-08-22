@@ -1,0 +1,125 @@
+.settings-title {
+  font-family: 'Mouse Memoirs', sans-serif;
+  //   color: #95dada;
+  // color: #ffff00;
+  color: #ffff00;
+  font-size: 5em;
+  margin: 0.3em;
+  text-shadow: rgba(0, 0, 0, 0.8) 5px 5px 10px;
+  margin-bottom: 3rem;
+}
+
+.settings-container {
+  position: relative;
+  width: 60%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3em;
+  background-color: #009485;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.08) 0px 15px 12px;
+
+  // 3D hover
+  transform-style: preserve-3d;
+  perspective: 1000px;
+
+  .settings-inner-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    transform: translateZ(50px);
+    // fix the jagged animation by forcing hardware acceleration
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+
+    .settings-category {
+      border-radius: 10px;
+      padding: 1rem;
+      line-height: 3rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+
+      span {
+        pointer-events: none;
+        user-select: none;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: dotted 4px #ffff00;
+        border-radius: 10px;
+        z-index: 0;
+        pointer-events: none;
+        transition: opacity cubic-bezier(0.03, 0.98, 0.52, 0.99) 250ms;
+        opacity: 0;
+      }
+
+      &:hover::after {
+        opacity: 1;
+      }
+
+      .card-number-input {
+        width: 100%;
+        // line-height: 0.5rem;
+      }
+
+      .settings-input-group {
+        // display: flex;
+        // justify-content: space-around;
+        // padding: 1rem 1rem;
+      }
+    }
+
+    label {
+      font-size: 2rem;
+    }
+  }
+
+  // &:after {
+  //   content: '';
+  //   position: absolute;
+  //   z-index: -1;
+  //   width: 100%;
+  //   height: 100%;
+  //   opacity: 0;
+  //   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+  //     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  //   transition: opacity cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms;
+  // }
+
+  // &:hover::after {
+  //   opacity: 1;
+  // }
+
+  .settings-category {
+    display: inline-block;
+    font-size: 5rem;
+    text-decoration: none;
+    color: #73ffca;
+    padding: 0em;
+    transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
+      color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
+    text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
+
+    // &:hover {
+    //   color: #ffff00;
+    //   text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
+    //   transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
+    //     rotate(1.4deg);
+    // }
+
+    // &:active,
+    // :focus {
+    //   transform: scale(0.98, 0.98);
+    // }
+  }
+}

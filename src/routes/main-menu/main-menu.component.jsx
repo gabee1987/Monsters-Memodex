@@ -46,7 +46,7 @@ const MainMenu = () => {
           <Link className="menu-link" to="/settings">
             Settings
           </Link>
-          <Link className="menu-link" to="/settings">
+          <Link className="menu-link" to="/help">
             Help
           </Link>
         </div>
