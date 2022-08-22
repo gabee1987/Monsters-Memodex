@@ -6,7 +6,7 @@ const useMountTransition = (isMounted, unmountDelay) => {
   useEffect(() => {
     let timeoutId;
 
-    console.log('mounted?', isMounted);
+    //console.log('mounted?', isMounted);
     if (isMounted && !hasTransitionedIn) {
       setHasTransitionedIn(true);
     } else if (!isMounted && hasTransitionedIn) {

@@ -8,10 +8,9 @@ const WinModal = (props) => {
   //const [isMounted, setIsMounted] = useState(false);
 
   const hasTransitionedIn = useMountTransition(show, 1000);
-
-  if (!show) {
-    return null;
-  }
+  // if (!show) {
+  //   return null;
+  // }
 
   const handleClick = () => {
     onClose(false);

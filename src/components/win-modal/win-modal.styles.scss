@@ -21,14 +21,16 @@
 
     // Animation dependencies
     opacity: 0;
-    transform: scale(0.95, 0.95);
-    transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.575) 1550ms,
-      opacity cubic-bezier(0.175, 0.885, 0.32, 1.675) 1050ms;
+    transform: scale(0.5, 0.5) rotate(0deg);
+    transition: transform cubic-bezier(0.3, 0.1, 0.55, 1.7) 550ms,
+      opacity cubic-bezier(0.3, 0.1, 0.55, 1.7) 450ms;
 
     // Show animation
     &.in.visible {
       opacity: 1;
-      transform: translateY(-0.05em) scale(1, 1);
+      transform: translateY(-0.05em) scale(1, 1) rotate(0deg);
+      animation-name: popShow;
+      animation-duration: 550ms;
     }
   }
 
@@ -77,5 +79,17 @@
     :focus {
       transform: scale(0.98, 0.98);
     }
+  }
+}
+
+@keyframes popShow {
+  0% {
+    transform: scale(0.5, 0.5) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-0.15em) scale(1.2, 1.2) rotate(1.4deg);
+  }
+  100% {
+    transform: scale(1, 1) rotate(0deg);
   }
 }

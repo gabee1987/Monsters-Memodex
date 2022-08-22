@@ -126,7 +126,7 @@ const Game = (props) => {
   // Create the initial card deck on game start
   const createInitialCardDeck = () => {
     // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
-    const numOfCards = 2;
+    const numOfCards = 1;
     let cards = [];
 
     for (let index = 0; index < numOfCards; index++) {
@@ -193,11 +193,13 @@ const Game = (props) => {
         isShufflingActive={isShufflingActive}
         disabled={disabled}
       />
-      <WinModal
-        show={showWinModal}
-        turns={turns}
-        onClose={handleWinModalClose}
-      />
+      {showWinModal && (
+        <WinModal
+          show={showWinModal}
+          turns={turns}
+          onClose={handleWinModalClose}
+        />
+      )}
     </div>
   );
 };
