@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GameStateProvider } from './contexts/game-state.context';
-import { SettingsProvider } from './contexts/settings.context';
+import { GameSettingsProvider } from './contexts/game-settings.context';
 
 import './index.css';
 
@@ -13,11 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <SettingsProvider>
+      <GameSettingsProvider>
         <GameStateProvider>
           <App />
         </GameStateProvider>
-      </SettingsProvider>
+      </GameSettingsProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

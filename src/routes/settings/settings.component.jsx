@@ -1,9 +1,33 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 
+import { GameSettingsContext } from '../../contexts/game-settings.context';
+
 import './settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const Settings = () => {
+  const { mode, setMode } = useContext(GameSettingsContext);
+  const { difficulty, setDifficulty } = useContext(GameSettingsContext);
+  const { cardNumber, setCardNumber } = useContext(GameSettingsContext);
+
+  const handleModeChange = (event) => {
+    if (event.target.checked) {
+      // handleModeChange(event.target.value);
+      console.log('mode changed to: ', mode);
+      setMode(event.target.value);
+    }
+  };
+
+  const handleDifficultyChange = (event) => {
+    console.log('difficulty changed to: ', difficulty);
+    setDifficulty(event.target.value);
+  };
+
+  const handleCardNumberChange = (event) => {
+    console.log('cardNumber changed to:', cardNumber);
+    setCardNumber(event.target.value);
+  };
+
   // 3D perspective effect with Vanilla Tilt
   const tilt = useRef(null);
   useEffect(() => {
@@ -14,6 +38,7 @@ const Settings = () => {
       easing: 'cubic-bezier(.03,.98,.52,.99)',
     });
   }, []);
+
   return (
     <div className="settings">
       <h1 className="settings-title">Settings</h1>
@@ -27,22 +52,25 @@ const Settings = () => {
                 type="radio"
                 name="mode"
                 value="timeBased"
+                onChange={handleModeChange}
               ></input>
-              <label for="timeBasedRadio">Time Based</label>
+              <label htmlFor="timeBasedRadio">Time Based</label>
               <input
                 id="turnBasedRadio"
                 type="radio"
                 name="mode"
                 value="turnBased"
+                onChange={handleModeChange}
               ></input>
-              <label for="turnBasedRadio">Turn Based</label>
+              <label htmlFor="turnBasedRadio">Turn Based</label>
               <input
                 id="relaxedRadio"
                 type="radio"
                 name="mode"
                 value="relaxed"
+                onChange={handleModeChange}
               ></input>
-              <label for="relaxedRadio">Relaxed</label>
+              <label htmlFor="relaxedRadio">Relaxed</label>
             </div>
           </div>
 
@@ -54,29 +82,32 @@ const Settings = () => {
                 type="radio"
                 name="difficulty"
                 value="easy"
+                onChange={handleDifficultyChange}
               ></input>
-              <label for="easyRadio">Easy</label>
+              <label htmlFor="easyRadio">Easy</label>
               <input
                 id="mediumRadio"
                 type="radio"
                 name="difficulty"
                 value="medium"
+                onChange={handleDifficultyChange}
               ></input>
-              <label for="mediumRadio">Medium</label>
+              <label htmlFor="mediumRadio">Medium</label>
               <input
                 id="hardRadio"
                 type="radio"
                 name="difficulty"
                 value="hard"
+                onChange={handleDifficultyChange}
               ></input>
-              <label for="hardRadio">Hard</label>
+              <label htmlFor="hardRadio">Hard</label>
             </div>
           </div>
 
           <div className="settings-category x-settings">
             <span>Number of Cards</span>
             <div className="settings-input-group card-number-group">
-              <label for="cardNumberSlider">CardCount</label>
+              <label htmlFor="cardNumberSlider">{cardNumber}</label>
               <input
                 id="cardNumberSlider"
                 className="card-number-input"
@@ -84,6 +115,7 @@ const Settings = () => {
                 min="2"
                 max="20"
                 step="2"
+                onChange={handleCardNumberChange}
               />
             </div>
           </div>

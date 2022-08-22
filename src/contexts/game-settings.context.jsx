@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-export const SettingsContext = createContext({
+export const GameSettingsContext = createContext({
   mode: 'relaxed',
   setMode: () => {},
   difficulty: 'easy',
@@ -9,8 +9,8 @@ export const SettingsContext = createContext({
   setCardNumber: () => {},
 });
 
-export const SettingsProvider = ({ children }) => {
-  const [mode, setMode] = useState('relaxed');
+export const GameSettingsProvider = ({ children }) => {
+  const [mode, setMode] = useState(null);
   const [difficulty, setDifficulty] = useState('easy');
   const [cardNumber, setCardNumber] = useState(10);
 
@@ -23,5 +23,9 @@ export const SettingsProvider = ({ children }) => {
     setCardNumber,
   };
 
-  return <SettingsProvider value={value}>{children}</SettingsProvider>;
+  return (
+    <GameSettingsContext.Provider value={value}>
+      {children}
+    </GameSettingsContext.Provider>
+  );
 };
