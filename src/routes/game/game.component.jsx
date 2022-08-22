@@ -46,7 +46,7 @@ const Game = (props) => {
     setIsWon(winState);
 
     // Show the win modal
-    setShowWinModal(winState);
+    setTimeout(() => setShowWinModal(winState), 1500);
   }, [cardDeck]);
 
   // Compare selected cards
