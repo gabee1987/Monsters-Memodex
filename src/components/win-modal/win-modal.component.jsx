@@ -25,6 +25,7 @@ const WinModal = (props) => {
           }`}
           onClick={(e) => e.stopPropagation()}
         >
+          <div className="firework"></div>
           <div className="modal-header">
             <h1>Congratulations!</h1>
           </div>
