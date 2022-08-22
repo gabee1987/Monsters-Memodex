@@ -18,6 +18,18 @@
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
       rgba(0, 0, 0, 0.08) 0px 15px 12px;
     font-size: 2rem;
+
+    // Animation dependencies
+    opacity: 0;
+    transform: scale(0.95, 0.95);
+    transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.575) 1550ms,
+      opacity cubic-bezier(0.175, 0.885, 0.32, 1.675) 1050ms;
+
+    // Show animation
+    &.in.visible {
+      opacity: 1;
+      transform: translateY(-0.05em) scale(1, 1);
+    }
   }
 
   .modal-header {

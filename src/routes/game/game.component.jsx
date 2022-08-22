@@ -44,10 +44,13 @@ const Game = (props) => {
   useEffect(() => {
     const winState = checkWinCondition(cardDeck);
     setIsWon(winState);
-
-    // Show the win modal
-    setTimeout(() => setShowWinModal(winState), 1500);
   }, [cardDeck]);
+
+  // Show the win modal with stats
+  useEffect(() => {
+    // Show the win modal
+    setTimeout(() => setShowWinModal(isWon), 1500);
+  }, [isWon]);
 
   // Compare selected cards
   useEffect(() => {
@@ -174,6 +177,7 @@ const Game = (props) => {
     initiateNewGame();
   };
 
+  // Handle the close of the win modal
   const handleWinModalClose = () => {
     setShowWinModal(false);
   };
