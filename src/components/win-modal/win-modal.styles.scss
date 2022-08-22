@@ -19,11 +19,15 @@
       rgba(0, 0, 0, 0.08) 0px 15px 12px;
     font-size: 2rem;
 
+    // 3D hover
+    transform-style: preserve-3d;
+    perspective: 1000px;
+
     // Animation dependencies
     opacity: 0;
     transform: scale(0.5, 0.5) rotate(0deg);
-    transition: transform cubic-bezier(0.3, 0.1, 0.55, 1.7) 550ms,
-      opacity cubic-bezier(0.3, 0.1, 0.55, 1.7) 450ms;
+    // transition: transform cubic-bezier(0.3, 0.1, 0.55, 1.7) 550ms,
+    //   opacity cubic-bezier(0.3, 0.1, 0.55, 1.7) 450ms;
 
     // Show animation
     &.in.visible {
@@ -31,6 +35,7 @@
       transform: translateY(-0.05em) scale(1, 1) rotate(0deg);
       animation-name: popShow;
       animation-duration: 550ms;
+      // animation-timing-function: cubic-bezier(0.3, 0.1, 0.55, 1.7);
     }
   }
 
@@ -38,12 +43,22 @@
     padding: 0.1rem;
     color: #ffff00;
     font-size: 2rem;
+
+    // 3D hover
+    transform: translateZ(40px);
+    text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
   }
 
   .modal-body {
     padding: 0.2rem;
     display: flex;
     flex-direction: column;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    // 3D hover
+    transform: translateZ(40px);
+    text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
 
     span {
       padding: 0.5rem;
@@ -52,6 +67,9 @@
 
   .modal-footer {
     padding: 2rem;
+
+    // 3D hover
+    transform: translateZ(40px);
   }
 
   .modal-close-btn {
@@ -68,11 +86,13 @@
     -webkit-backface-visibility: hidden;
     perspective: 1000;
     transform: translateZ(0);
+    text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
 
     &:hover {
       color: #ffff00;
       //   text-shadow: rgba($color: #000000, $alpha: 0.5) 1px 1px 5px 1px;
-      transform: translateY(-0.05em) scale(1.2, 1.2) rotate(1.2deg);
+      transform: translateY(-0.09em) scale(1.2, 1.2) rotate(1.8deg);
+      text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
     }
 
     &:active,

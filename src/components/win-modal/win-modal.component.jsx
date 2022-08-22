@@ -1,29 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import useMountTransition from '../../component-animation/useMountTransition';
 import './win-modal.styles.scss';
+import VanillaTilt from 'vanilla-tilt';
 
 const WinModal = (props) => {
   const { show, turns, onClose } = props;
-  //const [isMounted, setIsMounted] = useState(false);
-
   const hasTransitionedIn = useMountTransition(show, 1000);
-  // if (!show) {
-  //   return null;
-  // }
 
   const handleClick = () => {
     onClose(false);
   };
 
+  // 3D perspective effect with Vanilla Tilt
+  const tilt = useRef(null);
+  useEffect(() => {
+    VanillaTilt.init(tilt.current, {
+      max: 10,
+      scale: 1.05,
+      speed: 600,
+      easing: 'cubic-bezier(.03,.98,.52,.99)',
+    });
+  }, []);
+
   return (
     <div className="win-modal">
       {(hasTransitionedIn || show) && (
+        // <div className="modal-tilt" id="modalTilt" ref={tilt}>
         <div
           className={`modal-content ${hasTransitionedIn && 'in'} ${
             show && 'visible'
           }`}
           onClick={(e) => e.stopPropagation()}
+          ref={tilt}
         >
           <div className="firework"></div>
           <div className="modal-header">
@@ -39,6 +48,7 @@ const WinModal = (props) => {
             </button>
           </div>
         </div>
+        // </div>
       )}
     </div>
   );
