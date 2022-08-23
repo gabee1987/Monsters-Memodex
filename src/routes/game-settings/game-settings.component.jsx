@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useContext } from 'react';
 
 import { GameSettingsContext } from '../../contexts/game-settings.context';
 
-import './settings.styles.scss';
+import './game-settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const Settings = () => {

@@ -38,9 +38,17 @@
       border-radius: 10px;
       padding: 1rem;
       line-height: 3rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       position: relative;
       z-index: 1;
+      display: inline-block;
+      font-size: 3.5rem;
+      text-decoration: none;
+      color: #73ffca;
+      padding: 1.5rem;
+      transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
+        color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
+      text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
 
       span {
         pointer-events: none;
@@ -101,15 +109,6 @@
   // }
 
   .settings-category {
-    display: inline-block;
-    font-size: 5rem;
-    text-decoration: none;
-    color: #73ffca;
-    padding: 0em;
-    transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
-      color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
-    text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
-
     // &:hover {
     //   color: #ffff00;
     //   text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
