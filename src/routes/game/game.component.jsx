@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
+import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 
 import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
@@ -21,6 +22,7 @@ const Game = (props) => {
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
+  const [numberOfCards, setNumberOfCards] = useContext(GameSettingsContext);
 
   // Need new game?
   const location = useLocation();
@@ -126,10 +128,9 @@ const Game = (props) => {
   // Create the initial card deck on game start
   const createInitialCardDeck = () => {
     // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
-    const numOfCards = 1;
     let cards = [];
 
-    for (let index = 0; index < numOfCards; index++) {
+    for (let index = 0; index < numberOfCards; index++) {
       cards.push({
         id: 'pairOne-' + index,
         pictureId: index,
