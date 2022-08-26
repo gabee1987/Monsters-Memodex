@@ -2,12 +2,22 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 
 import { GameStateContext } from '../../contexts/game-state.context';
+import { GameSettingsContext } from '../../contexts/game-settings.context';
 
 import './main-menu.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const MainMenu = () => {
   const { gameInProgress } = useContext(GameStateContext);
+  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+
+  const handleNewGameClick = () => {
+    setNeedNewGame(true);
+  };
+
+  const handleContinueClick = () => {
+    setNeedNewGame(false);
+  };
 
   // 3D perspective effect with Vanilla Tilt
   const tilt = useRef(null);
@@ -29,12 +39,12 @@ const MainMenu = () => {
             <Link
               className="menu-link"
               to="/game"
-              state={{ fromNewGame: false }}
+              onClick={handleContinueClick}
             >
               Continue
             </Link>
           )}
-          <Link className="menu-link" to="/game" state={{ fromNewGame: true }}>
+          <Link className="menu-link" to="/game" onClick={handleNewGameClick}>
             New Game
           </Link>
           <Link className="menu-link" to="/sign-up">

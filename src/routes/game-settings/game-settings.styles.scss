@@ -121,4 +121,35 @@
     //   transform: scale(0.98, 0.98);
     // }
   }
+
+  .settings-button-container {
+    display: flex;
+    justify-content: space-around;
+
+    .menu-btn {
+      display: inline-block;
+      font-size: 3.5rem;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #73ffca;
+      padding: 0rem;
+      transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
+        color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
+      text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
+
+      &:hover {
+        color: #ffff00;
+        text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
+        transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
+          rotate(1.4deg);
+      }
+
+      &:active,
+      :focus {
+        transform: scale(0.98, 0.98);
+      }
+    }
+  }
 }

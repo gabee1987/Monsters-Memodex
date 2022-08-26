@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { GameSettingsContext } from '../../contexts/game-settings.context';
 
@@ -8,7 +9,9 @@ import VanillaTilt from 'vanilla-tilt';
 const Settings = () => {
   const { mode, setMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
-  const { cardNumber, setCardNumber } = useContext(GameSettingsContext);
+  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
+
+  const navigate = useNavigate();
 
   const handleModeChange = (event) => {
     if (event.target.checked) {
@@ -24,8 +27,15 @@ const Settings = () => {
   };
 
   const handleCardNumberChange = (event) => {
-    console.log('cardNumber changed to:', cardNumber);
-    setCardNumber(event.target.value);
+    console.log('cardNumber changed to:', numberOfCards);
+    setNumberOfCards(event.target.value);
+  };
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+  const handleStartClick = () => {
+    navigate('/game', { fromNewGame: true });
   };
 
   // 3D perspective effect with Vanilla Tilt
@@ -107,7 +117,7 @@ const Settings = () => {
           <div className="settings-category x-settings">
             <span>Number of Cards</span>
             <div className="settings-input-group card-number-group">
-              <label htmlFor="cardNumberSlider">{cardNumber}</label>
+              <label htmlFor="cardNumberSlider">{numberOfCards}</label>
               <input
                 id="cardNumberSlider"
                 className="card-number-input"
@@ -118,6 +128,20 @@ const Settings = () => {
                 onChange={handleCardNumberChange}
               />
             </div>
+          </div>
+          <div className="settings-button-container">
+            <button
+              onClick={handleBackClick}
+              className="menu-btn settings-close-btn"
+            >
+              Back
+            </button>
+            <button
+              onClick={handleStartClick}
+              className="menu-btn new-game-btn"
+            >
+              Start Game
+            </button>
           </div>
         </div>
       </div>

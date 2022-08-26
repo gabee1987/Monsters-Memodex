@@ -5,22 +5,23 @@ export const GameSettingsContext = createContext({
   setMode: () => {},
   difficulty: 'easy',
   setDifficulty: () => {},
-  cardNumber: 10,
-  setCardNumber: () => {},
+  numberOfCards: 10,
+  setNumberOfCards: () => {},
 });
 
 export const GameSettingsProvider = ({ children }) => {
-  const [mode, setMode] = useState(null);
+  const [mode, setMode] = useState('relaxed');
   const [difficulty, setDifficulty] = useState('easy');
-  const [cardNumber, setCardNumber] = useState(10);
+  const [numberOfCards, setNumberOfCards] = useState(10);
+  console.log('number of cards in context: ', numberOfCards);
 
   const value = {
     mode,
     setMode,
     difficulty,
     setDifficulty,
-    cardNumber,
-    setCardNumber,
+    numberOfCards,
+    setNumberOfCards,
   };
 
   return (

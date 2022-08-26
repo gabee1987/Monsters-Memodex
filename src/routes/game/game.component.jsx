@@ -22,15 +22,19 @@ const Game = (props) => {
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
-  const [numberOfCards, setNumberOfCards] = useContext(GameSettingsContext);
+  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
+  const { needNewGame } = useContext(GameStateContext);
 
   // Need new game?
-  const location = useLocation();
-  const { fromNewGame } = location.state;
+  // const location = useLocation();
+  // const { fromNewGame } = location.state;
 
   // Create initial card deck
   useEffect(() => {
-    if (fromNewGame) {
+    console.log('need new game from context?', needNewGame);
+    if (needNewGame) {
+      console.log('numberOfCards in game start:', numberOfCards);
+      setNumberOfCards(numberOfCards);
       const newCardDeck = createInitialCardDeck();
       setCardDeck(newCardDeck);
       setTurns(0);

@@ -9,6 +9,8 @@ export const GameStateContext = createContext({
   setIsWon: () => {},
   inProgressDeck: [],
   setInProgressDeck: () => {},
+  needNewGame: false,
+  setNeedNewGame: () => {},
 });
 
 export const GameStateProvider = ({ children }) => {
@@ -16,6 +18,7 @@ export const GameStateProvider = ({ children }) => {
   const [gameInProgress, setGameInProgress] = useState(false);
   const [isWon, setIsWon] = useState(false);
   const [inProgressDeck, setInProgressDeck] = useState([]);
+  const [needNewGame, setNeedNewGame] = useState();
 
   const value = {
     turns,
@@ -26,6 +29,8 @@ export const GameStateProvider = ({ children }) => {
     setIsWon,
     inProgressDeck,
     setInProgressDeck,
+    needNewGame,
+    setNeedNewGame,
   };
 
   return (
