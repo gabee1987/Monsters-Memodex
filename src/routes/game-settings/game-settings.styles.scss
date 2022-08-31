@@ -11,10 +11,10 @@
 
 .settings-container {
   position: relative;
-  width: 60%;
+  width: 50%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 3em;
+  padding: 3rem;
   background-color: #009485;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -23,6 +23,21 @@
   // 3D hover
   transform-style: preserve-3d;
   perspective: 1000px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    bottom: 3rem;
+    left: 3rem;
+    border-radius: 20px;
+    border: dotted 4px #ffff00;
+    transform: translateZ(50px);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+  }
 
   .settings-inner-container {
     display: flex;
@@ -45,7 +60,6 @@
       font-size: 3.5rem;
       text-decoration: none;
       color: #73ffca;
-      padding: 1.5rem;
       transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
         color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
       text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
@@ -63,7 +77,6 @@
         left: 0;
         right: 0;
         bottom: 0;
-        border: dotted 4px #ffff00;
         border-radius: 10px;
         z-index: 0;
         pointer-events: none;
@@ -79,12 +92,20 @@
         width: 100%;
         // line-height: 0.5rem;
       }
+    }
 
-      .settings-input-group {
-        // display: flex;
-        // justify-content: space-around;
-        // padding: 1rem 1rem;
-      }
+    .mode-settings::after {
+      border-bottom: dotted 4px #ffff00;
+    }
+
+    .difficulty-settings::after {
+      border-top: dotted 4px #ffff00;
+      border-bottom: dotted 4px #ffff00;
+    }
+
+    .card-number-settings::after {
+      border-top: dotted 4px #ffff00;
+      border-bottom: dotted 4px #ffff00;
     }
 
     label {

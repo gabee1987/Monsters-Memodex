@@ -118,7 +118,7 @@ const Settings = () => {
             </div>
           </div>
 
-          <div className="settings-category x-settings">
+          <div className="settings-category card-number-settings">
             <span>Number of Cards</span>
             <div className="settings-input-group card-number-group">
               <label htmlFor="cardNumberSlider">{numberOfCards}</label>
