@@ -88,24 +88,14 @@
         opacity: 1;
       }
 
+      &:hover span {
+        color: #ffff00;
+      }
+
       .card-number-input {
         width: 100%;
         // line-height: 0.5rem;
       }
-    }
-
-    .mode-settings::after {
-      border-bottom: dotted 4px #ffff00;
-    }
-
-    .difficulty-settings::after {
-      border-top: dotted 4px #ffff00;
-      border-bottom: dotted 4px #ffff00;
-    }
-
-    .card-number-settings::after {
-      border-top: dotted 4px #ffff00;
-      border-bottom: dotted 4px #ffff00;
     }
 
     label {

@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { GameSettingsContext } from '../../contexts/game-settings.context';
 import { GameStateContext } from '../../contexts/game-state.context';
 
+import {
+  MODE_SETTING_TYPES,
+  DIFFICULTY_SETTING_TYPES,
+} from '../../contexts/game-settings.context';
+
 import './game-settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
@@ -16,21 +21,18 @@ const Settings = () => {
   const navigate = useNavigate();
 
   const handleModeChange = (event) => {
-    if (event.target.checked) {
-      // handleModeChange(event.target.value);
-      console.log('mode changed to: ', mode);
-      setMode(event.target.value);
-    }
+    setMode(event.target.value);
+    console.log('mode changed to: ', event.target.value);
   };
 
   const handleDifficultyChange = (event) => {
-    console.log('difficulty changed to: ', difficulty);
     setDifficulty(event.target.value);
+    console.log('difficulty changed to: ', event.target.value);
   };
 
   const handleCardNumberChange = (event) => {
-    console.log('cardNumber changed to:', numberOfCards);
     setNumberOfCards(event.target.value);
+    console.log('cardNumber changed to:', event.target.value);
   };
 
   const handleBackClick = () => {
@@ -61,76 +63,96 @@ const Settings = () => {
           <div className="settings-category mode-settings">
             <span>Mode</span>
             <div className="settings-input-group mode-group">
-              <input
-                id="timeBasedRadio"
-                type="radio"
-                name="mode"
-                value="timeBased"
-                onChange={handleModeChange}
-              ></input>
-              <label htmlFor="timeBasedRadio">Time Based</label>
-              <input
-                id="turnBasedRadio"
-                type="radio"
-                name="mode"
-                value="turnBased"
-                onChange={handleModeChange}
-              ></input>
-              <label htmlFor="turnBasedRadio">Turn Based</label>
-              <input
-                id="relaxedRadio"
-                type="radio"
-                name="mode"
-                value="relaxed"
-                onChange={handleModeChange}
-              ></input>
-              <label htmlFor="relaxedRadio">Relaxed</label>
+              <label htmlFor="timeBasedRadio">
+                <input
+                  id="timeBasedRadio"
+                  type="radio"
+                  name="mode"
+                  value={MODE_SETTING_TYPES.TIME_BASED}
+                  checked={mode === MODE_SETTING_TYPES.TIME_BASED}
+                  onChange={handleModeChange}
+                ></input>
+                Time Based
+              </label>
+              <label htmlFor="turnBasedRadio">
+                <input
+                  id="turnBasedRadio"
+                  type="radio"
+                  name="mode"
+                  value={MODE_SETTING_TYPES.TURN_BASED}
+                  checked={mode === MODE_SETTING_TYPES.TURN_BASED}
+                  onChange={handleModeChange}
+                ></input>
+                Turn Based
+              </label>
+              <label htmlFor="relaxedRadio">
+                <input
+                  id="relaxedRadio"
+                  type="radio"
+                  name="mode"
+                  value={MODE_SETTING_TYPES.RELAXED}
+                  checked={mode === MODE_SETTING_TYPES.RELAXED}
+                  onChange={handleModeChange}
+                ></input>
+                Relaxed
+              </label>
             </div>
           </div>
 
           <div className="settings-category difficulty-settings">
             <span>Difficulty</span>
             <div className="settings-input-group difficulty-group">
-              <input
-                id="easyRadio"
-                type="radio"
-                name="difficulty"
-                value="easy"
-                onChange={handleDifficultyChange}
-              ></input>
-              <label htmlFor="easyRadio">Easy</label>
-              <input
-                id="mediumRadio"
-                type="radio"
-                name="difficulty"
-                value="medium"
-                onChange={handleDifficultyChange}
-              ></input>
-              <label htmlFor="mediumRadio">Medium</label>
-              <input
-                id="hardRadio"
-                type="radio"
-                name="difficulty"
-                value="hard"
-                onChange={handleDifficultyChange}
-              ></input>
-              <label htmlFor="hardRadio">Hard</label>
+              <label htmlFor="easyRadio">
+                <input
+                  id="easyRadio"
+                  type="radio"
+                  name="difficulty"
+                  value={DIFFICULTY_SETTING_TYPES.EASY}
+                  checked={difficulty === DIFFICULTY_SETTING_TYPES.EASY}
+                  onChange={handleDifficultyChange}
+                ></input>
+                Easy
+              </label>
+              <label htmlFor="mediumRadio">
+                <input
+                  id="mediumRadio"
+                  type="radio"
+                  name="difficulty"
+                  value={DIFFICULTY_SETTING_TYPES.MEDIUM}
+                  checked={difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM}
+                  onChange={handleDifficultyChange}
+                ></input>
+                Medium
+              </label>
+              <label htmlFor="hardRadio">
+                <input
+                  id="hardRadio"
+                  type="radio"
+                  name="difficulty"
+                  value={DIFFICULTY_SETTING_TYPES.HARD}
+                  checked={difficulty === DIFFICULTY_SETTING_TYPES.HARD}
+                  onChange={handleDifficultyChange}
+                ></input>
+                Hard
+              </label>
             </div>
           </div>
 
           <div className="settings-category card-number-settings">
             <span>Number of Cards</span>
             <div className="settings-input-group card-number-group">
-              <label htmlFor="cardNumberSlider">{numberOfCards}</label>
-              <input
-                id="cardNumberSlider"
-                className="card-number-input"
-                type="range"
-                min="2"
-                max="20"
-                step="2"
-                onChange={handleCardNumberChange}
-              />
+              <label htmlFor="cardNumberSlider">
+                {numberOfCards}
+                <input
+                  id="cardNumberSlider"
+                  className="card-number-input"
+                  type="range"
+                  min="2"
+                  max="20"
+                  step="2"
+                  onChange={handleCardNumberChange}
+                />
+              </label>
             </div>
           </div>
           <div className="settings-button-container">

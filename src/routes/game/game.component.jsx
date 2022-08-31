@@ -23,7 +23,7 @@ const Game = (props) => {
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
-  const { needNewGame } = useContext(GameStateContext);
+  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
 
   // Need new game?
   // const location = useLocation();
@@ -163,9 +163,18 @@ const Game = (props) => {
   };
 
   const initiateNewGame = () => {
+    const newCardDeck = createInitialCardDeck();
+    if (cardDeck.length < 1) {
+      console.log('cardDeck size: ', cardDeck.length);
+      console.log('created cardDeck: ', newCardDeck);
+      //setCardDeck(newCardDeck);
+      console.log('new game cardDeck before shuffle: ', cardDeck);
+    }
     // Set the shuffle animation state
     setIsShufflingActive(true);
-    const shuffledCardDeck = shufflingCards(cardDeck);
+    const shuffledCardDeck = shufflingCards(newCardDeck);
+    console.log('new game cardDeck: ', cardDeck);
+    console.log('number of card before new game: ', numberOfCards);
     // setTimeout(() => cardDeck.forEach((card) => (card.isPaired = false)), 1450);
     setTimeout(() => setCardDeck(shuffledCardDeck), 855);
 
@@ -179,6 +188,7 @@ const Game = (props) => {
   // Shuffle cards on New Game click
   const handleNewGameClick = () => {
     //console.log('new game runs...');
+    setNeedNewGame(true);
     initiateNewGame();
   };
 
