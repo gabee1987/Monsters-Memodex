@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { GameSettingsContext } from '../../contexts/game-settings.context';
+import { GameStateContext } from '../../contexts/game-state.context';
 
 import './game-settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
@@ -10,6 +11,7 @@ const Settings = () => {
   const { mode, setMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
+  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
 
   const navigate = useNavigate();
 
@@ -32,10 +34,12 @@ const Settings = () => {
   };
 
   const handleBackClick = () => {
+    setNeedNewGame(false);
     navigate(-1);
   };
   const handleStartClick = () => {
-    navigate('/game', { fromNewGame: true });
+    setNeedNewGame(true);
+    navigate('/game');
   };
 
   // 3D perspective effect with Vanilla Tilt
