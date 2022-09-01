@@ -195,6 +195,7 @@ const Settings = () => {
                   min="2"
                   max="20"
                   step="2"
+                  value={numberOfCards}
                   onChange={handleCardNumberChange}
                 />
               </label>
