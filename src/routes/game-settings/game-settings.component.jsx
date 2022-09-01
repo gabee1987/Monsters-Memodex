@@ -63,7 +63,15 @@ const Settings = () => {
           <div className="settings-category mode-settings">
             <span>Mode</span>
             <div className="settings-input-group mode-group">
-              <label htmlFor="timeBasedRadio">
+              <label
+                htmlFor="timeBasedRadio"
+                className={`radio-label ${
+                  mode === MODE_SETTING_TYPES.TIME_BASED
+                    ? 'radioSelected'
+                    : 'radioNotSelected'
+                }`}
+              >
+                Time Based
                 <input
                   id="timeBasedRadio"
                   type="radio"
@@ -71,10 +79,18 @@ const Settings = () => {
                   value={MODE_SETTING_TYPES.TIME_BASED}
                   checked={mode === MODE_SETTING_TYPES.TIME_BASED}
                   onChange={handleModeChange}
-                ></input>
-                Time Based
+                />
               </label>
-              <label htmlFor="turnBasedRadio">
+
+              <label
+                htmlFor="turnBasedRadio"
+                className={`radio-label ${
+                  mode === MODE_SETTING_TYPES.TURN_BASED
+                    ? 'radioSelected'
+                    : 'radioNotSelected'
+                }`}
+              >
+                Turn Based
                 <input
                   id="turnBasedRadio"
                   type="radio"
@@ -82,10 +98,18 @@ const Settings = () => {
                   value={MODE_SETTING_TYPES.TURN_BASED}
                   checked={mode === MODE_SETTING_TYPES.TURN_BASED}
                   onChange={handleModeChange}
-                ></input>
-                Turn Based
+                />
               </label>
-              <label htmlFor="relaxedRadio">
+
+              <label
+                htmlFor="relaxedRadio"
+                className={`radio-label ${
+                  mode === MODE_SETTING_TYPES.RELAXED
+                    ? 'radioSelected'
+                    : 'radioNotSelected'
+                }`}
+              >
+                Relaxed
                 <input
                   id="relaxedRadio"
                   type="radio"
@@ -93,8 +117,7 @@ const Settings = () => {
                   value={MODE_SETTING_TYPES.RELAXED}
                   checked={mode === MODE_SETTING_TYPES.RELAXED}
                   onChange={handleModeChange}
-                ></input>
-                Relaxed
+                />
               </label>
             </div>
           </div>
@@ -102,7 +125,14 @@ const Settings = () => {
           <div className="settings-category difficulty-settings">
             <span>Difficulty</span>
             <div className="settings-input-group difficulty-group">
-              <label htmlFor="easyRadio">
+              <label
+                htmlFor="easyRadio"
+                className={`radio-label ${
+                  difficulty === DIFFICULTY_SETTING_TYPES.EASY
+                    ? 'radioSelected'
+                    : 'radioNotSelected'
+                }`}
+              >
                 <input
                   id="easyRadio"
                   type="radio"
@@ -113,7 +143,14 @@ const Settings = () => {
                 ></input>
                 Easy
               </label>
-              <label htmlFor="mediumRadio">
+              <label
+                htmlFor="mediumRadio"
+                className={`radio-label ${
+                  difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM
+                    ? 'radioSelected'
+                    : 'radioNotSelected'
+                }`}
+              >
                 <input
                   id="mediumRadio"
                   type="radio"
@@ -124,7 +161,14 @@ const Settings = () => {
                 ></input>
                 Medium
               </label>
-              <label htmlFor="hardRadio">
+              <label
+                htmlFor="hardRadio"
+                className={`radio-label ${
+                  difficulty === DIFFICULTY_SETTING_TYPES.HARD
+                    ? 'radioSelected'
+                    : 'radioNotSelected'
+                }`}
+              >
                 <input
                   id="hardRadio"
                   type="radio"
