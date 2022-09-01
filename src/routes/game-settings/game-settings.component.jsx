@@ -143,6 +143,7 @@ const Settings = () => {
             <div className="settings-input-group card-number-group">
               <label htmlFor="cardNumberSlider">
                 {numberOfCards}
+
                 <input
                   id="cardNumberSlider"
                   className="card-number-input"
