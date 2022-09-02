@@ -25,19 +25,13 @@ const Game = (props) => {
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
 
-  // Need new game?
-  // const location = useLocation();
-  // const { fromNewGame } = location.state;
-
   // Create initial card deck
   useEffect(() => {
     console.log('need new game from context?', needNewGame);
     if (needNewGame) {
-      console.log('numberOfCards in game start:', numberOfCards);
+      //console.log('numberOfCards in game start:', numberOfCards);
       setNumberOfCards(numberOfCards);
-      const newCardDeck = createInitialCardDeck();
-      setCardDeck(newCardDeck);
-      setTurns(0);
+      initiateNewGame();
     } else {
       // setInProgressDeck(inProgressDeck);
       setCardDeck(inProgressDeck);
@@ -146,10 +140,6 @@ const Game = (props) => {
         isPaired: false,
       });
     }
-
-    // Shuffling the cards at start
-    // setCardDeck(shuffledCardDeck);
-
     return cards;
   };
 
