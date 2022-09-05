@@ -47,15 +47,19 @@ const MainMenu = () => {
           <Link className="menu-link" to="/game" onClick={handleNewGameClick}>
             New Game
           </Link>
-          <Link className="menu-link" to="/sign-in">
-            Sign In
-          </Link>
+          <div className="cursor-not-allowed">
+            <Link className="menu-link disabled-menu" to="/sign-in">
+              Sign In
+            </Link>
+          </div>
           <Link className="menu-link" to="/settings">
             Settings
           </Link>
-          <Link className="menu-link" to="/help">
-            Help
-          </Link>
+          <div className="cursor-not-allowed">
+            <Link className="menu-link disabled-menu" to="/help">
+              Help
+            </Link>
+          </div>
         </div>
       </div>
     </div>

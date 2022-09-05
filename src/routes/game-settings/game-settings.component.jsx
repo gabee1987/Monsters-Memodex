@@ -60,125 +60,129 @@ const Settings = () => {
       <h1 className="settings-title">Settings</h1>
       <div className="settings-container" id="mainMenu" ref={tilt}>
         <div className="settings-inner-container" id="mainMenuInner">
-          <div className="settings-category mode-settings">
-            <span>Mode</span>
-            <div className="settings-input-group mode-group">
-              <label
-                htmlFor="timeBasedRadio"
-                className={`radio-label ${
-                  mode === MODE_SETTING_TYPES.TIME_BASED
-                    ? 'radioSelected'
-                    : 'radioNotSelected'
-                }`}
-              >
-                Time Based
-                <input
-                  id="timeBasedRadio"
-                  type="radio"
-                  name="mode"
-                  value={MODE_SETTING_TYPES.TIME_BASED}
-                  checked={mode === MODE_SETTING_TYPES.TIME_BASED}
-                  onChange={handleModeChange}
-                />
-              </label>
+          <div className="cursor-not-allowed">
+            <div className="settings-category mode-settings disabled-menu">
+              <span>Mode</span>
+              <div className="settings-input-group mode-group">
+                <label
+                  htmlFor="timeBasedRadio"
+                  className={`radio-label ${
+                    mode === MODE_SETTING_TYPES.TIME_BASED
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  Time Based
+                  <input
+                    id="timeBasedRadio"
+                    type="radio"
+                    name="mode"
+                    value={MODE_SETTING_TYPES.TIME_BASED}
+                    checked={mode === MODE_SETTING_TYPES.TIME_BASED}
+                    onChange={handleModeChange}
+                  />
+                </label>
 
-              <label
-                htmlFor="turnBasedRadio"
-                className={`radio-label ${
-                  mode === MODE_SETTING_TYPES.TURN_BASED
-                    ? 'radioSelected'
-                    : 'radioNotSelected'
-                }`}
-              >
-                Turn Based
-                <input
-                  id="turnBasedRadio"
-                  type="radio"
-                  name="mode"
-                  value={MODE_SETTING_TYPES.TURN_BASED}
-                  checked={mode === MODE_SETTING_TYPES.TURN_BASED}
-                  onChange={handleModeChange}
-                />
-              </label>
+                <label
+                  htmlFor="turnBasedRadio"
+                  className={`radio-label ${
+                    mode === MODE_SETTING_TYPES.TURN_BASED
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  Turn Based
+                  <input
+                    id="turnBasedRadio"
+                    type="radio"
+                    name="mode"
+                    value={MODE_SETTING_TYPES.TURN_BASED}
+                    checked={mode === MODE_SETTING_TYPES.TURN_BASED}
+                    onChange={handleModeChange}
+                  />
+                </label>
 
-              <label
-                htmlFor="relaxedRadio"
-                className={`radio-label ${
-                  mode === MODE_SETTING_TYPES.RELAXED
-                    ? 'radioSelected'
-                    : 'radioNotSelected'
-                }`}
-              >
-                Relaxed
-                <input
-                  id="relaxedRadio"
-                  type="radio"
-                  name="mode"
-                  value={MODE_SETTING_TYPES.RELAXED}
-                  checked={mode === MODE_SETTING_TYPES.RELAXED}
-                  onChange={handleModeChange}
-                />
-              </label>
+                <label
+                  htmlFor="relaxedRadio"
+                  className={`radio-label ${
+                    mode === MODE_SETTING_TYPES.RELAXED
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  Relaxed
+                  <input
+                    id="relaxedRadio"
+                    type="radio"
+                    name="mode"
+                    value={MODE_SETTING_TYPES.RELAXED}
+                    checked={mode === MODE_SETTING_TYPES.RELAXED}
+                    onChange={handleModeChange}
+                  />
+                </label>
+              </div>
             </div>
           </div>
 
-          <div className="settings-category difficulty-settings">
-            <span>Difficulty</span>
-            <div className="settings-input-group difficulty-group">
-              <label
-                htmlFor="easyRadio"
-                className={`radio-label ${
-                  difficulty === DIFFICULTY_SETTING_TYPES.EASY
-                    ? 'radioSelected'
-                    : 'radioNotSelected'
-                }`}
-              >
-                <input
-                  id="easyRadio"
-                  type="radio"
-                  name="difficulty"
-                  value={DIFFICULTY_SETTING_TYPES.EASY}
-                  checked={difficulty === DIFFICULTY_SETTING_TYPES.EASY}
-                  onChange={handleDifficultyChange}
-                ></input>
-                Easy
-              </label>
-              <label
-                htmlFor="mediumRadio"
-                className={`radio-label ${
-                  difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM
-                    ? 'radioSelected'
-                    : 'radioNotSelected'
-                }`}
-              >
-                <input
-                  id="mediumRadio"
-                  type="radio"
-                  name="difficulty"
-                  value={DIFFICULTY_SETTING_TYPES.MEDIUM}
-                  checked={difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM}
-                  onChange={handleDifficultyChange}
-                ></input>
-                Medium
-              </label>
-              <label
-                htmlFor="hardRadio"
-                className={`radio-label ${
-                  difficulty === DIFFICULTY_SETTING_TYPES.HARD
-                    ? 'radioSelected'
-                    : 'radioNotSelected'
-                }`}
-              >
-                <input
-                  id="hardRadio"
-                  type="radio"
-                  name="difficulty"
-                  value={DIFFICULTY_SETTING_TYPES.HARD}
-                  checked={difficulty === DIFFICULTY_SETTING_TYPES.HARD}
-                  onChange={handleDifficultyChange}
-                ></input>
-                Hard
-              </label>
+          <div className="cursor-not-allowed">
+            <div className="settings-category difficulty-settings disabled-menu">
+              <span>Difficulty</span>
+              <div className="settings-input-group difficulty-group">
+                <label
+                  htmlFor="easyRadio"
+                  className={`radio-label ${
+                    difficulty === DIFFICULTY_SETTING_TYPES.EASY
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  <input
+                    id="easyRadio"
+                    type="radio"
+                    name="difficulty"
+                    value={DIFFICULTY_SETTING_TYPES.EASY}
+                    checked={difficulty === DIFFICULTY_SETTING_TYPES.EASY}
+                    onChange={handleDifficultyChange}
+                  ></input>
+                  Easy
+                </label>
+                <label
+                  htmlFor="mediumRadio"
+                  className={`radio-label ${
+                    difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  <input
+                    id="mediumRadio"
+                    type="radio"
+                    name="difficulty"
+                    value={DIFFICULTY_SETTING_TYPES.MEDIUM}
+                    checked={difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM}
+                    onChange={handleDifficultyChange}
+                  ></input>
+                  Medium
+                </label>
+                <label
+                  htmlFor="hardRadio"
+                  className={`radio-label ${
+                    difficulty === DIFFICULTY_SETTING_TYPES.HARD
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  <input
+                    id="hardRadio"
+                    type="radio"
+                    name="difficulty"
+                    value={DIFFICULTY_SETTING_TYPES.HARD}
+                    checked={difficulty === DIFFICULTY_SETTING_TYPES.HARD}
+                    onChange={handleDifficultyChange}
+                  ></input>
+                  Hard
+                </label>
+              </div>
             </div>
           </div>
 

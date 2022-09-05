@@ -14,6 +14,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 3rem;
+  user-select: none;
   background-color: #009485;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -207,4 +208,28 @@ input[type='range'] {
 
 input[type='radio'] {
   display: none;
+}
+
+.disabled-menu {
+  pointer-events: none;
+  opacity: 0.5;
+
+  &::before {
+    content: 'UNDER CONSTRUCTION';
+    font-size: 1.5rem;
+    color: #000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    transform: rotate(15deg);
+  }
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+  user-select: none;
 }
