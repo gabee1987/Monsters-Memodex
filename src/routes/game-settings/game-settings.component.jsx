@@ -8,6 +8,7 @@ import {
   MODE_SETTING_TYPES,
   DIFFICULTY_SETTING_TYPES,
   CARDSET_SETTING_TYPES,
+  TAB_VALUES,
 } from '../../contexts/game-settings.context';
 
 import './game-settings.styles.scss';
@@ -16,17 +17,12 @@ import VanillaTilt from 'vanilla-tilt';
 const cardSetPictureId = Math.floor(Math.random() * 100);
 
 const Settings = () => {
-  const TAB_VALUES = {
-    GAME_TAB: 'GAME_TAB',
-    VISUALS_TAB: 'VISUALS_TAB',
-  };
-
+  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { mode, setMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
-  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+  const { activeTab, setActiveTab } = useContext(GameSettingsContext);
   const { cardSet, setCardSet } = useContext(GameSettingsContext);
-  const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
 
   const navigate = useNavigate();
 

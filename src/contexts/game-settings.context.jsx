@@ -1,5 +1,10 @@
 import { createContext, useEffect, useState } from 'react';
 
+export const TAB_VALUES = {
+  GAME_TAB: 'GAME_TAB',
+  VISUALS_TAB: 'VISUALS_TAB',
+};
+
 export const MODE_SETTING_TYPES = {
   TIME_BASED: 'TIME_BASED',
   TURN_BASED: 'TURN_BASED',
@@ -27,6 +32,8 @@ export const CARDSET_ROBOHASH_IDS = {
 };
 
 export const GameSettingsContext = createContext({
+  activeTab: TAB_VALUES.GAME_TAB,
+  setActiveTab: () => {},
   mode: MODE_SETTING_TYPES.RELAXED,
   setMode: () => {},
   difficulty: DIFFICULTY_SETTING_TYPES.EASY,
@@ -42,11 +49,14 @@ export const GameSettingsProvider = ({ children }) => {
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
   const [numberOfCards, setNumberOfCards] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
+  const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
   // console.log('number of cards in context: ', numberOfCards);
   // console.log('mode in context is: ', mode);
   // console.log('cardSet in context is: ', cardSet);
 
   const value = {
+    activeTab,
+    setActiveTab,
     mode,
     setMode,
     difficulty,

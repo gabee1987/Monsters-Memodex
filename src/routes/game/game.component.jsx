@@ -40,87 +40,27 @@ const Game = (props) => {
     }
   }, []);
 
-  // Check win condition
-  useEffect(() => {
-    const winState = checkWinCondition(cardDeck);
-    setIsWon(winState);
-  }, [cardDeck]);
-
-  // Show the win modal with stats
-  useEffect(() => {
-    // Show the win modal
-    setTimeout(() => setShowWinModal(isWon), 1500);
-  }, [isWon]);
-
-  // Compare selected cards
-  useEffect(() => {
-    // Is any selected cards?
-    if (firstChoice && secondChoice) {
-      // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
-      setDisabled(true);
-      // Is the selected cards match?
-      if (firstChoice.pictureId === secondChoice.pictureId) {
-        //If so, set those cards property to paired
-        setCardDeck((prevCards) => {
-          // We generate a new carddeck with those 2 cards that matched with paired property
-          return prevCards.map((card) => {
-            if (card.pictureId === firstChoice.pictureId) {
-              return { ...card, isPaired: true };
-            } else {
-              return card;
-            }
-          });
-        });
-        resetTurn();
-      } else {
-        setTimeout(() => resetTurn(), 1000);
-      }
+  const initiateNewGame = () => {
+    const newCardDeck = createInitialCardDeck();
+    if (cardDeck.length < 1) {
+      console.log('cardDeck size: ', cardDeck.length);
+      console.log('created cardDeck: ', newCardDeck);
+      //setCardDeck(newCardDeck);
+      console.log('new game cardDeck before shuffle: ', cardDeck);
     }
-    // Save the current progress to the context
-    setInProgressDeck(cardDeck);
-  }, [firstChoice, secondChoice]);
+    // Set the shuffle animation state
+    setIsShufflingActive(true);
+    const shuffledCardDeck = shufflingCards(newCardDeck);
+    console.log('new game cardDeck: ', cardDeck);
+    console.log('number of card before new game: ', numberOfCards);
+    // setTimeout(() => cardDeck.forEach((card) => (card.isPaired = false)), 1450);
+    setTimeout(() => setCardDeck(shuffledCardDeck), 855);
 
-  // Handle the card choice upon click
-  const handleChoice = (card) => {
-    if (card === firstChoice) {
-      return;
-    }
-    // Set game in progress state
-    setGameInProgress(true);
+    // Remove the animation state
+    setTimeout(() => setIsShufflingActive(false), 860);
 
-    if (firstChoice != null) {
-      setSecondChoice(card);
-    } else {
-      setFirstChoice(card);
-    }
-  };
-
-  // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
-  const resetTurn = () => {
-    setFirstChoice(null);
-    setSecondChoice(null);
-
-    // Count the turns
-    setTurns((prevTurns) => prevTurns + 1);
-
-    // Cancel the disabled state of the cards
-    setTimeout(() => setDisabled(false), 200);
-  };
-
-  // Check win condition
-  const checkWinCondition = (cards) => {
-    //console.log('cards:', cards);
-    if (cards.length < 1) {
-      return false;
-    }
-    const result = cards.every((card) => {
-      if (card.isPaired) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    return result;
+    setTurns(-1);
+    resetTurn();
   };
 
   // Create the initial card deck on game start
@@ -152,29 +92,6 @@ const Game = (props) => {
     return shuffledCardDeck;
   };
 
-  const initiateNewGame = () => {
-    const newCardDeck = createInitialCardDeck();
-    if (cardDeck.length < 1) {
-      console.log('cardDeck size: ', cardDeck.length);
-      console.log('created cardDeck: ', newCardDeck);
-      //setCardDeck(newCardDeck);
-      console.log('new game cardDeck before shuffle: ', cardDeck);
-    }
-    // Set the shuffle animation state
-    setIsShufflingActive(true);
-    const shuffledCardDeck = shufflingCards(newCardDeck);
-    console.log('new game cardDeck: ', cardDeck);
-    console.log('number of card before new game: ', numberOfCards);
-    // setTimeout(() => cardDeck.forEach((card) => (card.isPaired = false)), 1450);
-    setTimeout(() => setCardDeck(shuffledCardDeck), 855);
-
-    // Remove the animation state
-    setTimeout(() => setIsShufflingActive(false), 860);
-
-    setTurns(-1);
-    resetTurn();
-  };
-
   // Shuffle cards on New Game click
   const handleNewGameClick = () => {
     //console.log('new game runs...');
@@ -182,9 +99,92 @@ const Game = (props) => {
     initiateNewGame();
   };
 
+  // Handle the card choice upon click
+  const handleChoice = (card) => {
+    if (card === firstChoice) {
+      return;
+    }
+    // Set game in progress state
+    setGameInProgress(true);
+
+    if (firstChoice != null) {
+      setSecondChoice(card);
+    } else {
+      setFirstChoice(card);
+    }
+  };
+
+  // Compare selected cards
+  useEffect(() => {
+    // Is any selected cards?
+    if (firstChoice && secondChoice) {
+      // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
+      setDisabled(true);
+      // Is the selected cards match?
+      if (firstChoice.pictureId === secondChoice.pictureId) {
+        //If so, set those cards property to paired
+        setCardDeck((prevCards) => {
+          // We generate a new carddeck with those 2 cards that matched with paired property
+          return prevCards.map((card) => {
+            if (card.pictureId === firstChoice.pictureId) {
+              return { ...card, isPaired: true };
+            } else {
+              return card;
+            }
+          });
+        });
+        resetTurn();
+      } else {
+        setTimeout(() => resetTurn(), 1000);
+      }
+    }
+    // Save the current progress to the context
+    setInProgressDeck(cardDeck);
+  }, [firstChoice, secondChoice]);
+
+  // Check win condition
+  useEffect(() => {
+    const winState = checkWinCondition(cardDeck);
+    setIsWon(winState);
+  }, [cardDeck]);
+
+  // Show the win modal with stats
+  useEffect(() => {
+    // Show the win modal
+    setTimeout(() => setShowWinModal(isWon), 1500);
+  }, [isWon]);
+
+  // Check win condition
+  const checkWinCondition = (cards) => {
+    //console.log('cards:', cards);
+    if (cards.length < 1) {
+      return false;
+    }
+    const result = cards.every((card) => {
+      if (card.isPaired) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return result;
+  };
+
   // Handle the close of the win modal
   const handleWinModalClose = () => {
     setShowWinModal(false);
+  };
+
+  // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
+  const resetTurn = () => {
+    setFirstChoice(null);
+    setSecondChoice(null);
+
+    // Count the turns
+    setTurns((prevTurns) => prevTurns + 1);
+
+    // Cancel the disabled state of the cards
+    setTimeout(() => setDisabled(false), 200);
   };
 
   return (
