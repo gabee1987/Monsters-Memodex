@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { GameSettingsContext } from '../../contexts/game-settings.context';
 import { GameStateContext } from '../../contexts/game-state.context';
 
+import RadioInput from '../../components/radio-input/radio-input.component';
+
 import {
   MODE_SETTING_TYPES,
   DIFFICULTY_SETTING_TYPES,
@@ -114,62 +116,27 @@ const Settings = () => {
               <div className="settings-category mode-settings disabled-menu">
                 <span>Mode</span>
                 <div className="settings-input-group mode-group">
-                  <label
-                    htmlFor="timeBasedRadio"
-                    className={`radio-label ${
-                      mode === MODE_SETTING_TYPES.TIME_BASED
-                        ? 'radioSelected'
-                        : 'radioNotSelected'
-                    }`}
-                  >
-                    Time Based
-                    <input
-                      id="timeBasedRadio"
-                      type="radio"
-                      name="mode"
-                      value={MODE_SETTING_TYPES.TIME_BASED}
-                      checked={mode === MODE_SETTING_TYPES.TIME_BASED}
-                      onChange={handleModeChange}
-                    />
-                  </label>
-
-                  <label
-                    htmlFor="turnBasedRadio"
-                    className={`radio-label ${
-                      mode === MODE_SETTING_TYPES.TURN_BASED
-                        ? 'radioSelected'
-                        : 'radioNotSelected'
-                    }`}
-                  >
-                    Turn Based
-                    <input
-                      id="turnBasedRadio"
-                      type="radio"
-                      name="mode"
-                      value={MODE_SETTING_TYPES.TURN_BASED}
-                      checked={mode === MODE_SETTING_TYPES.TURN_BASED}
-                      onChange={handleModeChange}
-                    />
-                  </label>
-
-                  <label
-                    htmlFor="relaxedRadio"
-                    className={`radio-label ${
-                      mode === MODE_SETTING_TYPES.RELAXED
-                        ? 'radioSelected'
-                        : 'radioNotSelected'
-                    }`}
-                  >
-                    Relaxed
-                    <input
-                      id="relaxedRadio"
-                      type="radio"
-                      name="mode"
-                      value={MODE_SETTING_TYPES.RELAXED}
-                      checked={mode === MODE_SETTING_TYPES.RELAXED}
-                      onChange={handleModeChange}
-                    />
-                  </label>
+                  <RadioInput
+                    id="timeBasedRadio"
+                    labelText="Time Based"
+                    selectedValueType={mode}
+                    selectedValue={MODE_SETTING_TYPES.TIME_BASED}
+                    onChangeHandler={handleModeChange}
+                  />
+                  <RadioInput
+                    id="turnBasedRadio"
+                    labelText="Turn Based"
+                    selectedValueType={mode}
+                    selectedValue={MODE_SETTING_TYPES.TURN_BASED}
+                    onChangeHandler={handleModeChange}
+                  />
+                  <RadioInput
+                    id="relaxedRadio"
+                    labelText="Relaxed"
+                    selectedValueType={mode}
+                    selectedValue={MODE_SETTING_TYPES.RELAXED}
+                    onChangeHandler={handleModeChange}
+                  />
                 </div>
               </div>
             </div>
@@ -178,60 +145,27 @@ const Settings = () => {
               <div className="settings-category difficulty-settings disabled-menu">
                 <span>Difficulty</span>
                 <div className="settings-input-group difficulty-group">
-                  <label
-                    htmlFor="easyRadio"
-                    className={`radio-label ${
-                      difficulty === DIFFICULTY_SETTING_TYPES.EASY
-                        ? 'radioSelected'
-                        : 'radioNotSelected'
-                    }`}
-                  >
-                    <input
-                      id="easyRadio"
-                      type="radio"
-                      name="difficulty"
-                      value={DIFFICULTY_SETTING_TYPES.EASY}
-                      checked={difficulty === DIFFICULTY_SETTING_TYPES.EASY}
-                      onChange={handleDifficultyChange}
-                    ></input>
-                    Easy
-                  </label>
-                  <label
-                    htmlFor="mediumRadio"
-                    className={`radio-label ${
-                      difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM
-                        ? 'radioSelected'
-                        : 'radioNotSelected'
-                    }`}
-                  >
-                    <input
-                      id="mediumRadio"
-                      type="radio"
-                      name="difficulty"
-                      value={DIFFICULTY_SETTING_TYPES.MEDIUM}
-                      checked={difficulty === DIFFICULTY_SETTING_TYPES.MEDIUM}
-                      onChange={handleDifficultyChange}
-                    ></input>
-                    Medium
-                  </label>
-                  <label
-                    htmlFor="hardRadio"
-                    className={`radio-label ${
-                      difficulty === DIFFICULTY_SETTING_TYPES.HARD
-                        ? 'radioSelected'
-                        : 'radioNotSelected'
-                    }`}
-                  >
-                    <input
-                      id="hardRadio"
-                      type="radio"
-                      name="difficulty"
-                      value={DIFFICULTY_SETTING_TYPES.HARD}
-                      checked={difficulty === DIFFICULTY_SETTING_TYPES.HARD}
-                      onChange={handleDifficultyChange}
-                    ></input>
-                    Hard
-                  </label>
+                  <RadioInput
+                    id="easyRadio"
+                    labelText="Easy"
+                    selectedValueType={difficulty}
+                    selectedValue={DIFFICULTY_SETTING_TYPES.EASY}
+                    onChangeHandler={handleDifficultyChange}
+                  />
+                  <RadioInput
+                    id="mediumRadio"
+                    labelText="Medium"
+                    selectedValueType={difficulty}
+                    selectedValue={DIFFICULTY_SETTING_TYPES.MEDIUM}
+                    onChangeHandler={handleDifficultyChange}
+                  />
+                  <RadioInput
+                    id="hardRadio"
+                    labelText="Hard"
+                    selectedValueType={difficulty}
+                    selectedValue={DIFFICULTY_SETTING_TYPES.HARD}
+                    onChangeHandler={handleDifficultyChange}
+                  />
                 </div>
               </div>
             </div>
