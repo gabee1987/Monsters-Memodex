@@ -27,7 +27,7 @@ const Game = (props) => {
 
   // Create initial card deck
   useEffect(() => {
-    console.log('need new game from context?', needNewGame);
+    //console.log('need new game from context?', needNewGame);
     if (needNewGame) {
       //console.log('numberOfCards in game start:', numberOfCards);
       setNumberOfCards(numberOfCards);
@@ -35,8 +35,8 @@ const Game = (props) => {
     } else {
       // setInProgressDeck(inProgressDeck);
       setCardDeck(inProgressDeck);
-      console.log('continue progressDeck...', inProgressDeck);
-      console.log('continue cardDeck...', cardDeck);
+      //console.log('continue progressDeck...', inProgressDeck);
+      //console.log('continue cardDeck...', cardDeck);
     }
   }, []);
 

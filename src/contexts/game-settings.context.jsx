@@ -19,6 +19,13 @@ export const CARDSET_SETTING_TYPES = {
   CATS: 'CATS',
 };
 
+export const CARDSET_ROBOHASH_IDS = {
+  MONSTERS: 2,
+  ROBOTS: 1,
+  ROBOTHEADS: 3,
+  CATS: 4,
+};
+
 export const GameSettingsContext = createContext({
   mode: MODE_SETTING_TYPES.RELAXED,
   setMode: () => {},
@@ -37,6 +44,7 @@ export const GameSettingsProvider = ({ children }) => {
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
   // console.log('number of cards in context: ', numberOfCards);
   // console.log('mode in context is: ', mode);
+  // console.log('cardSet in context is: ', cardSet);
 
   const value = {
     mode,

@@ -13,6 +13,8 @@ import {
 import './game-settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
+const cardSetPictureId = Math.floor(Math.random() * 100);
+
 const Settings = () => {
   const TAB_VALUES = {
     GAME_TAB: 'GAME_TAB',
@@ -277,7 +279,18 @@ const Settings = () => {
                       : 'radioNotSelected'
                   }`}
                 >
-                  Monsters
+                  <div
+                    className={`settings-cardset-label-container ${
+                      cardSet === CARDSET_SETTING_TYPES.MONSTERS
+                        ? 'selected-card-set'
+                        : ''
+                    }`}
+                  >
+                    <img
+                      alt="card-set-monsters"
+                      src={`https://robohash.org/${cardSetPictureId}?set=set2&size=100x100`}
+                    />
+                  </div>
                   <input
                     id="cardSetMonsters"
                     type="radio"
@@ -292,12 +305,23 @@ const Settings = () => {
                 <label
                   htmlFor="cardSetRobots"
                   className={`radio-label ${
-                    mode === CARDSET_SETTING_TYPES.ROBOTS
+                    cardSet === CARDSET_SETTING_TYPES.ROBOTS
                       ? 'radioSelected'
                       : 'radioNotSelected'
                   }`}
                 >
-                  Robots
+                  <div
+                    className={`settings-cardset-label-container ${
+                      cardSet === CARDSET_SETTING_TYPES.ROBOTS
+                        ? 'selected-card-set'
+                        : ''
+                    }`}
+                  >
+                    <img
+                      alt="card-set-robots"
+                      src={`https://robohash.org/${cardSetPictureId}?set=set1&size=100x100`}
+                    />
+                  </div>
                   <input
                     id="cardSetRobots"
                     type="radio"
@@ -312,12 +336,23 @@ const Settings = () => {
                 <label
                   htmlFor="cardSetRoboHeads"
                   className={`radio-label ${
-                    mode === CARDSET_SETTING_TYPES.ROBOTHEADS
+                    cardSet === CARDSET_SETTING_TYPES.ROBOTHEADS
                       ? 'radioSelected'
                       : 'radioNotSelected'
                   }`}
                 >
-                  Robot Heads
+                  <div
+                    className={`settings-cardset-label-container ${
+                      cardSet === CARDSET_SETTING_TYPES.ROBOTHEADS
+                        ? 'selected-card-set'
+                        : ''
+                    }`}
+                  >
+                    <img
+                      alt="card-set-robot-heads"
+                      src={`https://robohash.org/${cardSetPictureId}?set=set3&size=100x100`}
+                    />
+                  </div>
                   <input
                     id="cardSetRoboHeads"
                     type="radio"
@@ -332,12 +367,23 @@ const Settings = () => {
                 <label
                   htmlFor="cardSetCats"
                   className={`radio-label ${
-                    mode === CARDSET_SETTING_TYPES.CATS
+                    cardSet === CARDSET_SETTING_TYPES.CATS
                       ? 'radioSelected'
                       : 'radioNotSelected'
                   }`}
                 >
-                  Cats
+                  <div
+                    className={`settings-cardset-label-container ${
+                      cardSet === CARDSET_SETTING_TYPES.CATS
+                        ? 'selected-card-set'
+                        : ''
+                    }`}
+                  >
+                    <img
+                      alt="card-set-cats"
+                      src={`https://robohash.org/${cardSetPictureId}?set=set4&size=100x100`}
+                    />
+                  </div>
                   <input
                     id="cardSetCats"
                     type="radio"
