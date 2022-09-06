@@ -23,10 +23,24 @@ const RadioInputPicLabel = ({
           selectedValueType === selectedValue ? 'selected-card-set' : ''
         }`}
       >
-        <img
-          alt={`card-set-${labelText}`}
-          src={`https://robohash.org/${cardSetPicId}?set=set${cardSetId}&size=100x100`}
-        />
+        {cardSetPicId !== null ? (
+          <img
+            className={`card-set-radio-img ${
+              selectedValueType === selectedValue ? 'selected-card-set' : ''
+            }`}
+            alt={`card-set-${labelText}`}
+            src={`https://robohash.org/${cardSetPicId}?set=set${cardSetId}&size=100x100`}
+          />
+        ) : (
+          <img
+            className={`card-back-radio-img ${
+              selectedValueType === selectedValue ? 'selected-card-back' : ''
+            }`}
+            alt={`card-back-${labelText}`}
+            src={`/assets/card-back-${selectedValue}.png`}
+            // src={'/assets/card-back-' + selectedValue + '.png'}
+          />
+        )}
       </div>
       <input
         id={id}

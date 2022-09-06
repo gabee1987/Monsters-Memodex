@@ -15,6 +15,7 @@ import {
   DIFFICULTY_SETTING_TYPES,
   CARDSET_SETTING_TYPES,
   TAB_VALUES,
+  CARBACK_SETTING_TYPES,
 } from '../../contexts/game-settings.context';
 
 import './game-settings.styles.scss';
@@ -29,6 +30,7 @@ const Settings = () => {
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { activeTab, setActiveTab } = useContext(GameSettingsContext);
   const { cardSet, setCardSet } = useContext(GameSettingsContext);
+  const { cardBack, setCardBack } = useContext(GameSettingsContext);
 
   const navigate = useNavigate();
 
@@ -61,6 +63,11 @@ const Settings = () => {
   const handleCardSetChange = (event) => {
     setCardSet(event.target.value);
     console.log('cardSet changed to:', event.target.value);
+  };
+
+  const handleCardBackChange = (event) => {
+    setCardBack(event.target.value);
+    console.log('cardBack changed to:', event.target.value);
   };
 
   // GAME BUTTON HANDLES
@@ -201,6 +208,7 @@ const Settings = () => {
               activeTab === TAB_VALUES.VISUALS_TAB ? 'active-settings' : ''
             }`}
           >
+            {/* CARD SET SETTINGS */}
             <div className="settings-category card-set-settings">
               <span>Card Set</span>
               <div className="settings-input-group card-set-group">
@@ -246,6 +254,56 @@ const Settings = () => {
                   onChangeHandler={handleCardSetChange}
                   cardSetId={CARDSET_ROBOHASH_IDS.CATS}
                   cardSetPicId={cardSetPictureId}
+                />
+              </div>
+            </div>
+
+            {/* CARD BACK SETTINGS */}
+            <div className="settings-category card-back-settings">
+              <span>Card Back</span>
+              <div className="settings-input-group card-back-group">
+                {/* =========================BASIC CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackBasic"
+                  labelText="Basic"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.BASIC}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================HEXAGON CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackHexagon"
+                  labelText="Hexagon"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.HEXAGON}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================BUBBLES HEADS CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackBubbles"
+                  labelText="Bubbles"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.BUBBLES}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================CIRCLES CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackCircles"
+                  labelText="Circles"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.CIRCLES}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
                 />
               </div>
             </div>

@@ -74,8 +74,24 @@
     transform: rotateY(180deg);
   }
 
-  .card-back {
-    background-image: url('../../assets/card-back-hexagon.png');
+  // .card-back {
+  //   background-image: url('/assets/card-back-hexagon.png');
+  // }
+
+  .type-basic {
+    background-image: url('/assets/card-back-basic.png');
+  }
+
+  .type-hexagon {
+    background-image: url('/assets/card-back-hexagon.png');
+  }
+
+  .type-bubbles {
+    background-image: url('/assets/card-back-bubbles.png');
+  }
+
+  .type-circles {
+    background-image: url('/assets/card-back-circles.png');
   }
 }
 

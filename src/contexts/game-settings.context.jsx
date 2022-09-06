@@ -31,6 +31,13 @@ export const CARDSET_ROBOHASH_IDS = {
   CATS: 4,
 };
 
+export const CARBACK_SETTING_TYPES = {
+  BASIC: 'basic',
+  HEXAGON: 'hexagon',
+  BUBBLES: 'bubbles',
+  CIRCLES: 'circles',
+};
+
 export const GameSettingsContext = createContext({
   activeTab: TAB_VALUES.GAME_TAB,
   setActiveTab: () => {},
@@ -42,17 +49,21 @@ export const GameSettingsContext = createContext({
   setNumberOfCards: () => {},
   cardSet: CARDSET_SETTING_TYPES.MONSTERS,
   setCardSet: () => {},
+  cardBack: CARBACK_SETTING_TYPES.BASIC,
+  setCardBack: () => {},
 });
 
 export const GameSettingsProvider = ({ children }) => {
+  const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
   const [mode, setMode] = useState(MODE_SETTING_TYPES.RELAXED);
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
   const [numberOfCards, setNumberOfCards] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
-  const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
+  const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BASIC);
   // console.log('number of cards in context: ', numberOfCards);
   // console.log('mode in context is: ', mode);
   // console.log('cardSet in context is: ', cardSet);
+  // console.log('cardBack in context is: ', cardBack);
 
   const value = {
     activeTab,
@@ -65,6 +76,8 @@ export const GameSettingsProvider = ({ children }) => {
     setNumberOfCards,
     cardSet,
     setCardSet,
+    cardBack,
+    setCardBack,
   };
 
   return (

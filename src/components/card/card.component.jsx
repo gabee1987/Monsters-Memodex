@@ -5,6 +5,7 @@ import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 import {
   CARDSET_SETTING_TYPES,
   CARDSET_ROBOHASH_IDS,
+  CARBACK_SETTING_TYPES,
 } from '../../contexts/game-settings.context.jsx';
 
 import './card.styles.scss';
@@ -12,6 +13,7 @@ import './card.styles.scss';
 const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
   const { id, pictureId, isPaired } = card;
   const { cardSet } = useContext(GameSettingsContext);
+  const { cardBack } = useContext(GameSettingsContext);
   const [roboHashId, setRoboHashId] = useState();
 
   useEffect(() => {
@@ -61,12 +63,11 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
             src={`https://robohash.org/${pictureId}?set=set${roboHashId}&size=250x250`}
           />
         </div>
-        <div className="card-back" onClick={handleClick}>
-          {/* <img src={CardBack} alt={`card-back-${id}`} />
-          <div></div> */}
-        </div>
+        <div
+          className={`card-back type-${cardBack}`}
+          onClick={handleClick}
+        ></div>
       </div>
-      {/* <script src="./card.styles.js"></script> */}
     </div>
   );
 };
