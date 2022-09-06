@@ -53,13 +53,12 @@ const Settings = () => {
   };
 
   const handleTabChange = (event) => {
-    // console.log('tabChange value:', event.target.value);
+    console.log('activetab change to:', event.target.value);
     if (event.target.value === TAB_VALUES.GAME_TAB) {
       setActiveTab(TAB_VALUES.GAME_TAB);
     } else if (event.target.value === TAB_VALUES.VISUALS_TAB) {
       setActiveTab(TAB_VALUES.VISUALS_TAB);
     }
-    console.log('active tab: ', event.target.value);
   };
 
   // 3D perspective effect with Vanilla Tilt
@@ -79,14 +78,18 @@ const Settings = () => {
       <div className="settings-container" id="mainMenu" ref={tilt}>
         <div className="settings-tab-container">
           <button
-            className="settings-tab game-tab"
+            className={`settings-tab game-tab ${
+              activeTab === TAB_VALUES.GAME_TAB ? 'active-tab' : ''
+            }`}
             onClick={handleTabChange}
             value={TAB_VALUES.GAME_TAB}
           >
             Game
           </button>
           <button
-            className="settings-tab visuals-tab"
+            className={`settings-tab visuals-tab ${
+              activeTab === TAB_VALUES.VISUALS_TAB ? 'active-tab' : ''
+            }`}
             onClick={handleTabChange}
             value={TAB_VALUES.VISUALS_TAB}
           >
