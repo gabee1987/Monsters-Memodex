@@ -1,0 +1,36 @@
+label {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.radio-label {
+  display: inline-block;
+  margin: 0 1rem;
+  transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
+    color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
+
+  &:hover {
+    color: #ffff00;
+    text-shadow: rgba(0, 0, 0, 0.3) 7px 7px 15px;
+    transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
+      rotate(1.4deg);
+  }
+
+  &:active,
+  :focus {
+    transform: scale(0.98, 0.98);
+  }
+}
+
+.radioSelected {
+  color: #ffff00;
+  // transform: scale(1.1, 1.1);
+}
+
+.radioNotSelected {
+  color: #73ffca;
+}
+
+input[type='radio'] {
+  display: none;
+}

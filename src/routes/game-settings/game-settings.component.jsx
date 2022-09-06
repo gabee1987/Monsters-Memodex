@@ -1,10 +1,14 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { GameSettingsContext } from '../../contexts/game-settings.context';
+import {
+  CARDSET_ROBOHASH_IDS,
+  GameSettingsContext,
+} from '../../contexts/game-settings.context';
 import { GameStateContext } from '../../contexts/game-state.context';
 
 import RadioInput from '../../components/radio-input/radio-input.component';
+import RadioInputPicLabel from '../../components/radio-input-pic-label/radio-input-pic-label.component';
 
 import {
   MODE_SETTING_TYPES,
@@ -201,128 +205,48 @@ const Settings = () => {
               <span>Card Set</span>
               <div className="settings-input-group card-set-group">
                 {/* =========================MONSTERS CARD SET */}
-                <label
-                  htmlFor="cardSetMonsters"
-                  className={`radio-label ${
-                    cardSet === CARDSET_SETTING_TYPES.MONSTERS
-                      ? 'radioSelected'
-                      : 'radioNotSelected'
-                  }`}
-                >
-                  <div
-                    className={`settings-cardset-label-container ${
-                      cardSet === CARDSET_SETTING_TYPES.MONSTERS
-                        ? 'selected-card-set'
-                        : ''
-                    }`}
-                  >
-                    <img
-                      alt="card-set-monsters"
-                      src={`https://robohash.org/${cardSetPictureId}?set=set2&size=100x100`}
-                    />
-                  </div>
-                  <input
-                    id="cardSetMonsters"
-                    type="radio"
-                    name="cardset"
-                    value={CARDSET_SETTING_TYPES.MONSTERS}
-                    checked={cardSet === CARDSET_SETTING_TYPES.MONSTERS}
-                    onChange={handleCardSetChange}
-                  />
-                </label>
+                <RadioInputPicLabel
+                  id="cardSetMonsters"
+                  labelText="Monsters"
+                  selectedValueType={cardSet}
+                  selectedValue={CARDSET_SETTING_TYPES.MONSTERS}
+                  onChangeHandler={handleCardSetChange}
+                  cardSetId={CARDSET_ROBOHASH_IDS.MONSTERS}
+                  cardSetPicId={cardSetPictureId}
+                />
 
                 {/* =========================ROBOTS CARD SET */}
-                <label
-                  htmlFor="cardSetRobots"
-                  className={`radio-label ${
-                    cardSet === CARDSET_SETTING_TYPES.ROBOTS
-                      ? 'radioSelected'
-                      : 'radioNotSelected'
-                  }`}
-                >
-                  <div
-                    className={`settings-cardset-label-container ${
-                      cardSet === CARDSET_SETTING_TYPES.ROBOTS
-                        ? 'selected-card-set'
-                        : ''
-                    }`}
-                  >
-                    <img
-                      alt="card-set-robots"
-                      src={`https://robohash.org/${cardSetPictureId}?set=set1&size=100x100`}
-                    />
-                  </div>
-                  <input
-                    id="cardSetRobots"
-                    type="radio"
-                    name="cardset"
-                    value={CARDSET_SETTING_TYPES.ROBOTS}
-                    checked={cardSet === CARDSET_SETTING_TYPES.ROBOTS}
-                    onChange={handleCardSetChange}
-                  />
-                </label>
+                <RadioInputPicLabel
+                  id="cardSetRobots"
+                  labelText="Robots"
+                  selectedValueType={cardSet}
+                  selectedValue={CARDSET_SETTING_TYPES.ROBOTS}
+                  onChangeHandler={handleCardSetChange}
+                  cardSetId={CARDSET_ROBOHASH_IDS.ROBOTS}
+                  cardSetPicId={cardSetPictureId}
+                />
 
                 {/* =========================ROBOT HEADS CARD SET */}
-                <label
-                  htmlFor="cardSetRoboHeads"
-                  className={`radio-label ${
-                    cardSet === CARDSET_SETTING_TYPES.ROBOTHEADS
-                      ? 'radioSelected'
-                      : 'radioNotSelected'
-                  }`}
-                >
-                  <div
-                    className={`settings-cardset-label-container ${
-                      cardSet === CARDSET_SETTING_TYPES.ROBOTHEADS
-                        ? 'selected-card-set'
-                        : ''
-                    }`}
-                  >
-                    <img
-                      alt="card-set-robot-heads"
-                      src={`https://robohash.org/${cardSetPictureId}?set=set3&size=100x100`}
-                    />
-                  </div>
-                  <input
-                    id="cardSetRoboHeads"
-                    type="radio"
-                    name="cardset"
-                    value={CARDSET_SETTING_TYPES.ROBOTHEADS}
-                    checked={cardSet === CARDSET_SETTING_TYPES.ROBOTHEADS}
-                    onChange={handleCardSetChange}
-                  />
-                </label>
+                <RadioInputPicLabel
+                  id="cardSetRoboHeads"
+                  labelText="Robot Heads"
+                  selectedValueType={cardSet}
+                  selectedValue={CARDSET_SETTING_TYPES.ROBOTHEADS}
+                  onChangeHandler={handleCardSetChange}
+                  cardSetId={CARDSET_ROBOHASH_IDS.ROBOTHEADS}
+                  cardSetPicId={cardSetPictureId}
+                />
 
                 {/* =========================CATS CARD SET */}
-                <label
-                  htmlFor="cardSetCats"
-                  className={`radio-label ${
-                    cardSet === CARDSET_SETTING_TYPES.CATS
-                      ? 'radioSelected'
-                      : 'radioNotSelected'
-                  }`}
-                >
-                  <div
-                    className={`settings-cardset-label-container ${
-                      cardSet === CARDSET_SETTING_TYPES.CATS
-                        ? 'selected-card-set'
-                        : ''
-                    }`}
-                  >
-                    <img
-                      alt="card-set-cats"
-                      src={`https://robohash.org/${cardSetPictureId}?set=set4&size=100x100`}
-                    />
-                  </div>
-                  <input
-                    id="cardSetCats"
-                    type="radio"
-                    name="cardset"
-                    value={CARDSET_SETTING_TYPES.CATS}
-                    checked={cardSet === CARDSET_SETTING_TYPES.CATS}
-                    onChange={handleCardSetChange}
-                  />
-                </label>
+                <RadioInputPicLabel
+                  id="cardSetCats"
+                  labelText="Cats"
+                  selectedValueType={cardSet}
+                  selectedValue={CARDSET_SETTING_TYPES.CATS}
+                  onChangeHandler={handleCardSetChange}
+                  cardSetId={CARDSET_ROBOHASH_IDS.CATS}
+                  cardSetPicId={cardSetPictureId}
+                />
               </div>
             </div>
           </div>

@@ -149,63 +149,6 @@
         color: #ffff00;
       }
     }
-
-    label {
-      font-size: 2rem;
-      cursor: pointer;
-    }
-
-    .radio-label {
-      display: inline-block;
-      margin: 0 1rem;
-      transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
-        color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
-
-      &:hover {
-        color: #ffff00;
-        text-shadow: rgba(0, 0, 0, 0.3) 7px 7px 15px;
-        transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
-          rotate(1.4deg);
-      }
-
-      &:active,
-      :focus {
-        transform: scale(0.98, 0.98);
-      }
-    }
-
-    .radioSelected {
-      color: #ffff00;
-      // transform: scale(1.1, 1.1);
-    }
-
-    .radioNotSelected {
-      color: #73ffca;
-    }
-
-    .settings-cardset-label-container {
-      width: 100px;
-      height: 100px;
-      padding: 0;
-      margin: 0.5rem;
-      user-select: none;
-      border-radius: 10px;
-      background-color: #73ffca;
-      overflow: hidden;
-
-      &:hover {
-        box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 15px;
-        z-index: 2;
-      }
-
-      img {
-        border-radius: 10px;
-      }
-    }
-
-    .selected-card-set {
-      background-color: #ffff00;
-    }
   }
 
   .settings-button-container {
@@ -242,7 +185,7 @@
   }
 }
 
-// Input styles
+// Range input styles
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
@@ -287,10 +230,6 @@ input[type='range'] {
     transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms;
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 7px;
   }
-}
-
-input[type='radio'] {
-  display: none;
 }
 
 .disabled-menu {
