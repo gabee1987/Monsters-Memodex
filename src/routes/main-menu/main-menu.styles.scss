@@ -13,7 +13,7 @@
   width: 50%;
   max-width: 700px;
   margin: 0 auto;
-  padding: 4rem;
+  padding: 4.5rem;
   background-color: #009485;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -22,9 +22,9 @@
   &::before {
     content: '';
     position: absolute;
-    top: 2.4rem;
+    top: 2.6rem;
     right: 3rem;
-    bottom: 2.4rem;
+    bottom: 2.6rem;
     left: 3rem;
     border-radius: 15px;
     border: dotted 4px #ffff00;
