@@ -7,26 +7,37 @@ import { GameStateContext } from '../../contexts/game-state.context';
 import {
   MODE_SETTING_TYPES,
   DIFFICULTY_SETTING_TYPES,
+  CARDSET_SETTING_TYPES,
 } from '../../contexts/game-settings.context';
 
 import './game-settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const Settings = () => {
-  const { mode, setMode } = useContext(GameSettingsContext);
-  const { difficulty, setDifficulty } = useContext(GameSettingsContext);
-  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
-  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
-
   const TAB_VALUES = {
     GAME_TAB: 'GAME_TAB',
     VISUALS_TAB: 'VISUALS_TAB',
   };
 
+  const { mode, setMode } = useContext(GameSettingsContext);
+  const { difficulty, setDifficulty } = useContext(GameSettingsContext);
+  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
+  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+  const { cardSet, setCardSet } = useContext(GameSettingsContext);
   const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
 
   const navigate = useNavigate();
 
+  const handleTabChange = (event) => {
+    console.log('activetab change to:', event.target.value);
+    if (event.target.value === TAB_VALUES.GAME_TAB) {
+      setActiveTab(TAB_VALUES.GAME_TAB);
+    } else if (event.target.value === TAB_VALUES.VISUALS_TAB) {
+      setActiveTab(TAB_VALUES.VISUALS_TAB);
+    }
+  };
+
+  // GAME SETTINGS HANDLES
   const handleModeChange = (event) => {
     setMode(event.target.value);
     console.log('mode changed to: ', event.target.value);
@@ -42,6 +53,13 @@ const Settings = () => {
     console.log('cardNumber changed to:', event.target.value);
   };
 
+  // VISUAL SETTINGS HANDLES
+  const handleCardSetChange = (event) => {
+    setCardSet(event.target.value);
+    console.log('cardSet changed to:', event.target.value);
+  };
+
+  // GAME BUTTON HANDLES
   const handleBackClick = () => {
     setNeedNewGame(false);
     navigate(-1);
@@ -50,15 +68,6 @@ const Settings = () => {
   const handleStartClick = () => {
     setNeedNewGame(true);
     navigate('/game');
-  };
-
-  const handleTabChange = (event) => {
-    console.log('activetab change to:', event.target.value);
-    if (event.target.value === TAB_VALUES.GAME_TAB) {
-      setActiveTab(TAB_VALUES.GAME_TAB);
-    } else if (event.target.value === TAB_VALUES.VISUALS_TAB) {
-      setActiveTab(TAB_VALUES.VISUALS_TAB);
-    }
   };
 
   // 3D perspective effect with Vanilla Tilt
@@ -96,8 +105,8 @@ const Settings = () => {
             Visuals
           </button>
         </div>
-
         <div className="settings-inner-container" id="mainMenuInner">
+          {/* Game Settings panel */}
           <div
             className={`game-settings-container ${
               activeTab === TAB_VALUES.GAME_TAB ? 'active-settings' : ''
@@ -249,12 +258,97 @@ const Settings = () => {
               </div>
             </div>
           </div>
+
+          {/* Visual Settings panel */}
           <div
             className={`game-settings-container ${
               activeTab === TAB_VALUES.VISUALS_TAB ? 'active-settings' : ''
             }`}
           >
-            VISUAL SETTINGS
+            <div className="settings-category card-set-settings">
+              <span>Card Set</span>
+              <div className="settings-input-group card-set-group">
+                {/* =========================MONSTERS CARD SET */}
+                <label
+                  htmlFor="cardSetMonsters"
+                  className={`radio-label ${
+                    cardSet === CARDSET_SETTING_TYPES.MONSTERS
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  Monsters
+                  <input
+                    id="cardSetMonsters"
+                    type="radio"
+                    name="cardset"
+                    value={CARDSET_SETTING_TYPES.MONSTERS}
+                    checked={cardSet === CARDSET_SETTING_TYPES.MONSTERS}
+                    onChange={handleCardSetChange}
+                  />
+                </label>
+
+                {/* =========================ROBOTS CARD SET */}
+                <label
+                  htmlFor="cardSetRobots"
+                  className={`radio-label ${
+                    mode === CARDSET_SETTING_TYPES.ROBOTS
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  Robots
+                  <input
+                    id="cardSetRobots"
+                    type="radio"
+                    name="cardset"
+                    value={CARDSET_SETTING_TYPES.ROBOTS}
+                    checked={cardSet === CARDSET_SETTING_TYPES.ROBOTS}
+                    onChange={handleCardSetChange}
+                  />
+                </label>
+
+                {/* =========================ROBOT HEADS CARD SET */}
+                <label
+                  htmlFor="cardSetRoboHeads"
+                  className={`radio-label ${
+                    mode === CARDSET_SETTING_TYPES.ROBOTHEADS
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  Robot Heads
+                  <input
+                    id="cardSetRoboHeads"
+                    type="radio"
+                    name="cardset"
+                    value={CARDSET_SETTING_TYPES.ROBOTHEADS}
+                    checked={cardSet === CARDSET_SETTING_TYPES.ROBOTHEADS}
+                    onChange={handleCardSetChange}
+                  />
+                </label>
+
+                {/* =========================CATS CARD SET */}
+                <label
+                  htmlFor="cardSetCats"
+                  className={`radio-label ${
+                    mode === CARDSET_SETTING_TYPES.CATS
+                      ? 'radioSelected'
+                      : 'radioNotSelected'
+                  }`}
+                >
+                  Cats
+                  <input
+                    id="cardSetCats"
+                    type="radio"
+                    name="cardset"
+                    value={CARDSET_SETTING_TYPES.CATS}
+                    checked={cardSet === CARDSET_SETTING_TYPES.CATS}
+                    onChange={handleCardSetChange}
+                  />
+                </label>
+              </div>
+            </div>
           </div>
 
           <div className="settings-button-container">

@@ -12,6 +12,13 @@ export const DIFFICULTY_SETTING_TYPES = {
   HARD: 'HARD',
 };
 
+export const CARDSET_SETTING_TYPES = {
+  MONSTERS: 'MONSTERS',
+  ROBOTS: 'ROBOTS',
+  ROBOTHEADS: 'ROBOTHEADS',
+  CATS: 'CATS',
+};
+
 export const GameSettingsContext = createContext({
   mode: MODE_SETTING_TYPES.RELAXED,
   setMode: () => {},
@@ -19,12 +26,15 @@ export const GameSettingsContext = createContext({
   setDifficulty: () => {},
   numberOfCards: 10,
   setNumberOfCards: () => {},
+  cardSet: CARDSET_SETTING_TYPES.MONSTERS,
+  setCardSet: () => {},
 });
 
 export const GameSettingsProvider = ({ children }) => {
   const [mode, setMode] = useState(MODE_SETTING_TYPES.RELAXED);
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
   const [numberOfCards, setNumberOfCards] = useState(10);
+  const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
   // console.log('number of cards in context: ', numberOfCards);
   // console.log('mode in context is: ', mode);
 
@@ -35,6 +45,8 @@ export const GameSettingsProvider = ({ children }) => {
     setDifficulty,
     numberOfCards,
     setNumberOfCards,
+    cardSet,
+    setCardSet,
   };
 
   return (
