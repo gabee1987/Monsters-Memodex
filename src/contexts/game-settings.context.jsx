@@ -36,6 +36,11 @@ export const CARBACK_SETTING_TYPES = {
   HEXAGON: 'hexagon',
   BUBBLES: 'bubbles',
   CIRCLES: 'circles',
+  DIAMONDS: 'diamonds',
+  JAPANESE: 'japanese',
+  SCALES: 'scales',
+  TRIANGLES: 'triangles',
+  MEMPHIS: 'memphis',
 };
 
 export const GameSettingsContext = createContext({

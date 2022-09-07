@@ -29,8 +29,6 @@ const Game = (props) => {
   const [gameStarted, setGameStarted] = useState(false);
   const {
     seconds: stopWatchSeconds,
-    minutes: stopWatchMinutes,
-    hours: stopWatchHours,
     isRunning: stopWatchIsRunning,
     start: startStopWatch,
     pause: pauseStopWatch,

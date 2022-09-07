@@ -22,7 +22,6 @@ const GameControls = ({ newGameClick, stopWatchSeconds }) => {
         NEW GAME
       </button>
       <button className="btn time-counter">
-        {/* TIME: <span>{stopWatchMinutes}</span>:{stopWatchSeconds} */}
         TIME: <span>{formatTime(stopWatchSeconds)}</span>
       </button>
       <button className="btn turn-counter">TURNS: {turns}</button>

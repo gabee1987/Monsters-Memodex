@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-import useMountTransition from '../../component-animation/useMountTransition';
+import useMountTransition from '../../component-helpers/useMountTransition';
 import './win-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 

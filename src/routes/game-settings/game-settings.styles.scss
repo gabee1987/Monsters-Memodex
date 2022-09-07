@@ -149,6 +149,40 @@
         color: #ffff00;
       }
     }
+
+    .card-back-group {
+      display: flex;
+      height: 150px;
+      padding: 1rem 0.5rem;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+
+    // $finalHeight: 180px;
+    // $finalWidth: 4 * $finalHeight;
+    // $scrollBarHeight: 1px;
+
+    // .card-back-group {
+    //   position: relative;
+    //   display: block;
+    //   top: 0;
+    //   left: 0;
+    //   width: calc(#{$finalHeight} + #{$scrollBarHeight});
+    //   max-height: $finalWidth;
+    //   margin: 0;
+    //   padding-top: $scrollBarHeight;
+    //   overflow-y: auto;
+    //   overflow-x: hidden;
+    //   transform: rotate(-90deg) translateY(-$finalHeight);
+    //   transform-origin: right top;
+
+    //   & > label {
+    //     // display: block;
+    //     // padding: 5px;
+    //     // transform: rotate(90deg);
+    //     // transform-origin: right top;
+    //   }
+    // }
   }
 
   .settings-button-container {

@@ -92,6 +92,16 @@ const Settings = () => {
     });
   }, []);
 
+  // Horizontal scrolling helper
+  useEffect(() => {
+    const scrollContainer = document.querySelector('#cardBackScrollContainer');
+
+    scrollContainer.addEventListener('wheel', (evt) => {
+      evt.preventDefault();
+      scrollContainer.scrollLeft += evt.deltaY;
+    });
+  }, []);
+
   return (
     <div className="settings">
       <h1 className="settings-title">Settings</h1>
@@ -261,7 +271,10 @@ const Settings = () => {
             {/* CARD BACK SETTINGS */}
             <div className="settings-category card-back-settings">
               <span>Card Back</span>
-              <div className="settings-input-group card-back-group">
+              <div
+                id="cardBackScrollContainer"
+                className="settings-input-group card-back-group"
+              >
                 {/* =========================BASIC CARD BACK */}
                 <RadioInputPicLabel
                   id="cardBackBasic"
@@ -301,6 +314,61 @@ const Settings = () => {
                   labelText="Circles"
                   selectedValueType={cardBack}
                   selectedValue={CARBACK_SETTING_TYPES.CIRCLES}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================DIAMONDS CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackDiamonds"
+                  labelText="Diamonds"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.DIAMONDS}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================JAPANESE CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackJapanese"
+                  labelText="Japanese"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.JAPANESE}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================SCALES CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackScales"
+                  labelText="Scales"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.SCALES}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================TRIANGLES CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackTriangles"
+                  labelText="Triangles"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.TRIANGLES}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
+                {/* =========================MEMPHIS CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackMemphis"
+                  labelText="Memphis"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.MEMPHIS}
                   onChangeHandler={handleCardBackChange}
                   cardSetId={null}
                   cardSetPicId={null}
