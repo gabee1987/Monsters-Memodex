@@ -71,15 +71,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Project Dependencies (external libraries to add)
 
-monsters-memodex@0.1.0
-├── @testing-library/jest-dom@5.16.5
-├── @testing-library/react@13.3.0
-├── @testing-library/user-event@13.5.0
-├── react-dom@18.2.0
-├── react-router-dom@6.3.0
-├── react-scripts@5.0.1
-├── react-timer-hook@3.0.5 (yarn add react-timer-hook)
-├── react@18.2.0
-├── sass@1.54.4 (yarn add sass)
-├── vanilla-tilt@1.7.2 (yarn add vanilla-tilt)
-└── web-vitals@2.1.4
+monsters-memodex@0.1.0  
+├── @testing-library/jest-dom@5.16.5  
+├── @testing-library/react@13.3.0  
+├── @testing-library/user-event@13.5.0  
+├── react-dom@18.2.0  
+├── react-router-dom@6.3.0  
+├── react-scripts@5.0.1  
+├── react-timer-hook@3.0.5 (yarn add react-timer-hook)  
+├── react@18.2.0  
+├── sass@1.54.4 (yarn add sass)  
+├── vanilla-tilt@1.7.2 (yarn add vanilla-tilt)  
+└── web-vitals@2.1.4  
