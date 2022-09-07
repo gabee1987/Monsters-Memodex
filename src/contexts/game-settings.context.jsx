@@ -49,7 +49,7 @@ export const GameSettingsContext = createContext({
   setNumberOfCards: () => {},
   cardSet: CARDSET_SETTING_TYPES.MONSTERS,
   setCardSet: () => {},
-  cardBack: CARBACK_SETTING_TYPES.BASIC,
+  cardBack: CARBACK_SETTING_TYPES.BUBBLES,
   setCardBack: () => {},
 });
 
@@ -59,7 +59,7 @@ export const GameSettingsProvider = ({ children }) => {
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
   const [numberOfCards, setNumberOfCards] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
-  const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BASIC);
+  const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BUBBLES);
   // console.log('number of cards in context: ', numberOfCards);
   // console.log('mode in context is: ', mode);
   // console.log('cardSet in context is: ', cardSet);

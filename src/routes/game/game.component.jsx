@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useStopwatch } from 'react-timer-hook';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
@@ -25,18 +26,24 @@ const Game = (props) => {
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
 
+  const [gameStarted, setGameStarted] = useState(false);
+  const {
+    seconds: stopWatchSeconds,
+    minutes: stopWatchMinutes,
+    hours: stopWatchHours,
+    isRunning: stopWatchIsRunning,
+    start: startStopWatch,
+    pause: pauseStopWatch,
+    reset: resetStopWatch,
+  } = useStopwatch({ autoStart: false });
+
   // Create initial card deck
   useEffect(() => {
-    //console.log('need new game from context?', needNewGame);
     if (needNewGame) {
-      //console.log('numberOfCards in game start:', numberOfCards);
       setNumberOfCards(numberOfCards);
       initiateNewGame();
     } else {
-      // setInProgressDeck(inProgressDeck);
       setCardDeck(inProgressDeck);
-      //console.log('continue progressDeck...', inProgressDeck);
-      //console.log('continue cardDeck...', cardDeck);
     }
   }, []);
 
@@ -61,6 +68,8 @@ const Game = (props) => {
 
     setTurns(-1);
     resetTurn();
+    setGameStarted(false);
+    resetStopWatch(null, false);
   };
 
   // Create the initial card deck on game start
@@ -114,12 +123,24 @@ const Game = (props) => {
     }
   };
 
+  // First game start
+  const handleGameStart = () => {
+    setGameStarted(true);
+    console.log('game is started...');
+    startStopWatch();
+    console.log('timer started...');
+  };
+
   // Compare selected cards
   useEffect(() => {
     // Is any selected cards?
     if (firstChoice && secondChoice) {
       // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
       setDisabled(true);
+      // Set the timer when the game starting the first time
+      if (!gameStarted) {
+        handleGameStart();
+      }
       // Is the selected cards match?
       if (firstChoice.pictureId === secondChoice.pictureId) {
         //If so, set those cards property to paired
@@ -189,7 +210,10 @@ const Game = (props) => {
 
   return (
     <div className="game-container">
-      <GameControls newGameClick={handleNewGameClick} />
+      <GameControls
+        newGameClick={handleNewGameClick}
+        stopWatchSeconds={stopWatchSeconds}
+      />
       <CardList
         cards={cardDeck}
         handleChoice={handleChoice}
