@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useStopwatch } from 'react-timer-hook';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
@@ -20,20 +19,13 @@ const Game = (props) => {
   const [showWinModal, setShowWinModal] = useState(false);
 
   const { turns, setTurns } = useContext(GameStateContext);
+  const { timeCounter, setTimeCounter } = useContext(GameStateContext);
+
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
-
-  const [gameStarted, setGameStarted] = useState(false);
-  const {
-    seconds: stopWatchSeconds,
-    isRunning: stopWatchIsRunning,
-    start: startStopWatch,
-    pause: pauseStopWatch,
-    reset: resetStopWatch,
-  } = useStopwatch({ autoStart: false });
 
   // Create initial card deck
   useEffect(() => {
@@ -48,17 +40,10 @@ const Game = (props) => {
   const initiateNewGame = () => {
     const newCardDeck = createInitialCardDeck();
     if (cardDeck.length < 1) {
-      console.log('cardDeck size: ', cardDeck.length);
-      console.log('created cardDeck: ', newCardDeck);
-      //setCardDeck(newCardDeck);
-      console.log('new game cardDeck before shuffle: ', cardDeck);
     }
     // Set the shuffle animation state
     setIsShufflingActive(true);
     const shuffledCardDeck = shufflingCards(newCardDeck);
-    console.log('new game cardDeck: ', cardDeck);
-    console.log('number of card before new game: ', numberOfCards);
-    // setTimeout(() => cardDeck.forEach((card) => (card.isPaired = false)), 1450);
     setTimeout(() => setCardDeck(shuffledCardDeck), 855);
 
     // Remove the animation state
@@ -66,8 +51,7 @@ const Game = (props) => {
 
     setTurns(-1);
     resetTurn();
-    setGameStarted(false);
-    resetStopWatch(null, false);
+    setGameInProgress(false);
   };
 
   // Create the initial card deck on game start
@@ -99,9 +83,8 @@ const Game = (props) => {
     return shuffledCardDeck;
   };
 
-  // Shuffle cards on New Game click
+  // Start a New Game on click
   const handleNewGameClick = () => {
-    //console.log('new game runs...');
     setNeedNewGame(true);
     initiateNewGame();
   };
@@ -111,8 +94,11 @@ const Game = (props) => {
     if (card === firstChoice) {
       return;
     }
-    // Set game in progress state
-    setGameInProgress(true);
+
+    // Set the timer when the game starting the first time
+    if (!gameInProgress) {
+      handleGameStart();
+    }
 
     if (firstChoice != null) {
       setSecondChoice(card);
@@ -123,10 +109,9 @@ const Game = (props) => {
 
   // First game start
   const handleGameStart = () => {
-    setGameStarted(true);
+    // Set game in progress state
+    setGameInProgress(true);
     console.log('game is started...');
-    startStopWatch();
-    console.log('timer started...');
   };
 
   // Compare selected cards
@@ -135,10 +120,9 @@ const Game = (props) => {
     if (firstChoice && secondChoice) {
       // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
       setDisabled(true);
-      // Set the timer when the game starting the first time
-      if (!gameStarted) {
-        handleGameStart();
-      }
+
+      console.log('time counter: ', timeCounter);
+
       // Is the selected cards match?
       if (firstChoice.pictureId === secondChoice.pictureId) {
         //If so, set those cards property to paired
@@ -171,6 +155,9 @@ const Game = (props) => {
   useEffect(() => {
     // Show the win modal
     setTimeout(() => setShowWinModal(isWon), 1500);
+    // Stop the game
+    setGameInProgress(false);
+    //pauseStopWatch();
   }, [isWon]);
 
   // Check win condition
@@ -210,7 +197,7 @@ const Game = (props) => {
     <div className="game-container">
       <GameControls
         newGameClick={handleNewGameClick}
-        stopWatchSeconds={stopWatchSeconds}
+        stopWatchSeconds={timeCounter}
       />
       <CardList
         cards={cardDeck}
