@@ -37,8 +37,7 @@ const RadioInputPicLabel = ({
               selectedValueType === selectedValue ? 'selected-card-back' : ''
             }`}
             alt={`card-back-${labelText}`}
-            src={`/assets/card-back-${selectedValue}.png`}
-            // src={'/assets/card-back-' + selectedValue + '.png'}
+            src={require(`../../assets/card-back-${selectedValue}.png`)}
           />
         )}
       </div>
