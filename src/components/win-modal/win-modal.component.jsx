@@ -5,7 +5,7 @@ import './win-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const WinModal = (props) => {
-  const { show, turns, onClose } = props;
+  const { show, turns, time, onClose } = props;
   const hasTransitionedIn = useMountTransition(show, 1000);
 
   const handleClick = () => {
@@ -23,6 +23,16 @@ const WinModal = (props) => {
     });
   }, []);
 
+  // Convert the seconds to a time format
+  function formatTime(stopWatchSeconds) {
+    const h = Math.floor(stopWatchSeconds / 3600);
+    const m = Math.floor((stopWatchSeconds % 3600) / 60);
+    const s = Math.round(stopWatchSeconds % 60);
+    return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
+      .filter(Boolean)
+      .join(':');
+  }
+
   return (
     <div className="win-modal">
       {(hasTransitionedIn || show) && (
@@ -39,8 +49,10 @@ const WinModal = (props) => {
             <h1>Congratulations!</h1>
           </div>
           <div className="modal-body">
-            <span>Looks like your memory is still working! Hooray!</span>
-            <span>You completed the game in {turns} turns</span>
+            Looks like your memory is still working! Hooray! <br /> You
+            completed the game in
+            <span>{formatTime(time)}</span> and it took
+            <span>{turns}</span> turns
           </div>
           <div className="modal-footer">
             <button onClick={handleClick} className="modal-close-btn">

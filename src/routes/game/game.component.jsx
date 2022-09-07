@@ -211,6 +211,7 @@ const Game = (props) => {
         <WinModal
           show={showWinModal}
           turns={turns}
+          time={timeCounter}
           onClose={handleWinModalClose}
         />
       )}
