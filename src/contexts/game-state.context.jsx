@@ -15,15 +15,18 @@ export const GameStateContext = createContext({
   setNeedNewGame: () => {},
   timeCounter: 0,
   setTimeCounter: () => {},
+  gamePaused: false,
+  setGamePaused: () => {},
 });
 
 export const GameStateProvider = ({ children }) => {
   const [turns, setTurns] = useState(0);
-  const [timeCounter, setTimeCounter] = useState(0);
   const [gameInProgress, setGameInProgress] = useState(false);
   const [isWon, setIsWon] = useState(false);
-  const [inProgressDeck, setInProgressDeck] = useState([]);
+  const [inProgressDeck, setInProgressDeck] = useState(false);
   const [needNewGame, setNeedNewGame] = useState();
+  const [timeCounter, setTimeCounter] = useState(0);
+  const [gamePaused, setGamePaused] = useState(false);
 
   const value = {
     turns,
@@ -38,6 +41,8 @@ export const GameStateProvider = ({ children }) => {
     setNeedNewGame,
     timeCounter,
     setTimeCounter,
+    gamePaused,
+    setGamePaused,
   };
 
   const {
@@ -49,17 +54,25 @@ export const GameStateProvider = ({ children }) => {
   } = useStopwatch({ autoStart: false });
 
   useEffect(() => {
-    if (gameInProgress) {
+    if (gamePaused) {
+      pauseStopWatch();
+    } else if (!gamePaused && gameInProgress) {
+      startStopWatch();
+    }
+  }, [gamePaused]);
+
+  useEffect(() => {
+    if (gameInProgress && needNewGame) {
       resetStopWatch(null, false);
       startStopWatch();
       console.log('timer started...');
-    } else {
+    } else if (needNewGame && !gameInProgress) {
       pauseStopWatch();
+      resetStopWatch(null, false);
     }
   }, [gameInProgress]);
 
   useEffect(() => {
-    // console.log('time counter at: ', stopWatchSeconds);
     setTimeCounter(stopWatchSeconds);
   }, [stopWatchSeconds]);
 

@@ -20,6 +20,7 @@ const Game = (props) => {
 
   const { turns, setTurns } = useContext(GameStateContext);
   const { timeCounter, setTimeCounter } = useContext(GameStateContext);
+  const { gamePaused, setGamePaused } = useContext(GameStateContext);
 
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
@@ -100,6 +101,15 @@ const Game = (props) => {
       handleGameStart();
     }
 
+    // Continue the game if it was paused
+    if (gamePaused) {
+      setGamePaused(false);
+      setGameInProgress(true);
+      console.log('game will be continue...');
+      console.log('time at in game: ', timeCounter);
+    }
+    console.log('is game in progress at click?', gameInProgress);
+
     if (firstChoice != null) {
       setSecondChoice(card);
     } else {
@@ -120,8 +130,6 @@ const Game = (props) => {
     if (firstChoice && secondChoice) {
       // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
       setDisabled(true);
-
-      console.log('time counter: ', timeCounter);
 
       // Is the selected cards match?
       if (firstChoice.pictureId === secondChoice.pictureId) {
@@ -153,7 +161,6 @@ const Game = (props) => {
 
   // Show the win modal with stats
   useEffect(() => {
-    // Show the win modal
     setTimeout(() => setShowWinModal(isWon), 1500);
     // Stop the game
     setGameInProgress(false);
