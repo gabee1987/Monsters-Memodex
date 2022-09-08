@@ -8,11 +8,9 @@ import './navigation.styles.scss';
 const Navigation = () => {
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
-  const { inProgressDeck } = useContext(GameStateContext);
 
   // Pause the game when we leave the game page
   const handleGamePause = () => {
-    console.log('deck before leaving game component: ', inProgressDeck);
     setGamePaused(true);
   };
 

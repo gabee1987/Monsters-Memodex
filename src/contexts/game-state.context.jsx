@@ -84,10 +84,6 @@ export const GameStateProvider = ({ children }) => {
     setTimeCounter(stopWatchSeconds);
   }, [stopWatchSeconds]);
 
-  useEffect(() => {
-    console.log('inProgressDeck: ', inProgressDeck);
-  }, [inProgressDeck]);
-
   return (
     <GameStateContext.Provider value={value}>
       {children}

@@ -37,10 +37,8 @@ const Game = (props) => {
       initiateNewGame();
     } else if (inProgressDeck != null) {
       let savedCards = getCurrentDeckFromLocalStorage();
-      console.log('cards from local storage', savedCards);
       setCardDeck(savedCards);
     }
-    console.log('deck on game component start: ', inProgressDeck);
   }, []);
 
   const initiateNewGame = () => {
@@ -148,15 +146,14 @@ const Game = (props) => {
           });
         });
         resetTurn();
-        console.log('why save?', cardDeck);
       } else {
         setTimeout(() => resetTurn(), 1000);
       }
     }
   }, [firstChoice, secondChoice]);
 
+  // Save the current progress to the context
   useEffect(() => {
-    // Save the current progress to the context
     setTimeout(() => setInProgressDeck(cardDeck), 500);
     setTimeout(() => saveCurrentDeckToLocalStorage(cardDeck), 500);
   }, [cardDeck]);
