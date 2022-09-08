@@ -17,6 +17,7 @@ const Game = (props) => {
   const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [showWinModal, setShowWinModal] = useState(false);
+  const [winTime, setWinTime] = useState(0);
 
   const { turns, setTurns } = useContext(GameStateContext);
   const { timeCounter, setTimeCounter } = useContext(GameStateContext);
@@ -153,15 +154,17 @@ const Game = (props) => {
   // Check win condition
   useEffect(() => {
     const winState = checkWinCondition(cardDeck);
-    setIsWon(winState);
+    if (winState) {
+      setIsWon(winState);
+    }
   }, [cardDeck]);
 
   // Show the win modal with stats
   useEffect(() => {
     setTimeout(() => setShowWinModal(isWon), 1500);
-    // Stop the game
+    // Save win time and Stop the game
+    setWinTime(timeCounter);
     setGameInProgress(false);
-    //pauseStopWatch();
   }, [isWon]);
 
   // Check win condition
@@ -215,7 +218,7 @@ const Game = (props) => {
         <WinModal
           show={showWinModal}
           turns={turns}
-          time={timeCounter}
+          time={winTime}
           onClose={handleWinModalClose}
         />
       )}

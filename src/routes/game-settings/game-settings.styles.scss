@@ -86,9 +86,9 @@
       content: '';
       position: absolute;
       top: 0rem;
-      right: 0rem;
+      right: 0.5rem;
       bottom: 0rem;
-      left: 0rem;
+      left: 0.5rem;
       border-radius: 15px;
       border: dotted 4px #ffff00;
       transform: translateZ(50px);
@@ -189,7 +189,7 @@
       cursor: pointer;
       color: #73ffca;
       padding: 0rem;
-      padding-top: 2rem;
+      padding-top: 1rem;
       transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
         color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
       text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;

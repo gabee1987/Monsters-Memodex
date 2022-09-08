@@ -71,6 +71,7 @@ export const GameStateProvider = ({ children }) => {
     } else if (needNewGame && !gameInProgress) {
       pauseStopWatch();
       resetStopWatch(null, false);
+      console.log('ez fut most');
     }
   }, [gameInProgress]);
 
