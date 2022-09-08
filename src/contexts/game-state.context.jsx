@@ -56,8 +56,10 @@ export const GameStateProvider = ({ children }) => {
   useEffect(() => {
     if (gamePaused) {
       pauseStopWatch();
+      console.log('game paused!');
     } else if (!gamePaused && gameInProgress) {
       startStopWatch();
+      console.log('game continued...');
     }
   }, [gamePaused]);
 
@@ -65,7 +67,7 @@ export const GameStateProvider = ({ children }) => {
     if (gameInProgress && needNewGame) {
       resetStopWatch(null, false);
       startStopWatch();
-      console.log('timer started...');
+      console.log('time counter started...');
     } else if (needNewGame && !gameInProgress) {
       pauseStopWatch();
       resetStopWatch(null, false);
@@ -73,6 +75,7 @@ export const GameStateProvider = ({ children }) => {
   }, [gameInProgress]);
 
   useEffect(() => {
+    // console.log('time counter at: ', stopWatchSeconds);
     setTimeCounter(stopWatchSeconds);
   }, [stopWatchSeconds]);
 

@@ -105,10 +105,7 @@ const Game = (props) => {
     if (gamePaused) {
       setGamePaused(false);
       setGameInProgress(true);
-      console.log('game will be continue...');
-      console.log('time at in game: ', timeCounter);
     }
-    console.log('is game in progress at click?', gameInProgress);
 
     if (firstChoice != null) {
       setSecondChoice(card);
