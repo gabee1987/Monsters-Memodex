@@ -17,12 +17,15 @@ export const GameStateContext = createContext({
   setTimeCounter: () => {},
   gamePaused: false,
   setGamePaused: () => {},
+  winModalShown: false,
+  setWinModalShown: () => {},
 });
 
 export const GameStateProvider = ({ children }) => {
   const [turns, setTurns] = useState(0);
   const [gameInProgress, setGameInProgress] = useState(false);
   const [isWon, setIsWon] = useState(false);
+  const [winModalShown, setWinModalShown] = useState(false);
   const [inProgressDeck, setInProgressDeck] = useState(false);
   const [needNewGame, setNeedNewGame] = useState();
   const [timeCounter, setTimeCounter] = useState(0);
@@ -43,6 +46,8 @@ export const GameStateProvider = ({ children }) => {
     setTimeCounter,
     gamePaused,
     setGamePaused,
+    winModalShown,
+    setWinModalShown,
   };
 
   const {

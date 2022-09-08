@@ -22,6 +22,7 @@ const Game = (props) => {
   const { turns, setTurns } = useContext(GameStateContext);
   const { timeCounter, setTimeCounter } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
+  const { winModalShown, setWinModalShown } = useContext(GameStateContext);
 
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
@@ -40,6 +41,8 @@ const Game = (props) => {
   }, []);
 
   const initiateNewGame = () => {
+    console.log('winmodal shown at start:', winModalShown);
+
     const newCardDeck = createInitialCardDeck();
     if (cardDeck.length < 1) {
     }
@@ -54,6 +57,7 @@ const Game = (props) => {
     setTurns(-1);
     resetTurn();
     setGameInProgress(false);
+    setWinModalShown(false);
   };
 
   // Create the initial card deck on game start
@@ -161,10 +165,18 @@ const Game = (props) => {
 
   // Show the win modal with stats
   useEffect(() => {
+    console.log('winmodal shown at show:', winModalShown);
+    // if (winModalShown) {
+    //   return;
+    // }
     setTimeout(() => setShowWinModal(isWon), 1500);
     // Save win time and Stop the game
     setWinTime(timeCounter);
     setGameInProgress(false);
+    setTimeout(() => setWinModalShown(true), 1000);
+    // if (isWon) {
+
+    // }
   }, [isWon]);
 
   // Check win condition
