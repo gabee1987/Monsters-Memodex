@@ -15,7 +15,7 @@ const Game = (props) => {
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   const [isShufflingActive, setIsShufflingActive] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [cardDisabled, setCardDisabled] = useState(false);
   const [showWinModal, setShowWinModal] = useState(false);
   const [winTime, setWinTime] = useState(0);
 
@@ -35,14 +35,15 @@ const Game = (props) => {
     if (needNewGame) {
       setNumberOfCards(numberOfCards);
       initiateNewGame();
-    } else {
-      setCardDeck(inProgressDeck);
+    } else if (inProgressDeck != null) {
+      let savedCards = getCurrentDeckFromLocalStorage();
+      console.log('cards from local storage', savedCards);
+      setCardDeck(savedCards);
     }
+    console.log('deck on game component start: ', inProgressDeck);
   }, []);
 
   const initiateNewGame = () => {
-    console.log('winmodal shown at start:', gameOver);
-
     const newCardDeck = createInitialCardDeck();
     if (cardDeck.length < 1) {
     }
@@ -57,7 +58,6 @@ const Game = (props) => {
     setTurns(-1);
     resetTurn();
     setGameInProgress(false);
-    setGameOver(false);
   };
 
   // Create the initial card deck on game start
@@ -92,6 +92,7 @@ const Game = (props) => {
   // Start a New Game on click
   const handleNewGameClick = () => {
     setNeedNewGame(true);
+    setGameOver(false);
     initiateNewGame();
   };
 
@@ -131,7 +132,7 @@ const Game = (props) => {
     // Is any selected cards?
     if (firstChoice && secondChoice) {
       // Set all the cards to disabled to not be able to click them while the compairing and flip animation is running
-      setDisabled(true);
+      setCardDisabled(true);
 
       // Is the selected cards match?
       if (firstChoice.pictureId === secondChoice.pictureId) {
@@ -147,28 +148,31 @@ const Game = (props) => {
           });
         });
         resetTurn();
+        console.log('why save?', cardDeck);
       } else {
         setTimeout(() => resetTurn(), 1000);
       }
     }
-    // Save the current progress to the context
-    setInProgressDeck(cardDeck);
   }, [firstChoice, secondChoice]);
+
+  useEffect(() => {
+    // Save the current progress to the context
+    setTimeout(() => setInProgressDeck(cardDeck), 500);
+    setTimeout(() => saveCurrentDeckToLocalStorage(cardDeck), 500);
+  }, [cardDeck]);
 
   // Check win condition
   useEffect(() => {
     const winState = checkWinCondition(cardDeck);
-    if (winState) {
-      setIsWon(winState);
-    }
+    setIsWon(winState);
   }, [cardDeck]);
 
   // Show the win modal with stats
   useEffect(() => {
-    console.log('game over?', gameOver);
-    if (gameOver) {
-      return;
-    }
+    // console.log('game over?', gameOver);
+    // if (gameOver) {
+    //   return;
+    // }
     setTimeout(() => setShowWinModal(isWon), 1500);
     // Save win time and Stop the game
     setWinTime(timeCounter);
@@ -206,7 +210,19 @@ const Game = (props) => {
     setTurns((prevTurns) => prevTurns + 1);
 
     // Cancel the disabled state of the cards
-    setTimeout(() => setDisabled(false), 200);
+    setTimeout(() => setCardDisabled(false), 200);
+  };
+
+  const saveCurrentDeckToLocalStorage = (cards) => {
+    localStorage.setItem('inProgressDeck', JSON.stringify(cards));
+    console.log('deck is saved to local storage:', cards);
+  };
+
+  const getCurrentDeckFromLocalStorage = () => {
+    const cards = JSON.parse(localStorage.getItem('inProgressDeck'));
+    if (cards) {
+      return cards;
+    }
   };
 
   return (
@@ -221,7 +237,7 @@ const Game = (props) => {
         firstChoice={firstChoice}
         secondChoice={secondChoice}
         isShufflingActive={isShufflingActive}
-        disabled={disabled}
+        disabled={cardDisabled}
       />
       {showWinModal && (
         <WinModal

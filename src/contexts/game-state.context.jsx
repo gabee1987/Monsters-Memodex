@@ -26,7 +26,7 @@ export const GameStateProvider = ({ children }) => {
   const [gameInProgress, setGameInProgress] = useState(false);
   const [isWon, setIsWon] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [inProgressDeck, setInProgressDeck] = useState(false);
+  const [inProgressDeck, setInProgressDeck] = useState([]);
   const [needNewGame, setNeedNewGame] = useState();
   const [timeCounter, setTimeCounter] = useState(0);
   const [gamePaused, setGamePaused] = useState(false);
@@ -76,7 +76,6 @@ export const GameStateProvider = ({ children }) => {
     } else if (needNewGame && !gameInProgress) {
       pauseStopWatch();
       resetStopWatch(null, false);
-      console.log('ez fut most');
     }
   }, [gameInProgress]);
 
@@ -84,6 +83,10 @@ export const GameStateProvider = ({ children }) => {
     // console.log('time counter at: ', stopWatchSeconds);
     setTimeCounter(stopWatchSeconds);
   }, [stopWatchSeconds]);
+
+  useEffect(() => {
+    console.log('inProgressDeck: ', inProgressDeck);
+  }, [inProgressDeck]);
 
   return (
     <GameStateContext.Provider value={value}>

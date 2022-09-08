@@ -26,6 +26,8 @@ const cardSetPictureId = Math.floor(Math.random() * 100);
 const Settings = () => {
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
+  const { inProgressDeck } = useContext(GameStateContext);
+
   const { mode, setMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
@@ -73,6 +75,7 @@ const Settings = () => {
 
   // GAME BUTTON HANDLES
   const handleBackClick = () => {
+    console.log('deck before going back from settings:', inProgressDeck);
     setNeedNewGame(false);
     navigate(-1);
   };
