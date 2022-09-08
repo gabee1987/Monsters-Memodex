@@ -8,7 +8,7 @@ export const TAB_VALUES = {
 export const MODE_SETTING_TYPES = {
   TIME_BASED: 'TIME_BASED',
   TURN_BASED: 'TURN_BASED',
-  RELAXED: 'RELAXED',
+  FREE: 'FREE',
 };
 
 export const DIFFICULTY_SETTING_TYPES = {
@@ -46,7 +46,7 @@ export const CARBACK_SETTING_TYPES = {
 export const GameSettingsContext = createContext({
   activeTab: TAB_VALUES.GAME_TAB,
   setActiveTab: () => {},
-  mode: MODE_SETTING_TYPES.RELAXED,
+  mode: MODE_SETTING_TYPES.FREE,
   setMode: () => {},
   difficulty: DIFFICULTY_SETTING_TYPES.EASY,
   setDifficulty: () => {},
@@ -60,7 +60,7 @@ export const GameSettingsContext = createContext({
 
 export const GameSettingsProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
-  const [mode, setMode] = useState(MODE_SETTING_TYPES.RELAXED);
+  const [mode, setMode] = useState(MODE_SETTING_TYPES.FREE);
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
   const [numberOfCards, setNumberOfCards] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);

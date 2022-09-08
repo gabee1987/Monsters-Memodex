@@ -21,6 +21,7 @@ const Game = (props) => {
 
   const { turns, setTurns } = useContext(GameStateContext);
   const { timeCounter, setTimeCounter } = useContext(GameStateContext);
+  const { timeLeft, setTimeLeft } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { gameOver, setGameOver } = useContext(GameStateContext);
 
@@ -227,6 +228,7 @@ const Game = (props) => {
       <GameControls
         newGameClick={handleNewGameClick}
         stopWatchSeconds={timeCounter}
+        timerSeconds={timeLeft}
       />
       <CardList
         cards={cardDeck}

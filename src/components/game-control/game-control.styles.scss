@@ -1,15 +1,15 @@
 .button-container {
-  margin: 3em 0.3em 1em 0;
+  margin: 1rem 0rem 1rem 0;
   display: flex;
   justify-content: flex-end;
-}
 
-.turn-counter {
-  pointer-events: none;
-  margin: 0 0 0 1em;
-}
+  .game-control {
+    position: relative;
+    min-width: 140px;
+  }
 
-.time-counter {
-  pointer-events: none;
-  margin: 0 0 0 1em;
+  .game-stat {
+    pointer-events: none;
+    margin: 0 0 0 1em;
+  }
 }

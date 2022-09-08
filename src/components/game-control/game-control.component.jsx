@@ -1,10 +1,14 @@
 import { useContext } from 'react';
 import { GameStateContext } from '../../contexts/game-state.context';
+import { GameSettingsContext } from '../../contexts/game-settings.context';
+
+import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
 
 import './game-control.styles.scss';
 
-const GameControls = ({ newGameClick, stopWatchSeconds }) => {
+const GameControls = ({ newGameClick, stopWatchSeconds, timerSeconds }) => {
   const { turns } = useContext(GameStateContext);
+  const { mode } = useContext(GameSettingsContext);
 
   // Convert the seconds to a time format
   function formatTime(stopWatchSeconds) {
@@ -18,13 +22,27 @@ const GameControls = ({ newGameClick, stopWatchSeconds }) => {
 
   return (
     <div className="button-container">
-      <button className="btn new-game-btn" onClick={newGameClick}>
+      <button className="btn game-control new-game-btn" onClick={newGameClick}>
         NEW GAME
       </button>
-      <button className="btn time-counter">
-        TIME: <span>{formatTime(stopWatchSeconds)}</span>
+      {mode === MODE_SETTING_TYPES.FREE && (
+        <button className="btn game-control game-stat time-elapsed-btn">
+          TIME: <span>{formatTime(stopWatchSeconds)}</span>
+        </button>
+      )}
+      {mode === MODE_SETTING_TYPES.TIME_BASED && (
+        <button className="btn game-control game-stat time-left-btn">
+          TIME LEFT: <span>{formatTime(timerSeconds)}</span>
+        </button>
+      )}
+      {mode === MODE_SETTING_TYPES.TURN_BASED && (
+        <button className="btn game-control game-stat turn-left-btn">
+          TURN LEFT: <span>{formatTime(stopWatchSeconds)}</span>
+        </button>
+      )}
+      <button className="btn game-control game-stat turn-taken-btn">
+        TURNS: {turns}
       </button>
-      <button className="btn turn-counter">TURNS: {turns}</button>
     </div>
   );
 };

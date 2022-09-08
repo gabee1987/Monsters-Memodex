@@ -1,6 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { createContext, useState } from 'react';
-import { useStopwatch } from 'react-timer-hook';
+import { useStopwatch, useTimer } from 'react-timer-hook';
+
+import { GameSettingsContext } from './game-settings.context';
+import { MODE_SETTING_TYPES } from './game-settings.context';
 
 export const GameStateContext = createContext({
   turns: 0,
@@ -19,6 +22,8 @@ export const GameStateContext = createContext({
   setGamePaused: () => {},
   gameOver: false,
   setGameOver: () => {},
+  timeLeft: 0,
+  setTimeLeft: () => {},
 });
 
 export const GameStateProvider = ({ children }) => {
@@ -30,6 +35,9 @@ export const GameStateProvider = ({ children }) => {
   const [needNewGame, setNeedNewGame] = useState();
   const [timeCounter, setTimeCounter] = useState(0);
   const [gamePaused, setGamePaused] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+
+  const { mode } = useContext(GameSettingsContext);
 
   const value = {
     turns,
@@ -48,7 +56,14 @@ export const GameStateProvider = ({ children }) => {
     setGamePaused,
     gameOver,
     setGameOver,
+    timeLeft,
+    setTimeLeft,
   };
+
+  const time = new Date();
+  console.log('time: ', time);
+  const expiryTimestamp = time.setSeconds(time.getSeconds() + 300);
+  console.log('expire: ', expiryTimestamp);
 
   const {
     seconds: stopWatchSeconds,
@@ -58,24 +73,52 @@ export const GameStateProvider = ({ children }) => {
     reset: resetStopWatch,
   } = useStopwatch({ autoStart: false });
 
+  const {
+    seconds: timerSeconds,
+    isRunning: timerIsRunning,
+    start: startTimer,
+    pause: pauseTimer,
+    resume: resumeTimer,
+    restart: restartTimer,
+  } = useTimer(expiryTimestamp);
+
   useEffect(() => {
     if (gamePaused) {
-      pauseStopWatch();
       console.log('game paused!');
+      if (mode === MODE_SETTING_TYPES.FREE) {
+        pauseStopWatch();
+      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+        pauseTimer();
+      }
     } else if (!gamePaused && gameInProgress) {
-      startStopWatch();
+      if (mode === MODE_SETTING_TYPES.FREE) {
+        startStopWatch();
+      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+        startTimer(1000);
+      }
       console.log('game continued...');
     }
   }, [gamePaused]);
 
   useEffect(() => {
     if (gameInProgress && needNewGame) {
-      resetStopWatch(null, false);
-      startStopWatch();
-      console.log('time counter started...');
+      if (mode === MODE_SETTING_TYPES.FREE) {
+        resetStopWatch(null, false);
+        startStopWatch();
+        console.log('time counter started...');
+      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+        // resetTimer(null, false);
+        // startTimer();
+        restartTimer(1000);
+      }
     } else if (needNewGame && !gameInProgress) {
-      pauseStopWatch();
-      resetStopWatch(null, false);
+      if (mode === MODE_SETTING_TYPES.FREE) {
+        pauseStopWatch();
+        resetStopWatch(null, false);
+      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+        // pauseTimer();
+        restartTimer(null, false);
+      }
     }
   }, [gameInProgress]);
 
@@ -83,6 +126,11 @@ export const GameStateProvider = ({ children }) => {
     // console.log('time counter at: ', stopWatchSeconds);
     setTimeCounter(stopWatchSeconds);
   }, [stopWatchSeconds]);
+
+  useEffect(() => {
+    // console.log('timer at: ', timerSeconds);
+    setTimeLeft(timerSeconds);
+  }, [timerSeconds]);
 
   return (
     <GameStateContext.Provider value={value}>
