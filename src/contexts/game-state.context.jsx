@@ -116,9 +116,9 @@ export const GameStateProvider = ({ children }) => {
     const expiryTimestamp = GetActualTimeInSeconds(20);
     // console.log('initial time set: ', expiryTimestamp);
 
-    restartTimer(expiryTimestamp, false);
+    // restartTimer(expiryTimestamp);
     // pauseTimer();
-    setTimeLeft(expiryTimestamp);
+    // setTimeLeft(expiryTimestamp);
   }, [needNewGame]);
 
   // Start the timer when a game starts
