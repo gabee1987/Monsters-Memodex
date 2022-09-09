@@ -43,6 +43,20 @@ export const CARBACK_SETTING_TYPES = {
   MEMPHIS: 'memphis',
 };
 
+export const TIMER_SECONDS_BASED_ON_CARD_NUMBERS = {
+  TIMER_DEFAULT: 100,
+  TIMER_AT_2_CARDS: 20,
+  TIMER_AT_4_CARDS: 40,
+  TIMER_AT_6_CARDS: 60,
+  TIMER_AT_8_CARDS: 100,
+  TIMER_AT_10_CARDS: 140,
+  TIMER_AT_12_CARDS: 180,
+  TIMER_AT_14_CARDS: 220,
+  TIMER_AT_16_CARDS: 280,
+  TIMER_AT_18_CARDS: 340,
+  TIMER_AT_20_CARDS: 460,
+};
+
 export const GameSettingsContext = createContext({
   activeTab: TAB_VALUES.GAME_TAB,
   setActiveTab: () => {},
