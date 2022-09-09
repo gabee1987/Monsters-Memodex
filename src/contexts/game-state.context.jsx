@@ -61,9 +61,9 @@ export const GameStateProvider = ({ children }) => {
   };
 
   const time = new Date();
-  console.log('time: ', time);
-  const expiryTimestamp = time.setSeconds(time.getSeconds() + 300);
-  console.log('expire: ', expiryTimestamp);
+  const expiryTimestamp = time.setSeconds(time.getSeconds() + 20);
+  // console.log('time: ', time);
+  // console.log('expire: ', expiryTimestamp);
 
   const {
     seconds: stopWatchSeconds,
@@ -80,53 +80,70 @@ export const GameStateProvider = ({ children }) => {
     pause: pauseTimer,
     resume: resumeTimer,
     restart: restartTimer,
-  } = useTimer(expiryTimestamp);
+  } = useTimer({
+    expiryTimestamp,
+    autoStart: false,
+    onExpire: () => console.warn('Time is up!'),
+  });
 
+  // Pause/start the stopwatch when a game starts or pauses
   useEffect(() => {
     if (gamePaused) {
-      console.log('game paused!');
-      if (mode === MODE_SETTING_TYPES.FREE) {
-        pauseStopWatch();
-      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-        pauseTimer();
-      }
+      pauseStopWatch();
+      console.log('Time counter paused!');
     } else if (!gamePaused && gameInProgress) {
-      if (mode === MODE_SETTING_TYPES.FREE) {
-        startStopWatch();
-      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-        startTimer(1000);
-      }
-      console.log('game continued...');
+      startStopWatch();
+      console.log('Time counter continued...');
     }
   }, [gamePaused]);
 
+  // Pause/start the timer when a game starts or pauses
   useEffect(() => {
-    if (gameInProgress && needNewGame) {
-      if (mode === MODE_SETTING_TYPES.FREE) {
+    const expiryTimestamp = time.setSeconds(time.getSeconds() + 20);
+    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (gamePaused) {
+        pauseTimer();
+        console.log('Timer paused!');
+      } else if (!gamePaused && gameInProgress) {
+        startTimer(1000);
+        console.log('Timer continued...');
+      }
+    }
+  }, [gamePaused]);
+
+  // Start the stopwatch when a game starts
+  useEffect(() => {
+    if (mode === MODE_SETTING_TYPES.FREE) {
+      if (gameInProgress && needNewGame) {
         resetStopWatch(null, false);
         startStopWatch();
         console.log('time counter started...');
-      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-        // resetTimer(null, false);
-        // startTimer();
-        restartTimer(1000);
-      }
-    } else if (needNewGame && !gameInProgress) {
-      if (mode === MODE_SETTING_TYPES.FREE) {
+      } else if (needNewGame && !gameInProgress) {
         pauseStopWatch();
         resetStopWatch(null, false);
-      } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-        // pauseTimer();
+      }
+    }
+  }, [gameInProgress]);
+
+  // Start the timer when a game starts
+  useEffect(() => {
+    const expiryTimestamp = time.setSeconds(time.getSeconds() + 20);
+    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (gameInProgress && needNewGame) {
+        restartTimer(1000);
+      } else if (needNewGame && !gameInProgress) {
         restartTimer(null, false);
       }
     }
   }, [gameInProgress]);
 
+  // Update the stopwatch time at every seconds
   useEffect(() => {
     // console.log('time counter at: ', stopWatchSeconds);
     setTimeCounter(stopWatchSeconds);
   }, [stopWatchSeconds]);
 
+  // Update the timer at every seconds
   useEffect(() => {
     // console.log('timer at: ', timerSeconds);
     setTimeLeft(timerSeconds);
