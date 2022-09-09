@@ -228,7 +228,6 @@ const Game = (props) => {
       <GameControls
         newGameClick={handleNewGameClick}
         stopWatchSeconds={timeCounter}
-        timerSeconds={timeLeft}
       />
       <CardList
         cards={cardDeck}

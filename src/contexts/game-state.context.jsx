@@ -26,6 +26,11 @@ export const GameStateContext = createContext({
   setTimeLeft: () => {},
 });
 
+const GetActualTimeInSeconds = (secondsToShiftWith) => {
+  let time = new Date();
+  return time.setSeconds(time.getSeconds() + secondsToShiftWith);
+};
+
 export const GameStateProvider = ({ children }) => {
   const [turns, setTurns] = useState(0);
   const [gameInProgress, setGameInProgress] = useState(false);
@@ -35,7 +40,7 @@ export const GameStateProvider = ({ children }) => {
   const [needNewGame, setNeedNewGame] = useState();
   const [timeCounter, setTimeCounter] = useState(0);
   const [gamePaused, setGamePaused] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(GetActualTimeInSeconds(0));
 
   const { mode } = useContext(GameSettingsContext);
 
@@ -60,11 +65,6 @@ export const GameStateProvider = ({ children }) => {
     setTimeLeft,
   };
 
-  const time = new Date();
-  const expiryTimestamp = time.setSeconds(time.getSeconds() + 20);
-  // console.log('time: ', time);
-  // console.log('expire: ', expiryTimestamp);
-
   const {
     seconds: stopWatchSeconds,
     isRunning: stopWatchIsRunning,
@@ -81,35 +81,10 @@ export const GameStateProvider = ({ children }) => {
     resume: resumeTimer,
     restart: restartTimer,
   } = useTimer({
-    expiryTimestamp,
+    expiryTimestamp: timeLeft,
     autoStart: false,
     onExpire: () => console.warn('Time is up!'),
   });
-
-  // Pause/start the stopwatch when a game starts or pauses
-  useEffect(() => {
-    if (gamePaused) {
-      pauseStopWatch();
-      console.log('Time counter paused!');
-    } else if (!gamePaused && gameInProgress) {
-      startStopWatch();
-      console.log('Time counter continued...');
-    }
-  }, [gamePaused]);
-
-  // Pause/start the timer when a game starts or pauses
-  useEffect(() => {
-    const expiryTimestamp = time.setSeconds(time.getSeconds() + 20);
-    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-      if (gamePaused) {
-        pauseTimer();
-        console.log('Timer paused!');
-      } else if (!gamePaused && gameInProgress) {
-        startTimer(1000);
-        console.log('Timer continued...');
-      }
-    }
-  }, [gamePaused]);
 
   // Start the stopwatch when a game starts
   useEffect(() => {
@@ -125,17 +100,55 @@ export const GameStateProvider = ({ children }) => {
     }
   }, [gameInProgress]);
 
+  // Pause/start the stopwatch when a game starts or pauses
+  useEffect(() => {
+    if (gamePaused) {
+      pauseStopWatch();
+      console.log('Time counter paused!');
+    } else if (!gamePaused && gameInProgress) {
+      startStopWatch();
+      console.log('Time counter continued...');
+    }
+  }, [gamePaused]);
+
+  // Set the timer when the game starts
+  useEffect(() => {
+    const expiryTimestamp = GetActualTimeInSeconds(20);
+    // console.log('initial time set: ', expiryTimestamp);
+
+    restartTimer(expiryTimestamp, false);
+    // pauseTimer();
+    setTimeLeft(expiryTimestamp);
+  }, [needNewGame]);
+
   // Start the timer when a game starts
   useEffect(() => {
-    const expiryTimestamp = time.setSeconds(time.getSeconds() + 20);
+    const expiryTimestamp = GetActualTimeInSeconds(20);
+    console.log('time set at start: ', expiryTimestamp);
+
     if (mode === MODE_SETTING_TYPES.TIME_BASED) {
       if (gameInProgress && needNewGame) {
-        restartTimer(1000);
+        restartTimer(expiryTimestamp);
       } else if (needNewGame && !gameInProgress) {
-        restartTimer(null, false);
+        restartTimer(expiryTimestamp, false);
       }
     }
   }, [gameInProgress]);
+
+  // Pause/start the timer when a game starts or pauses
+  useEffect(() => {
+    const expiryTimestamp = GetActualTimeInSeconds(20);
+
+    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (gamePaused) {
+        pauseTimer();
+        console.log('Timer paused at: ', timeLeft);
+      } else if (!gamePaused && gameInProgress) {
+        resumeTimer();
+        console.log('Timer continued at: ', timeLeft);
+      }
+    }
+  }, [gamePaused]);
 
   // Update the stopwatch time at every seconds
   useEffect(() => {

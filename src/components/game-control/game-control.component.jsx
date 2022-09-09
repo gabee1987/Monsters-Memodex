@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { GameStateContext } from '../../contexts/game-state.context';
 import { GameSettingsContext } from '../../contexts/game-settings.context';
 
@@ -6,19 +6,28 @@ import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
 
 import './game-control.styles.scss';
 
-const GameControls = ({ newGameClick, stopWatchSeconds, timerSeconds }) => {
+const GameControls = ({ newGameClick, stopWatchSeconds }) => {
   const { turns } = useContext(GameStateContext);
+  const { timeLeft, setTimeLeft } = useContext(GameStateContext);
+
   const { mode } = useContext(GameSettingsContext);
 
   // Convert the seconds to a time format
-  function formatTime(stopWatchSeconds) {
-    const h = Math.floor(stopWatchSeconds / 3600);
-    const m = Math.floor((stopWatchSeconds % 3600) / 60);
-    const s = Math.round(stopWatchSeconds % 60);
+  function formatTime(timeToFormat) {
+    const h = Math.floor(timeToFormat / 3600);
+    const m = Math.floor((timeToFormat % 3600) / 60);
+    const s = Math.round(timeToFormat % 60);
     return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
       .filter(Boolean)
       .join(':');
   }
+
+  useEffect(() => {
+    let formattedTime = formatTime(timeLeft);
+    console.log('time from context: ', timeLeft);
+    console.log('formatted time: ', formattedTime);
+    // setTimeLeft(formattedTime);
+  }, [timeLeft]);
 
   return (
     <div className="button-container">
@@ -32,7 +41,7 @@ const GameControls = ({ newGameClick, stopWatchSeconds, timerSeconds }) => {
       )}
       {mode === MODE_SETTING_TYPES.TIME_BASED && (
         <button className="btn game-control game-stat time-left-btn">
-          TIME LEFT: <span>{formatTime(timerSeconds)}</span>
+          TIME LEFT: <span>{formatTime(timeLeft)}</span>
         </button>
       )}
       {mode === MODE_SETTING_TYPES.TURN_BASED && (
