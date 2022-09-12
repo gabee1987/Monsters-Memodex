@@ -203,7 +203,7 @@ const Settings = () => {
             </div>
 
             <div className="settings-category card-number-settings">
-              <span>Number of Cards</span>
+              <span>Number of Pairs</span>
               <div className="settings-input-group card-number-group">
                 <label htmlFor="cardNumberSlider">
                   {numberOfCards}
