@@ -24,10 +24,10 @@ import VanillaTilt from 'vanilla-tilt';
 const cardSetPictureId = Math.floor(Math.random() * 100);
 
 const Settings = () => {
-  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
-  const { gamePaused, setGamePaused } = useContext(GameStateContext);
-  const { inProgressDeck } = useContext(GameStateContext);
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
+  const { gamePaused, setGamePaused } = useContext(GameStateContext);
+  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+  const { inProgressDeck } = useContext(GameStateContext);
 
   const { mode, setMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
@@ -85,7 +85,8 @@ const Settings = () => {
     // if (needNewGame) {
     //   setNeedNewGame(false);
     // }
-    // setNeedNewGame(true);
+    setNeedNewGame(true);
+    setGamePaused(false);
     // setGameInProgress(false);
     // setTimeout(() => setNeedNewGame(true), 200);
     navigate('/game');

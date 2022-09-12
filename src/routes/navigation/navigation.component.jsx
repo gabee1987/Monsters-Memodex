@@ -12,6 +12,7 @@ const Navigation = () => {
   // Pause the game when we leave the game page
   const handleGamePause = () => {
     setGamePaused(true);
+    // setGameInProgress(false);
   };
 
   return (
