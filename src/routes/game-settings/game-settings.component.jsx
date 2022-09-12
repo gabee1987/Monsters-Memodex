@@ -27,6 +27,7 @@ const Settings = () => {
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { inProgressDeck } = useContext(GameStateContext);
+  const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
 
   const { mode, setMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
@@ -81,7 +82,12 @@ const Settings = () => {
   };
 
   const handleStartClick = () => {
-    setNeedNewGame(true);
+    // if (needNewGame) {
+    //   setNeedNewGame(false);
+    // }
+    // setNeedNewGame(true);
+    // setGameInProgress(false);
+    // setTimeout(() => setNeedNewGame(true), 200);
     navigate('/game');
   };
 

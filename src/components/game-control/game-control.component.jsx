@@ -22,12 +22,12 @@ const GameControls = ({ newGameClick, stopWatchSeconds }) => {
       .join(':');
   }
 
-  // useEffect(() => {
-  //   let formattedTime = formatTime(timeLeft);
-  //   console.log('time from context: ', timeLeft);
-  //   console.log('formatted time: ', formattedTime);
-  //   // setTimeLeft(formattedTime);
-  // }, [timeLeft]);
+  useEffect(() => {
+    let formattedTime = formatTime(timeLeft);
+    console.log('time from context: ', timeLeft);
+    console.log('formatted time: ', formattedTime);
+    // setTimeLeft(formattedTime);
+  }, [timeLeft]);
 
   return (
     <div className="button-container">
