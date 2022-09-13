@@ -20,10 +20,10 @@ const Game = (props) => {
   const [winTime, setWinTime] = useState(0);
 
   const { turns, setTurns } = useContext(GameStateContext);
-  const { timeCounter, setTimeCounter } = useContext(GameStateContext);
-  const { timeLeft, setTimeLeft } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { gameOver, setGameOver } = useContext(GameStateContext);
+  const { timeLeft } = useContext(GameStateContext);
+  const { timeElapsed } = useContext(GameStateContext);
 
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
@@ -173,7 +173,7 @@ const Game = (props) => {
     // }
     setTimeout(() => setShowWinModal(isWon), 1500);
     // Save win time and Stop the game
-    setWinTime(timeCounter);
+    setWinTime(timeElapsed);
     setGameInProgress(false);
     setTimeout(() => setGameOver(true), 1000);
   }, [isWon]);
@@ -225,10 +225,7 @@ const Game = (props) => {
 
   return (
     <div className="game-container">
-      <GameControls
-        newGameClick={handleNewGameClick}
-        stopWatchSeconds={timeCounter}
-      />
+      <GameControls newGameClick={handleNewGameClick} />
       <CardList
         cards={cardDeck}
         handleChoice={handleChoice}
