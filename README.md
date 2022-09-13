@@ -78,7 +78,7 @@ monsters-memodex@0.1.0
 ├── react-dom@18.2.0  
 ├── react-router-dom@6.3.0  
 ├── react-scripts@5.0.1  
-├── react-timer-hook@3.0.5 (yarn add react-timer-hook)  
+├── react-useTimer (yarn add use-timer)  
 ├── react@18.2.0  
 ├── sass@1.54.4 (yarn add sass)  
 ├── vanilla-tilt@1.7.2 (yarn add vanilla-tilt)  
