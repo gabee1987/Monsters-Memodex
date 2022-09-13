@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import { createContext, useState } from 'react';
-import { useTimer } from 'use-timer';
+// import { useTimer } from 'use-timer';
 
 import { GameSettingsContext } from './game-settings.context';
 import {
@@ -8,10 +8,10 @@ import {
   TIMER_SECONDS_BASED_ON_CARD_NUMBERS,
 } from './game-settings.context';
 
-const TIMER_TYPE = {
-  INCREMENTAL: 'INCREMENTAL',
-  DECREMENTAL: 'DECREMENTAL',
-};
+// const TIMER_TYPE = {
+//   INCREMENTAL: 'INCREMENTAL',
+//   DECREMENTAL: 'DECREMENTAL',
+// };
 
 export const GameStateContext = createContext({
   turns: 0,
@@ -32,13 +32,13 @@ export const GameStateContext = createContext({
   setGameOver: () => {},
   timeLeft: 0,
   setTimeLeft: () => {},
-  timerInitialTime: false,
-  setTimerInitialTime: () => {},
-  timerInitialType: TIMER_TYPE.INCREMENTAL,
-  setTimerInitialType: () => {},
+  // timerInitialTime: false,
+  // setTimerInitialTime: () => {},
+  // timerInitialType: TIMER_TYPE.INCREMENTAL,
+  // setTimerInitialType: () => {},
 });
 
-const GetTimerDuration = (numOfCards) => {
+export const GetTimerDuration = (numOfCards) => {
   switch (numOfCards) {
     case '2':
       return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_2_CARDS;
@@ -76,10 +76,10 @@ export const GameStateProvider = ({ children }) => {
   const [gamePaused, setGamePaused] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
-  const [timerInitialType, setTimerInitialType] = useState(
-    TIMER_TYPE.INCREMENTAL
-  );
-  const [timerInitialTime, setTimerInitialTime] = useState(10);
+  // const [timerInitialType, setTimerInitialType] = useState(
+  //   TIMER_TYPE.INCREMENTAL
+  // );
+  // const [timerInitialTime, setTimerInitialTime] = useState(10);
 
   const { mode } = useContext(GameSettingsContext);
   const { numberOfCards } = useContext(GameSettingsContext);
@@ -103,92 +103,92 @@ export const GameStateProvider = ({ children }) => {
     setGameOver,
     timeLeft,
     setTimeLeft,
-    timerInitialTime,
-    setTimerInitialTime,
-    timerInitialType,
-    setTimerInitialType,
+    // timerInitialTime,
+    // setTimerInitialTime,
+    // timerInitialType,
+    // setTimerInitialType,
   };
 
-  useEffect(() => {
-    if (
-      mode === MODE_SETTING_TYPES.FREE ||
-      mode === MODE_SETTING_TYPES.TURN_BASED
-    ) {
-      setTimerInitialType(TIMER_TYPE.INCREMENTAL);
-      setTimerInitialTime(5);
-      setTimeLeft(timerInitialTime);
-    } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-      setTimerInitialType(TIMER_TYPE.DECREMENTAL);
-      setTimerInitialTime(GetTimerDuration(numberOfCards));
-      setTimeLeft(timerInitialTime);
-    }
-    resetTimer();
-    console.log('timer status: ', timerStatus);
-  }, [mode]);
+  // useEffect(() => {
+  //   if (
+  //     mode === MODE_SETTING_TYPES.FREE ||
+  //     mode === MODE_SETTING_TYPES.TURN_BASED
+  //   ) {
+  //     setTimerInitialType(TIMER_TYPE.INCREMENTAL);
+  //     setTimerInitialTime(5);
+  //     setTimeLeft(timerInitialTime);
+  //   } else if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+  //     setTimerInitialType(TIMER_TYPE.DECREMENTAL);
+  //     setTimerInitialTime(GetTimerDuration(numberOfCards));
+  //     setTimeLeft(timerInitialTime);
+  //   }
+  //   resetTimer();
+  //   console.log('timer status: ', timerStatus);
+  // }, [mode]);
 
-  const onTimerTimeUpdate = () => {
-    console.log('timer is at: ', timerTime);
-    console.log('initial time: ', timerInitialTime);
-    console.log('timer type: ', timerInitialType);
-    console.log('timer status: ', timerStatus);
-    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-      setTimeLeft(timerTime);
-    } else if (
-      mode === MODE_SETTING_TYPES.FREE ||
-      mode === MODE_SETTING_TYPES.TURN_BASED
-    ) {
-      setTimeElapsed(timerTime);
-    }
-  };
+  // const onTimerTimeUpdate = () => {
+  //   console.log('timer is at: ', timerTime);
+  //   console.log('initial time: ', timerInitialTime);
+  //   console.log('timer type: ', timerInitialType);
+  //   console.log('timer status: ', timerStatus);
+  //   if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+  //     setTimeLeft(timerTime);
+  //   } else if (
+  //     mode === MODE_SETTING_TYPES.FREE ||
+  //     mode === MODE_SETTING_TYPES.TURN_BASED
+  //   ) {
+  //     setTimeElapsed(timerTime);
+  //   }
+  // };
 
-  const onTimerTimeOver = () => {
-    console.log('timer is finished!');
-  };
+  // const onTimerTimeOver = () => {
+  //   console.log('timer is finished!');
+  // };
 
-  const {
-    time: timerTime,
-    start: startTimer,
-    pause: pauseTimer,
-    reset: resetTimer,
-    status: timerStatus,
-  } = useTimer({
-    initialTime: timerInitialTime,
-    timerType: timerInitialType,
-    onTimeOver: onTimerTimeOver,
-    onTimeUpdate: onTimerTimeUpdate,
-  });
+  // const {
+  //   time: timerTime,
+  //   start: startTimer,
+  //   pause: pauseTimer,
+  //   reset: resetTimer,
+  //   status: timerStatus,
+  // } = useTimer({
+  //   initialTime: timerInitialTime,
+  //   timerType: timerInitialType,
+  //   onTimeOver: onTimerTimeOver,
+  //   onTimeUpdate: onTimerTimeUpdate,
+  // });
 
-  useEffect(() => {
-    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-      let initialTime = GetTimerDuration(numberOfCards);
-      setTimerInitialTime(initialTime);
-      setTimeLeft(timerInitialTime);
-      console.log('this shouzld be the time: ', initialTime);
-      console.log('initial time set to: ', timerInitialTime);
-    } else {
-      setTimerInitialTime(0);
-    }
-    resetTimer();
-  }, [numberOfCards]);
+  // useEffect(() => {
+  //   if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+  //     let initialTime = GetTimerDuration(numberOfCards);
+  //     setTimerInitialTime(initialTime);
+  //     setTimeLeft(timerInitialTime);
+  //     console.log('this shouzld be the time: ', initialTime);
+  //     console.log('initial time set to: ', timerInitialTime);
+  //   } else {
+  //     setTimerInitialTime(0);
+  //   }
+  //   resetTimer();
+  // }, [numberOfCards]);
 
   // Start the timer when a game starts
-  useEffect(() => {
-    if (gameInProgress && needNewGame) {
-      resetTimer();
-      startTimer();
-    } else {
-      pauseTimer();
-    }
-  }, [gameInProgress]);
+  // useEffect(() => {
+  //   if (gameInProgress && needNewGame) {
+  //     resetTimer();
+  //     startTimer();
+  //   } else {
+  //     pauseTimer();
+  //   }
+  // }, [gameInProgress]);
 
   // Pause/start the timer when a game starts or pauses
-  useEffect(() => {
-    if (gamePaused) {
-      pauseTimer();
-    } else if (!gamePaused && gameInProgress) {
-      startTimer();
-    }
-  }, [gamePaused]);
+  // useEffect(() => {
+  //   if (gamePaused) {
+  //     pauseTimer();
+  //   } else if (!gamePaused && gameInProgress) {
+  //     startTimer();
+  //   }
+  // }, [gamePaused]);
 
   return (
     <GameStateContext.Provider value={value}>

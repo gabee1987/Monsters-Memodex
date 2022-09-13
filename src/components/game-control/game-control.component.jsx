@@ -1,11 +1,11 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GameStateContext } from '../../contexts/game-state.context';
 import { GameSettingsContext } from '../../contexts/game-settings.context';
 
 import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
+import Timer from '../timer/timer.component';
 
 import './game-control.styles.scss';
-import { useState } from 'react';
 
 const GameControls = ({ newGameClick }) => {
   const { turns } = useContext(GameStateContext);
@@ -14,15 +14,15 @@ const GameControls = ({ newGameClick }) => {
 
   const { mode } = useContext(GameSettingsContext);
 
-  // Convert the seconds to a time format
-  function formatTime(timeToFormat) {
-    const h = Math.floor(timeToFormat / 3600);
-    const m = Math.floor((timeToFormat % 3600) / 60);
-    const s = Math.round(timeToFormat % 60);
-    return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
-      .filter(Boolean)
-      .join(':');
-  }
+  // // Convert the seconds to a time format
+  // function formatTime(timeToFormat) {
+  //   const h = Math.floor(timeToFormat / 3600);
+  //   const m = Math.floor((timeToFormat % 3600) / 60);
+  //   const s = Math.round(timeToFormat % 60);
+  //   return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
+  //     .filter(Boolean)
+  //     .join(':');
+  // }
 
   // useEffect(() => {
   //   if (timerActive) {
@@ -66,7 +66,9 @@ const GameControls = ({ newGameClick }) => {
       </button>
       {mode === MODE_SETTING_TYPES.FREE && (
         <button className="btn game-control game-stat time-elapsed-btn">
-          TIME: <span>{formatTime(timeElapsed)}</span>
+          TIME:
+          {/* <span>{formatTime(timeElapsed)}</span> */}
+          <Timer />
         </button>
       )}
       {mode === MODE_SETTING_TYPES.TIME_BASED && (
@@ -75,7 +77,8 @@ const GameControls = ({ newGameClick }) => {
         // </button>
         <button className="btn game-control game-stat time-left-btn">
           TIME LEFT:
-          <span>{formatTime(timeLeft)}</span>
+          {/* <span>{formatTime(timeLeft)}</span> */}
+          <Timer />
         </button>
       )}
       {/* {mode === MODE_SETTING_TYPES.TURN_BASED && (
