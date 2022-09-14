@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 const Timer = ({ minutesLeft, secondsLeft }) => {
   console.log(minutesLeft, secondsLeft);
 
