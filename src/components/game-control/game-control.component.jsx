@@ -4,16 +4,20 @@ import { GameSettingsContext } from '../../contexts/game-settings.context';
 
 import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
 
+import Timer from '../timer/timer.component';
+
 import './game-control.styles.scss';
 
-const GameControls = ({ newGameClick, stopWatchSeconds }) => {
+const GameControls = ({ newGameClick }) => {
   const { turns } = useContext(GameStateContext);
-  const { timeLeft, setTimeLeft } = useContext(GameStateContext);
+  const { timerSecondsLeft } = useContext(GameStateContext);
+  const { timerMinutesLeft } = useContext(GameStateContext);
+  const { timeCounter } = useContext(GameStateContext);
 
   const { mode } = useContext(GameSettingsContext);
 
   // Convert the seconds to a time format
-  function formatTime(timeToFormat) {
+  function formatSeconds(timeToFormat) {
     const h = Math.floor(timeToFormat / 3600);
     const m = Math.floor((timeToFormat % 3600) / 60);
     const s = Math.round(timeToFormat % 60);
@@ -22,12 +26,25 @@ const GameControls = ({ newGameClick, stopWatchSeconds }) => {
       .join(':');
   }
 
-  useEffect(() => {
-    let formattedTime = formatTime(timeLeft);
-    console.log('time from context: ', timeLeft);
-    console.log('formatted time: ', formattedTime);
-    // setTimeLeft(formattedTime);
-  }, [timeLeft]);
+  function formatTime(minutes, seconds, hours) {
+    if (hours < 10) {
+      hours = '0' + hours;
+    }
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+
+    return [
+      hours,
+      minutes > 9 ? minutes : hours ? '0' + minutes : minutes || '0',
+      seconds > 9 ? seconds : '0' + seconds,
+    ]
+      .filter(Boolean)
+      .join(':');
+  }
 
   return (
     <div className="button-container">
@@ -36,17 +53,24 @@ const GameControls = ({ newGameClick, stopWatchSeconds }) => {
       </button>
       {mode === MODE_SETTING_TYPES.FREE && (
         <button className="btn game-control game-stat time-elapsed-btn">
-          TIME: <span>{formatTime(stopWatchSeconds)}</span>
+          TIME: <span>{formatSeconds(timeCounter)}</span>
         </button>
       )}
       {mode === MODE_SETTING_TYPES.TIME_BASED && (
         <button className="btn game-control game-stat time-left-btn">
-          TIME LEFT: <span>{formatTime(timeLeft)}</span>
+          TIME LEFT:{' '}
+          <span>{formatTime(timerMinutesLeft, timerSecondsLeft, 0)}</span>
         </button>
+        // <button className="btn game-control game-stat time-left-btn">
+        //   TIME LEFT:{' '}
+        //   <span>
+        //     <Timer />
+        //   </span>
+        // </button>
       )}
       {mode === MODE_SETTING_TYPES.TURN_BASED && (
         <button className="btn game-control game-stat turn-left-btn">
-          TURN LEFT: <span>{formatTime(stopWatchSeconds)}</span>
+          TURN LEFT: <span>{formatTime(timeCounter)}</span>
         </button>
       )}
       <button className="btn game-control game-stat turn-taken-btn">
