@@ -1,27 +1,27 @@
-import { useState, useEffect, useContext } from 'react';
-import { useTimer } from 'react-timer-hook';
+const Timer = ({ minutesLeft, secondsLeft }) => {
+  console.log(minutesLeft, secondsLeft);
 
-import { GameStateContext } from '../../contexts/game-state.context.jsx';
-import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
+  function formatTime(minutes, seconds, hours) {
+    // if (hours < 10) {
+    //   hours = '0' + hours;
+    // }
+    // if (minutes < 10) {
+    //   minutes = '0' + minutes;
+    // }
+    // if (seconds < 10) {
+    //   seconds = '0' + seconds;
+    // }
 
-const Timer = () => {
-  const { timeLeft, setTimeLeft } = useContext(GameStateContext);
-
-  // Convert the seconds to a time format
-  function formatTime(timeToFormat) {
-    const h = Math.floor(timeToFormat / 3600);
-    const m = Math.floor((timeToFormat % 3600) / 60);
-    const s = Math.round(timeToFormat % 60);
-    return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
+    return [
+      // hours,
+      minutes > 9 ? minutes : hours ? '0' + minutes : minutes || '0',
+      seconds > 9 ? seconds : '0' + seconds,
+    ]
       .filter(Boolean)
       .join(':');
   }
 
-  return (
-    <div>
-      <span>{formatTime(timeLeft)}</span>
-    </div>
-  );
+  return <span>{formatTime(minutesLeft, secondsLeft, 0)}</span>;
 };
 
 export default Timer;

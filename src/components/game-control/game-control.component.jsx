@@ -26,26 +26,6 @@ const GameControls = ({ newGameClick }) => {
       .join(':');
   }
 
-  function formatTime(minutes, seconds, hours) {
-    if (hours < 10) {
-      hours = '0' + hours;
-    }
-    if (minutes < 10) {
-      minutes = '0' + minutes;
-    }
-    if (seconds < 10) {
-      seconds = '0' + seconds;
-    }
-
-    return [
-      hours,
-      minutes > 9 ? minutes : hours ? '0' + minutes : minutes || '0',
-      seconds > 9 ? seconds : '0' + seconds,
-    ]
-      .filter(Boolean)
-      .join(':');
-  }
-
   return (
     <div className="button-container">
       <button className="btn game-control new-game-btn" onClick={newGameClick}>
@@ -59,18 +39,15 @@ const GameControls = ({ newGameClick }) => {
       {mode === MODE_SETTING_TYPES.TIME_BASED && (
         <button className="btn game-control game-stat time-left-btn">
           TIME LEFT:{' '}
-          <span>{formatTime(timerMinutesLeft, timerSecondsLeft, 0)}</span>
+          <Timer
+            minutesLeft={timerMinutesLeft}
+            secondsLeft={timerSecondsLeft}
+          />
         </button>
-        // <button className="btn game-control game-stat time-left-btn">
-        //   TIME LEFT:{' '}
-        //   <span>
-        //     <Timer />
-        //   </span>
-        // </button>
       )}
       {mode === MODE_SETTING_TYPES.TURN_BASED && (
         <button className="btn game-control game-stat turn-left-btn">
-          TURN LEFT: <span>{formatTime(timeCounter)}</span>
+          TURN LEFT: <span>TODO</span>
         </button>
       )}
       <button className="btn game-control game-stat turn-taken-btn">
