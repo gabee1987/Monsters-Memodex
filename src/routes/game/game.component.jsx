@@ -213,7 +213,7 @@ const Game = (props) => {
 
   const saveCurrentDeckToLocalStorage = (cards) => {
     localStorage.setItem('inProgressDeck', JSON.stringify(cards));
-    console.log('deck is saved to local storage:', cards);
+    // console.log('deck is saved to local storage:', cards);
   };
 
   const getCurrentDeckFromLocalStorage = () => {
@@ -225,10 +225,7 @@ const Game = (props) => {
 
   return (
     <div className="game-container">
-      <GameControls
-        newGameClick={handleNewGameClick}
-        stopWatchSeconds={timeCounter}
-      />
+      <GameControls newGameClick={handleNewGameClick} />
       <CardList
         cards={cardDeck}
         handleChoice={handleChoice}

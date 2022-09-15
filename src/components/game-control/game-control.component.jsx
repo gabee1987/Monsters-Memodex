@@ -26,6 +26,10 @@ const GameControls = ({ newGameClick }) => {
       .join(':');
   }
 
+  useEffect(() => {
+    console.log('GAME CONTROL TIME: ', timerMinutesLeft, timerSecondsLeft);
+  }, []);
+
   return (
     <div className="button-container">
       <button className="btn game-control new-game-btn" onClick={newGameClick}>
