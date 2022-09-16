@@ -9,6 +9,7 @@ import GameControls from '../../components/game-control/game-control.component.j
 
 import './game.styles.scss';
 import WinModal from '../../components/win-modal/win-modal.component.jsx';
+import GameOverModal from '../../components/game-over-modal/game-over-modal.component.jsx';
 
 const Game = (props) => {
   const [cardDeck, setCardDeck] = useState([]);
@@ -17,6 +18,7 @@ const Game = (props) => {
   const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [cardDisabled, setCardDisabled] = useState(false);
   const [showWinModal, setShowWinModal] = useState(false);
+  const [showGameOverModal, setGameOverModal] = useState(false);
   const [winTime, setWinTime] = useState(0);
 
   const { turns, setTurns } = useContext(GameStateContext);
@@ -58,6 +60,7 @@ const Game = (props) => {
     setTurns(-1);
     resetTurn();
     setGameInProgress(false);
+    setGameOver(false);
   };
 
   // Create the initial card deck on game start
@@ -92,7 +95,6 @@ const Game = (props) => {
   // Start a New Game on click
   const handleNewGameClick = () => {
     setNeedNewGame(true);
-    setGameOver(false);
     initiateNewGame();
     SetInitialTimer();
   };
@@ -167,19 +169,6 @@ const Game = (props) => {
     setIsWon(winState);
   }, [cardDeck]);
 
-  // Show the win modal with stats
-  useEffect(() => {
-    // console.log('game over?', gameOver);
-    // if (gameOver) {
-    //   return;
-    // }
-    setTimeout(() => setShowWinModal(isWon), 1500);
-    // Save win time and Stop the game
-    setWinTime(timeCounter);
-    setGameInProgress(false);
-    setTimeout(() => setGameOver(true), 1000);
-  }, [isWon]);
-
   // Check win condition
   const checkWinCondition = (cards) => {
     //console.log('cards:', cards);
@@ -196,9 +185,32 @@ const Game = (props) => {
     return result;
   };
 
+  // Show the win modal with stats
+  useEffect(() => {
+    // console.log('game over?', gameOver);
+    // if (gameOver) {
+    //   return;
+    // }
+    setTimeout(() => setShowWinModal(isWon), 1500);
+    // Save win time and Stop the game
+    setWinTime(timeCounter);
+    setGameInProgress(false);
+    // setTimeout(() => setGameOver(true), 1000);
+  }, [isWon]);
+
+  // Show the Game Over modal with stats
+  useEffect(() => {
+    setTimeout(() => setGameOverModal(gameOver), 1500);
+  }, [gameOver]);
+
   // Handle the close of the win modal
   const handleWinModalClose = () => {
     setShowWinModal(false);
+  };
+
+  // Handle the close of the Game Over modal
+  const handleGameOverModalClose = () => {
+    setGameOverModal(false);
   };
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
@@ -242,6 +254,12 @@ const Game = (props) => {
           turns={turns}
           time={winTime}
           onClose={handleWinModalClose}
+        />
+      )}
+      {showGameOverModal && (
+        <GameOverModal
+          show={showGameOverModal}
+          onClose={handleGameOverModalClose}
         />
       )}
     </div>

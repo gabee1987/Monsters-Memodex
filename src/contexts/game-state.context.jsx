@@ -125,6 +125,11 @@ export const GameStateProvider = ({ children }) => {
     pauseTimer();
   };
 
+  const OnTimerExpire = () => {
+    setGameInProgress(false);
+    setGameOver(true);
+  };
+
   const value = {
     turns,
     setTurns,
@@ -170,7 +175,7 @@ export const GameStateProvider = ({ children }) => {
   } = useTimer({
     expiryTimestamp,
     autoStart: false,
-    onExpire: () => console.warn('Time is up!'),
+    onExpire: () => OnTimerExpire(),
   });
 
   // Start the timer on game start
@@ -185,6 +190,7 @@ export const GameStateProvider = ({ children }) => {
       }
     }
   }, [gameInProgress]);
+  // TODO There are still some bugs relating to the first start of the timer
 
   // Pause/start the timer when a game starts or pauses
   useEffect(() => {
@@ -223,6 +229,9 @@ export const GameStateProvider = ({ children }) => {
       console.log('Time counter continued...');
     }
   }, [gamePaused]);
+
+  // Stop the game if the timer is up
+  useEffect(() => {}, []);
 
   // Update the stopwatch time at every seconds
   useEffect(() => {
