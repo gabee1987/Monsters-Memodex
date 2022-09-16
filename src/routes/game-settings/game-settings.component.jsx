@@ -28,6 +28,7 @@ const Settings = () => {
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { inProgressDeck } = useContext(GameStateContext);
+  const { SetInitialTimer } = useContext(GameStateContext);
 
   const { mode, setMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
@@ -87,8 +88,10 @@ const Settings = () => {
     // }
     setNeedNewGame(true);
     setGamePaused(false);
-    // setGameInProgress(false);
+    setGameInProgress(false);
     // setTimeout(() => setNeedNewGame(true), 200);
+
+    SetInitialTimer();
     navigate('/game');
   };
 

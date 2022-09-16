@@ -25,8 +25,13 @@ export const GameStateContext = createContext({
   setGamePaused: () => {},
   gameOver: false,
   setGameOver: () => {},
-  timeLeft: 0,
-  setTimeLeft: () => {},
+  timerSecondsLeft: 0,
+  setTimerSecondsLeft: () => {},
+  timerMinutesLeft: 0,
+  setTimerMinutesLeft: () => {},
+  expiryTimestamp: 0,
+  setExpiryTimestamp: () => {},
+  SetInitialTimer: () => {},
 });
 
 const GetActualTimeInSeconds = (secondsToShiftWith) => {
@@ -34,8 +39,18 @@ const GetActualTimeInSeconds = (secondsToShiftWith) => {
   return time.setSeconds(time.getSeconds() + secondsToShiftWith);
 };
 
-const GetTimerSeconds = (numOfCards) => {
-  console.log('card number: ', numOfCards);
+const GetTimerMinutesBasedOnCardNumber = (cardNumber) => {
+  let expirySeconds = GetTimerSeconds(cardNumber);
+  return Math.floor(expirySeconds / 60);
+};
+const GetTimerSecondsBasedOnCardNumber = (cardNumber) => {
+  let expirySeconds = GetTimerSeconds(cardNumber);
+  let minutes = Math.floor(expirySeconds / 60);
+  return expirySeconds - minutes * 60;
+};
+
+export const GetTimerSeconds = (numOfCards) => {
+  // console.log('card number: ', numOfCards);
   switch (numOfCards) {
     case '2':
       return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_2_CARDS;
@@ -72,11 +87,48 @@ export const GameStateProvider = ({ children }) => {
   const [needNewGame, setNeedNewGame] = useState();
   const [timeCounter, setTimeCounter] = useState(0);
   const [gamePaused, setGamePaused] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(GetActualTimeInSeconds(0));
-  const [timeStamp, setTimeStamp] = useState();
+  const [timerMinutesLeft, setTimerMinutesLeft] = useState(0);
+  const [timerSecondsLeft, setTimerSecondsLeft] = useState(0);
+  const [expiryTimestamp, setExpiryTimestamp] = useState(
+    GetActualTimeInSeconds(0)
+  );
 
   const { mode } = useContext(GameSettingsContext);
   const { numberOfCards } = useContext(GameSettingsContext);
+
+  const SetInitialTimer = () => {
+    if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
+      return;
+    }
+    let minutes = GetTimerMinutesBasedOnCardNumber(numberOfCards);
+    let seconds = GetTimerSecondsBasedOnCardNumber(numberOfCards);
+    setTimeout(() => setTimerMinutesLeft(minutes), 100);
+    setTimeout(() => setTimerSecondsLeft(seconds), 100);
+  };
+
+  const StartTheTimer = () => {
+    if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
+      return;
+    }
+
+    if (!gameInProgress) {
+      restartTimer(expiryTimestamp);
+    } else if (gamePaused) {
+      resumeTimer();
+    }
+  };
+
+  const PauseTheTimer = () => {
+    if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
+      return;
+    }
+    pauseTimer();
+  };
+
+  const OnTimerExpire = () => {
+    setGameInProgress(false);
+    setGameOver(true);
+  };
 
   const value = {
     turns,
@@ -95,8 +147,13 @@ export const GameStateProvider = ({ children }) => {
     setGamePaused,
     gameOver,
     setGameOver,
-    timeLeft,
-    setTimeLeft,
+    timerSecondsLeft,
+    setTimerSecondsLeft,
+    timerMinutesLeft,
+    setTimerMinutesLeft,
+    expiryTimestamp,
+    setExpiryTimestamp,
+    SetInitialTimer,
   };
 
   const {
@@ -109,33 +166,44 @@ export const GameStateProvider = ({ children }) => {
 
   const {
     seconds: timerSeconds,
+    minutes: timerMinutes,
     isRunning: timerIsRunning,
     start: startTimer,
     pause: pauseTimer,
     resume: resumeTimer,
     restart: restartTimer,
   } = useTimer({
-    expiryTimestamp: timeLeft,
+    expiryTimestamp,
     autoStart: false,
-    onExpire: () => console.warn('Time is up!'),
+    onExpire: () => OnTimerExpire(),
   });
 
+  // Start the timer on game start
   useEffect(() => {
-    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-      console.log('cardNumber before timer set:', numberOfCards);
-      const timerSeconds = GetTimerSeconds(numberOfCards);
-      console.log('timer to set based on cardNumber:', timerSeconds);
-      setTimeLeft(timerSeconds);
-      // setTimeStamp(GetActualTimeInSeconds(timerSeconds));
-      const expiryTimestamp = GetActualTimeInSeconds(timerSeconds);
-      setTimeStamp(expiryTimestamp);
+    setExpiryTimestamp(GetActualTimeInSeconds(GetTimerSeconds(numberOfCards)));
 
-      if (!gameInProgress) {
-        // const expiryTimestamp = GetActualTimeInSeconds(timerSeconds);
-        // restartTimer(expiryTimestamp, false);
+    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (gameInProgress && needNewGame) {
+        restartTimer(expiryTimestamp);
+      } else if (needNewGame && !gameInProgress) {
+        restartTimer(expiryTimestamp, false);
       }
     }
-  }, [numberOfCards]);
+  }, [gameInProgress]);
+  // TODO There are still some bugs relating to the first start of the timer
+
+  // Pause/start the timer when a game starts or pauses
+  useEffect(() => {
+    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (gamePaused) {
+        pauseTimer();
+        console.log('Timer paused at: ', timerMinutes, timerSeconds);
+      } else if (!gamePaused && gameInProgress) {
+        resumeTimer();
+        console.log('Timer continued at: ', timerMinutes, timerSeconds);
+      }
+    }
+  }, [gamePaused]);
 
   // Start the stopwatch when a game starts
   useEffect(() => {
@@ -162,61 +230,8 @@ export const GameStateProvider = ({ children }) => {
     }
   }, [gamePaused]);
 
-  // Set the timer when the game starts
-  // useEffect(() => {
-  //   const expiryTimestamp = GetActualTimeInSeconds(
-  //     GetTimerSeconds(numberOfCards)
-  //   );
-  //   console.log('initial time set: ', expiryTimestamp);
-
-  //   restartTimer(expiryTimestamp);
-  //   pauseTimer();
-  //   setTimeLeft(expiryTimestamp);
-  // }, [needNewGame]);
-
-  // Start the timer when a game starts
-  useEffect(() => {
-    // const expiryTimestamp = GetActualTimeInSeconds(
-    //   GetTimerSeconds(numberOfCards)
-    // );
-    console.log('timeSTamp is null?', timeStamp);
-    if (timeStamp === null) {
-      const expiryTimestamp = GetActualTimeInSeconds(
-        GetTimerSeconds(numberOfCards)
-      );
-      setTimeStamp(expiryTimestamp);
-    }
-    console.log('timer seconds: ', GetTimerSeconds());
-    // console.log('time set at start: ', expiryTimestamp);
-    console.log('time set at start: ', timeStamp);
-
-    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-      if (gameInProgress && needNewGame) {
-        // restartTimer(expiryTimestamp);
-        restartTimer(timeStamp);
-      } else if (needNewGame && !gameInProgress) {
-        // restartTimer(expiryTimestamp, false);
-        restartTimer(timeStamp, false);
-      }
-    }
-  }, [gameInProgress]);
-
-  // Pause/start the timer when a game starts or pauses
-  useEffect(() => {
-    const expiryTimestamp = GetActualTimeInSeconds(
-      GetTimerSeconds(numberOfCards)
-    );
-
-    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
-      if (gamePaused) {
-        pauseTimer();
-        console.log('Timer paused at: ', timeLeft);
-      } else if (!gamePaused && gameInProgress) {
-        resumeTimer();
-        console.log('Timer continued at: ', timeLeft);
-      }
-    }
-  }, [gamePaused]);
+  // Stop the game if the timer is up
+  useEffect(() => {}, []);
 
   // Update the stopwatch time at every seconds
   useEffect(() => {
@@ -227,8 +242,14 @@ export const GameStateProvider = ({ children }) => {
   // Update the timer at every seconds
   useEffect(() => {
     // console.log('timer at: ', timerSeconds);
-    setTimeLeft(timerSeconds);
+    setTimerSecondsLeft(timerSeconds);
   }, [timerSeconds]);
+
+  // Update the timer at every minutes
+  useEffect(() => {
+    // console.log('timer at: ', timerSeconds);
+    setTimerMinutesLeft(timerMinutes);
+  }, [timerMinutes]);
 
   return (
     <GameStateContext.Provider value={value}>

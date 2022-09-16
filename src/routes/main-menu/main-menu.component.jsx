@@ -10,9 +10,11 @@ import VanillaTilt from 'vanilla-tilt';
 const MainMenu = () => {
   const { gameInProgress } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+  const { SetInitialTimer } = useContext(GameStateContext);
 
   const handleNewGameClick = () => {
     setNeedNewGame(true);
+    SetInitialTimer();
   };
 
   const handleContinueClick = () => {
