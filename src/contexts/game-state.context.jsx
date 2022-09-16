@@ -106,6 +106,25 @@ export const GameStateProvider = ({ children }) => {
     setTimeout(() => setTimerSecondsLeft(seconds), 100);
   };
 
+  const StartTheTimer = () => {
+    if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
+      return;
+    }
+
+    if (!gameInProgress) {
+      restartTimer(expiryTimestamp);
+    } else if (gamePaused) {
+      resumeTimer();
+    }
+  };
+
+  const PauseTheTimer = () => {
+    if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
+      return;
+    }
+    pauseTimer();
+  };
+
   const value = {
     turns,
     setTurns,

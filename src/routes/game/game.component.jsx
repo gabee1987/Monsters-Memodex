@@ -24,6 +24,7 @@ const Game = (props) => {
   const { timeLeft, setTimeLeft } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { gameOver, setGameOver } = useContext(GameStateContext);
+  const { SetInitialTimer } = useContext(GameStateContext);
 
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
@@ -93,6 +94,7 @@ const Game = (props) => {
     setNeedNewGame(true);
     setGameOver(false);
     initiateNewGame();
+    SetInitialTimer();
   };
 
   // Handle the card choice upon click
