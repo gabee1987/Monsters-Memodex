@@ -37,6 +37,33 @@
       animation-duration: 550ms;
       // animation-timing-function: cubic-bezier(0.3, 0.1, 0.55, 1.7);
     }
+
+    .game-over-modal-inner-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding: 4rem;
+      transform: translateZ(50px);
+
+      // fix the jagged animation by forcing hardware acceleration
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      // perspective: 1000;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 2.5rem;
+        right: 3rem;
+        bottom: 2.5rem;
+        left: 3rem;
+        border-radius: 15px;
+        border: dotted 4px #ffff00;
+        transform: translateZ(50px);
+        // perspective: 1000;
+        z-index: -1;
+      }
+    }
   }
 
   .game-over-modal-header {
@@ -112,21 +139,5 @@
   }
   100% {
     transform: scale(1, 1) rotate(0deg);
-  }
-}
-
-@keyframes firework {
-  0% {
-    transform: translate(-50%, 30vh);
-    width: 0.5vmin;
-    opacity: 0;
-  }
-  50% {
-    width: 0.5vmin;
-    opacity: 1;
-  }
-  100% {
-    width: 45vmin;
-    opacity: 0;
   }
 }

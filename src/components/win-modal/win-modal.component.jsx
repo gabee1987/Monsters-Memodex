@@ -45,19 +45,21 @@ const WinModal = (props) => {
           ref={tilt}
         >
           <div className="firework"></div>
-          <div className="modal-header">
-            <h1>Congratulations!</h1>
-          </div>
-          <div className="modal-body">
-            Looks like your memory is still working! Hooray! <br /> You
-            completed the game in
-            <span>{formatTime(time)}</span> and it took
-            <span>{turns}</span> turns
-          </div>
-          <div className="modal-footer">
-            <button onClick={handleClick} className="modal-close-btn">
-              Close
-            </button>
+          <div className="win-modal-inner-container">
+            <div className="modal-header">
+              <h1>Congratulations!</h1>
+            </div>
+            <div className="modal-body">
+              Looks like your memory is still working! Hooray! <br /> You
+              completed the game in
+              <span>{formatTime(time)}</span> and it took
+              <span>{turns}</span> turns
+            </div>
+            <div className="modal-footer">
+              <button onClick={handleClick} className="modal-close-btn">
+                Close
+              </button>
+            </div>
           </div>
         </div>
         // </div>

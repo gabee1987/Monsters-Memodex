@@ -60,7 +60,7 @@ const Game = (props) => {
     setTurns(-1);
     resetTurn();
     setGameInProgress(false);
-    setGameOver(false);
+    setTimeout(() => setGameOver(false), 500);
   };
 
   // Create the initial card deck on game start
@@ -187,18 +187,17 @@ const Game = (props) => {
 
   // Show the win modal with stats
   useEffect(() => {
-    if (!isWon) {
-      return;
+    if (isWon) {
+      // console.log('game over?', gameOver);
+      // if (gameOver) {
+      //   return;
+      // }
+      setTimeout(() => setShowWinModal(isWon), 1500);
+      // Save win time and Stop the game
+      setWinTime(timeCounter);
+      setGameInProgress(false);
+      // setTimeout(() => setGameOver(true), 1000);
     }
-    // console.log('game over?', gameOver);
-    // if (gameOver) {
-    //   return;
-    // }
-    setTimeout(() => setShowWinModal(isWon), 1500);
-    // Save win time and Stop the game
-    setWinTime(timeCounter);
-    setGameInProgress(false);
-    // setTimeout(() => setGameOver(true), 1000);
   }, [isWon]);
 
   const flipAndDisableAllCards = (cardsToFlip) => {
@@ -208,6 +207,7 @@ const Game = (props) => {
   };
 
   const handleGameOver = () => {
+    // console.log('gameover why showing up: ', gameOver);
     setIsWon(false);
     const flippedAndDisabledCards = flipAndDisableAllCards(cardDeck);
     setTimeout(() => setCardDeck(flippedAndDisabledCards), 2000);
@@ -215,12 +215,10 @@ const Game = (props) => {
 
   // Show the Game Over modal with stats
   useEffect(() => {
-    if (!gameOver) {
-      return;
+    if (gameOver) {
+      handleGameOver();
+      setTimeout(() => setGameOverModal(gameOver), 1500);
     }
-
-    handleGameOver();
-    setTimeout(() => setGameOverModal(gameOver), 1500);
   }, [gameOver]);
 
   // Handle the close of the win modal

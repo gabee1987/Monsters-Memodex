@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const Timer = ({ minutesLeft, secondsLeft }) => {
-  console.log(minutesLeft, secondsLeft);
+  // console.log(minutesLeft, secondsLeft);
 
   function formatTime(minutes, seconds, hours) {
     // if (hours < 10) {

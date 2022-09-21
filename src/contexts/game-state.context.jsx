@@ -127,6 +127,8 @@ export const GameStateProvider = ({ children }) => {
 
   const OnTimerExpire = () => {
     setGameInProgress(false);
+    // console.log('i set the gameover to true!!!!!!!!!!!');
+    console.log('time is at on expire: ', timerMinutes, timerSeconds);
     setGameOver(true);
   };
 
@@ -229,6 +231,18 @@ export const GameStateProvider = ({ children }) => {
       console.log('Time counter continued...');
     }
   }, [gamePaused]);
+
+  // Reset the timer on start
+  useEffect(() => {
+    if (mode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (needNewGame) {
+        setExpiryTimestamp(
+          GetActualTimeInSeconds(GetTimerSeconds(numberOfCards))
+        );
+        setTimeout(() => restartTimer(expiryTimestamp, false), 300);
+      }
+    }
+  }, [needNewGame]);
 
   // Stop the game if the timer is up
   useEffect(() => {}, []);

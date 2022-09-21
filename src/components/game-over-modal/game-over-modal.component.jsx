@@ -33,16 +33,18 @@ const GameOverModal = (props) => {
           onClick={(e) => e.stopPropagation()}
           ref={tilt}
         >
-          <div className="game-over-modal-header">
-            <h1>Game Over!</h1>
-          </div>
-          <div className="game-over-modal-body">
-            The time is up! <br />
-          </div>
-          <div className="game-over-modal-footer">
-            <button onClick={handleClick} className="modal-close-btn">
-              Close
-            </button>
+          <div className="game-over-modal-inner-container">
+            <div className="game-over-modal-header">
+              <h1>Game Over!</h1>
+            </div>
+            <div className="game-over-modal-body">
+              Your time is up! <br />
+            </div>
+            <div className="game-over-modal-footer">
+              <button onClick={handleClick} className="modal-close-btn">
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

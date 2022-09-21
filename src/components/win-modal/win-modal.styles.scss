@@ -37,6 +37,33 @@
       animation-duration: 550ms;
       // animation-timing-function: cubic-bezier(0.3, 0.1, 0.55, 1.7);
     }
+
+    .win-modal-inner-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding: 4rem;
+      transform: translateZ(50px);
+
+      // fix the jagged animation by forcing hardware acceleration
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      // perspective: 1000;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 3rem;
+        right: 3rem;
+        bottom: 3rem;
+        left: 3rem;
+        border-radius: 15px;
+        border: dotted 4px #ffff00;
+        transform: translateZ(50px);
+        // perspective: 1000;
+        z-index: -1;
+      }
+    }
   }
 
   .modal-header {
