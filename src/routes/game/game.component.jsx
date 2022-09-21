@@ -187,6 +187,9 @@ const Game = (props) => {
 
   // Show the win modal with stats
   useEffect(() => {
+    if (!isWon) {
+      return;
+    }
     // console.log('game over?', gameOver);
     // if (gameOver) {
     //   return;
@@ -198,8 +201,25 @@ const Game = (props) => {
     // setTimeout(() => setGameOver(true), 1000);
   }, [isWon]);
 
+  const flipAndDisableAllCards = (cardsToFlip) => {
+    return cardsToFlip.map((card) => {
+      return { ...card, flippedOnGameOver: true, disabled: true };
+    });
+  };
+
+  const handleGameOver = () => {
+    setIsWon(false);
+    const flippedAndDisabledCards = flipAndDisableAllCards(cardDeck);
+    setTimeout(() => setCardDeck(flippedAndDisabledCards), 2000);
+  };
+
   // Show the Game Over modal with stats
   useEffect(() => {
+    if (!gameOver) {
+      return;
+    }
+
+    handleGameOver();
     setTimeout(() => setGameOverModal(gameOver), 1500);
   }, [gameOver]);
 

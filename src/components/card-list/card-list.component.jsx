@@ -21,7 +21,10 @@ const CardList = ({
             card={card}
             onClick={handleChoice}
             flipped={
-              card === firstChoice || card === secondChoice || card.isPaired
+              card === firstChoice ||
+              card === secondChoice ||
+              card.isPaired ||
+              card.flippedOnGameOver
             }
             isShuffling={isShufflingActive}
             disabled={disabled}

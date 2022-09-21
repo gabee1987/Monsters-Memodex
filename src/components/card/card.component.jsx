@@ -11,7 +11,7 @@ import {
 import './card.styles.scss';
 
 const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
-  const { id, pictureId, isPaired } = card;
+  const { id, pictureId, isPaired, flippedOnGameOver } = card;
   const { cardSet } = useContext(GameSettingsContext);
   const { cardBack } = useContext(GameSettingsContext);
   const [roboHashId, setRoboHashId] = useState();
@@ -53,7 +53,7 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
     <div
       className={`card-container ${isPaired ? 'isPaired' : ''} ${
         isShuffling ? 'isShuffling' : ''
-      }`}
+      } ${flippedOnGameOver ? 'flippedOnGameOver' : ''}`}
     >
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>
         <div className="card-front">
