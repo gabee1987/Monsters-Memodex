@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+
+import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
 
 import useMountTransition from '../../component-helpers/useMountTransition';
 import './win-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const WinModal = (props) => {
-  const { show, turns, time, onClose } = props;
+  const { show, turns, time, mode, onClose } = props;
   const hasTransitionedIn = useMountTransition(show, 1000);
 
   const handleClick = () => {
@@ -52,7 +54,11 @@ const WinModal = (props) => {
             <div className="modal-body">
               Looks like your memory is still working! Hooray! <br /> You
               completed the game in
-              <span>{formatTime(time)}</span> and it took
+              {mode !== MODE_SETTING_TYPES.TIME_BASED && (
+                <div>
+                  <span>{formatTime(time)}</span> <br /> and it took
+                </div>
+              )}
               <span>{turns}</span> turns
             </div>
             <div className="modal-footer">

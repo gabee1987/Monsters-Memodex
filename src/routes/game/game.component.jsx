@@ -27,12 +27,13 @@ const Game = (props) => {
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { gameOver, setGameOver } = useContext(GameStateContext);
   const { SetInitialTimer } = useContext(GameStateContext);
-
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
-  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+
+  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
+  const { mode } = useContext(GameSettingsContext);
 
   // Create initial card deck
   useEffect(() => {
@@ -272,6 +273,7 @@ const Game = (props) => {
           turns={turns}
           time={winTime}
           onClose={handleWinModalClose}
+          mode={mode}
         />
       )}
       {showGameOverModal && (
