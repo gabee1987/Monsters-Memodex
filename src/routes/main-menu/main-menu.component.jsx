@@ -11,9 +11,12 @@ const MainMenu = () => {
   const { gameInProgress } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { SetInitialTimer } = useContext(GameStateContext);
+  const { setIsWon } = useContext(GameStateContext);
 
   const handleNewGameClick = () => {
     setNeedNewGame(true);
+    // TODO Need to extract and centralize this state change
+    setIsWon(false);
     SetInitialTimer();
   };
 
@@ -38,25 +41,31 @@ const MainMenu = () => {
       <div className="main-menu-container" id="mainMenu" ref={tilt}>
         <div className="main-menu-inner-container" id="mainMenuInner">
           {gameInProgress && (
-            <Link
-              className="menu-link"
-              to="/game"
-              onClick={handleContinueClick}
-            >
-              Continue
-            </Link>
+            <div className="menu-item-container">
+              <Link
+                className="menu-link"
+                to="/game"
+                onClick={handleContinueClick}
+              >
+                Continue
+              </Link>
+            </div>
           )}
-          <Link className="menu-link" to="/game" onClick={handleNewGameClick}>
-            New Game
-          </Link>
+          <div className="menu-item-container">
+            <Link className="menu-link" to="/game" onClick={handleNewGameClick}>
+              New Game
+            </Link>
+          </div>
           <div className="cursor-not-allowed">
             <Link className="menu-link disabled-menu" to="/sign-in">
               Sign In
             </Link>
           </div>
-          <Link className="menu-link" to="/settings">
-            Settings
-          </Link>
+          <div className="menu-item-container">
+            <Link className="menu-link" to="/settings">
+              Settings
+            </Link>
+          </div>
           <div className="cursor-not-allowed">
             <Link className="menu-link disabled-menu" to="/help">
               Help

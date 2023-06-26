@@ -49,8 +49,15 @@
     }
   }
 
+  .menu-item-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
   .menu-link {
-    display: block;
+    display: inline-block;
+    width: fit-content;
     position: relative;
     font-size: 5rem;
     text-decoration: none;

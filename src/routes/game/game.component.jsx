@@ -96,6 +96,7 @@ const Game = (props) => {
   // Start a New Game on click
   const handleNewGameClick = () => {
     setNeedNewGame(true);
+    // TODO Need to extract and centralize this state change
     setIsWon(false);
   };
 
