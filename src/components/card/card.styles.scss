@@ -84,6 +84,7 @@
 
   .card-front {
     transform: rotateY(180deg);
+    overflow: hidden;
   }
 
   // .card-back {

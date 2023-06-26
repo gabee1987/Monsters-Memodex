@@ -13,24 +13,26 @@ const CardList = ({
   disabled,
 }) => {
   return (
-    <div className="card-list">
-      {cards.map((card) => {
-        return (
-          <Card
-            key={card.id}
-            card={card}
-            onClick={handleChoice}
-            flipped={
-              card === firstChoice ||
-              card === secondChoice ||
-              card.isPaired ||
-              card.flippedOnGameOver
-            }
-            isShuffling={isShufflingActive}
-            disabled={disabled}
-          />
-        );
-      })}
+    <div className="card-list-container">
+      <div className="card-list">
+        {cards.map((card) => {
+          return (
+            <Card
+              key={card.id}
+              card={card}
+              onClick={handleChoice}
+              flipped={
+                card === firstChoice ||
+                card === secondChoice ||
+                card.isPaired ||
+                card.flippedOnGameOver
+              }
+              isShuffling={isShufflingActive}
+              disabled={disabled}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

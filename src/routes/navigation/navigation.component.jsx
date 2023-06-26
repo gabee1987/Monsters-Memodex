@@ -28,9 +28,9 @@ const Navigation = () => {
           <span>Home</span>
         </Link>
         <div className="nav-links-container">
-          <Link className="nav-link" to="/sign-in">
+          {/* <Link className="nav-link" to="/sign-in">
             Sign In
-          </Link>
+          </Link> */}
           {/* TODO only shown if logged in */}
           {/* <Link className="nav-link" to="/sign-out">
             Sign In
