@@ -96,9 +96,15 @@ const Game = (props) => {
   // Start a New Game on click
   const handleNewGameClick = () => {
     setNeedNewGame(true);
-    initiateNewGame();
-    SetInitialTimer();
+    setIsWon(false);
   };
+
+  useEffect(() => {
+    if (needNewGame && !isWon) {
+      initiateNewGame();
+      SetInitialTimer();
+    }
+  }, [needNewGame, isWon]);
 
   // Handle the card choice upon click
   const handleChoice = (card) => {
