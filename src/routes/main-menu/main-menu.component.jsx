@@ -13,6 +13,8 @@ const MainMenu = () => {
   const { SetInitialTimer } = useContext(GameStateContext);
   const { setIsWon } = useContext(GameStateContext);
 
+  const isLinkEnabled = false;
+
   const handleNewGameClick = () => {
     setNeedNewGame(true);
     // TODO Need to extract and centralize this state change
@@ -22,6 +24,10 @@ const MainMenu = () => {
 
   const handleContinueClick = () => {
     setNeedNewGame(false);
+  };
+
+  const handleDisabledLinkClick = (event) => {
+    event.preventDefault();
   };
 
   // 3D perspective effect with Vanilla Tilt
@@ -56,20 +62,32 @@ const MainMenu = () => {
               New Game
             </Link>
           </div>
-          <div className="cursor-not-allowed">
-            <Link className="menu-link disabled-menu" to="/sign-in">
-              Sign In
-            </Link>
+          <div className="menu-item-container">
+            <div className="cursor-not-allowed">
+              <Link
+                className="menu-link disabled-menu"
+                to="/sign-in"
+                onClick={isLinkEnabled ? undefined : handleDisabledLinkClick}
+              >
+                Sign In
+              </Link>
+            </div>
           </div>
           <div className="menu-item-container">
             <Link className="menu-link" to="/settings">
               Settings
             </Link>
           </div>
-          <div className="cursor-not-allowed">
-            <Link className="menu-link disabled-menu" to="/help">
-              Help
-            </Link>
+          <div className="menu-item-container">
+            <div className="cursor-not-allowed">
+              <Link
+                className="menu-link disabled-menu"
+                to="/help"
+                onClick={isLinkEnabled ? undefined : handleDisabledLinkClick}
+              >
+                Help
+              </Link>
+            </div>
           </div>
         </div>
       </div>

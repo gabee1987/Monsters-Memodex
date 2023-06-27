@@ -6,6 +6,7 @@ const RadioInput = ({
   selectedValue,
   labelText,
   onChangeHandler,
+  disabled,
 }) => {
   return (
     <label
@@ -24,6 +25,7 @@ const RadioInput = ({
         value={selectedValue}
         checked={selectedValueType === selectedValue}
         onChange={onChangeHandler}
+        disabled={disabled}
       />
     </label>
   );

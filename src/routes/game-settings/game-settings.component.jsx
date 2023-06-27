@@ -38,6 +38,8 @@ const Settings = () => {
   const { cardSet, setCardSet } = useContext(GameSettingsContext);
   const { cardBack, setCardBack } = useContext(GameSettingsContext);
 
+  const isFeatureEnabled = false;
+
   const navigate = useNavigate();
 
   const handleTabChange = (event) => {
@@ -160,6 +162,7 @@ const Settings = () => {
                     selectedValueType={mode}
                     selectedValue={MODE_SETTING_TYPES.TIME_BASED}
                     onChangeHandler={handleModeChange}
+                    disabled={!isFeatureEnabled}
                   />
 
                   <RadioInput
@@ -169,6 +172,7 @@ const Settings = () => {
                     selectedValueType={mode}
                     selectedValue={MODE_SETTING_TYPES.TURN_BASED}
                     onChangeHandler={handleModeChange}
+                    disabled={!isFeatureEnabled}
                   />
 
                   <RadioInput
@@ -177,6 +181,7 @@ const Settings = () => {
                     selectedValueType={mode}
                     selectedValue={MODE_SETTING_TYPES.FREE}
                     onChangeHandler={handleModeChange}
+                    disabled={!isFeatureEnabled}
                   />
                 </div>
               </div>
@@ -192,6 +197,7 @@ const Settings = () => {
                     selectedValueType={difficulty}
                     selectedValue={DIFFICULTY_SETTING_TYPES.EASY}
                     onChangeHandler={handleDifficultyChange}
+                    disabled={!isFeatureEnabled}
                   />
                   <RadioInput
                     id="mediumRadio"
@@ -199,6 +205,7 @@ const Settings = () => {
                     selectedValueType={difficulty}
                     selectedValue={DIFFICULTY_SETTING_TYPES.MEDIUM}
                     onChangeHandler={handleDifficultyChange}
+                    disabled={!isFeatureEnabled}
                   />
                   <RadioInput
                     id="hardRadio"
@@ -206,6 +213,7 @@ const Settings = () => {
                     selectedValueType={difficulty}
                     selectedValue={DIFFICULTY_SETTING_TYPES.HARD}
                     onChangeHandler={handleDifficultyChange}
+                    disabled={!isFeatureEnabled}
                   />
                 </div>
               </div>
