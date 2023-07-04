@@ -62,6 +62,7 @@ const Game = (props) => {
     resetTurn();
     setGameInProgress(false);
     setTimeout(() => setGameOver(false), 500);
+    setNeedNewGame(false);
   };
 
   // Create the initial card deck on game start
@@ -96,16 +97,18 @@ const Game = (props) => {
   // Start a New Game on click
   const handleNewGameClick = () => {
     setNeedNewGame(true);
+    setGameInProgress(false);
     // TODO Need to extract and centralize this state change
     setIsWon(false);
   };
 
   useEffect(() => {
-    if (needNewGame && !isWon) {
+    if (needNewGame) {
       initiateNewGame();
       SetInitialTimer();
+      console.log('setInitialTimer is run?');
     }
-  }, [needNewGame, isWon]);
+  }, [needNewGame]);
 
   // Handle the card choice upon click
   const handleChoice = (card) => {
@@ -116,13 +119,20 @@ const Game = (props) => {
     // Set the timer when the game starting the first time
     if (!gameInProgress) {
       handleGameStart();
+    } else {
+      // Continue the game if it was paused
+      if (gamePaused) {
+        setGamePaused(false);
+      }
     }
 
+    setGameInProgress(true);
+
     // Continue the game if it was paused
-    if (gamePaused) {
-      setGamePaused(false);
-      setGameInProgress(true);
-    }
+    // if (gamePaused) {
+    //   setGamePaused(false);
+    //   setGameInProgress(true);
+    // }
 
     if (firstChoice != null) {
       setSecondChoice(card);
