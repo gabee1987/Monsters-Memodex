@@ -5,7 +5,7 @@ import { useStopwatch, useTimer } from 'react-timer-hook';
 import { GameSettingsContext } from './game-settings.context';
 import {
   MODE_SETTING_TYPES,
-  TIMER_SECONDS_BASED_ON_CARD_NUMBERS,
+  DEFAULT_TIMER_SECONDS,
 } from './game-settings.context';
 
 export const GameStateContext = createContext({
@@ -53,28 +53,28 @@ export const GetTimerSeconds = (numOfCards) => {
   // console.log('card number: ', numOfCards);
   switch (numOfCards) {
     case '2':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_2_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_2_CARDS;
     case '4':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_4_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_4_CARDS;
     case '6':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_6_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_6_CARDS;
     case '8':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_8_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_8_CARDS;
     case '10':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_10_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_10_CARDS;
     case '12':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_12_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_12_CARDS;
     case '14':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_14_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_14_CARDS;
     case '16':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_16_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_16_CARDS;
     case '18':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_18_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_18_CARDS;
     case '20':
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_AT_20_CARDS;
+      return DEFAULT_TIMER_SECONDS.TIMER_AT_20_CARDS;
 
     default:
-      return TIMER_SECONDS_BASED_ON_CARD_NUMBERS.TIMER_DEFAULT;
+      return DEFAULT_TIMER_SECONDS.TIMER_DEFAULT;
   }
 };
 

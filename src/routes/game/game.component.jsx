@@ -10,6 +10,7 @@ import GameControls from '../../components/game-control/game-control.component.j
 import './game.styles.scss';
 import WinModal from '../../components/win-modal/win-modal.component.jsx';
 import GameOverModal from '../../components/game-over-modal/game-over-modal.component.jsx';
+import { useGameTimer } from './../../utilities/useGameTimer';
 
 const Game = (props) => {
   const [cardDeck, setCardDeck] = useState([]);
@@ -31,9 +32,27 @@ const Game = (props) => {
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+  const { expiryTimestamp, setExpiryTimestamp } = useContext(GameStateContext);
 
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { mode } = useContext(GameSettingsContext);
+  const { difficulty } = useContext(GameSettingsContext);
+
+  // Timer related logic
+  const { isTimeUp, minutes, seconds, start, pause, resume } = useGameTimer(
+    numberOfCards,
+    difficulty,
+    mode,
+    gameInProgress,
+    isWon
+  );
+
+  // Handle game over logic
+  useEffect(() => {
+    if (isTimeUp) {
+      setGameOver(true);
+    }
+  }, [isTimeUp]);
 
   // Create initial card deck
   useEffect(() => {
@@ -145,6 +164,8 @@ const Game = (props) => {
   const handleGameStart = () => {
     // Set game in progress state
     setGameInProgress(true);
+    // Start the timer
+    start();
     console.log('game is started...');
   };
 
@@ -195,6 +216,7 @@ const Game = (props) => {
     }
     const result = cards.every((card) => {
       if (card.isPaired) {
+        pause(); // Stop the timer when all cards are paired
         return true;
       } else {
         return false;

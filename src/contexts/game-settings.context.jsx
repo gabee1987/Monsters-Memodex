@@ -43,18 +43,33 @@ export const CARBACK_SETTING_TYPES = {
   MEMPHIS: 'memphis',
 };
 
-export const TIMER_SECONDS_BASED_ON_CARD_NUMBERS = {
+export const DEFAULT_TIMER_SECONDS = {
   TIMER_DEFAULT: 600,
   TIMER_AT_2_CARDS: 30,
-  TIMER_AT_4_CARDS: 80,
-  TIMER_AT_6_CARDS: 160,
-  TIMER_AT_8_CARDS: 220,
-  TIMER_AT_10_CARDS: 340,
-  TIMER_AT_12_CARDS: 420,
-  TIMER_AT_14_CARDS: 540,
-  TIMER_AT_16_CARDS: 660,
-  TIMER_AT_18_CARDS: 780,
-  TIMER_AT_20_CARDS: 900,
+  TIMER_AT_4_CARDS: 60,
+  TIMER_AT_6_CARDS: 120,
+  TIMER_AT_8_CARDS: 180,
+  TIMER_AT_10_CARDS: 240,
+  TIMER_AT_12_CARDS: 300,
+  TIMER_AT_14_CARDS: 360,
+  TIMER_AT_16_CARDS: 420,
+  TIMER_AT_18_CARDS: 480,
+  TIMER_AT_20_CARDS: 540,
+};
+
+export const calculateTimerValue = (numOfCards, difficulty) => {
+  const baseTime =
+    DEFAULT_TIMER_SECONDS[`TIMER_AT_${numOfCards}_CARDS`] ||
+    DEFAULT_TIMER_SECONDS.TIMER_DEFAULT;
+
+  switch (difficulty) {
+    case DIFFICULTY_SETTING_TYPES.EASY:
+      return baseTime * 1.5; // 50% more time for easy
+    case DIFFICULTY_SETTING_TYPES.HARD:
+      return baseTime * 0.75; // 25% less time for hard
+    default:
+      return baseTime; // Default is medium difficulty
+  }
 };
 
 export const GameSettingsContext = createContext({
@@ -97,6 +112,7 @@ export const GameSettingsProvider = ({ children }) => {
     setCardSet,
     cardBack,
     setCardBack,
+    calculateTimerValue,
   };
 
   return (

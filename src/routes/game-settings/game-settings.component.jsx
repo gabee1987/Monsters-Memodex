@@ -152,38 +152,34 @@ const Settings = () => {
               activeTab === TAB_VALUES.GAME_TAB ? 'active-settings' : ''
             }`}
           >
-            <div className="cursor-not-allowed">
-              <div className="settings-category mode-settings disabled-menu">
-                <span>Mode</span>
-                <div className="settings-input-group mode-group">
-                  <RadioInput
-                    id="timeBasedRadio"
-                    labelText="Time Based"
-                    selectedValueType={mode}
-                    selectedValue={MODE_SETTING_TYPES.TIME_BASED}
-                    onChangeHandler={handleModeChange}
-                    disabled={!isFeatureEnabled}
-                  />
+            <div className="settings-category mode-settings">
+              <span>Mode</span>
+              <div className="settings-input-group mode-group">
+                <RadioInput
+                  id="timeBasedRadio"
+                  labelText="Time Based"
+                  selectedValueType={mode}
+                  selectedValue={MODE_SETTING_TYPES.TIME_BASED}
+                  onChangeHandler={handleModeChange}
+                />
 
-                  <RadioInput
-                    className="disabled-menu"
-                    id="turnBasedRadio"
-                    labelText="Turn Based"
-                    selectedValueType={mode}
-                    selectedValue={MODE_SETTING_TYPES.TURN_BASED}
-                    onChangeHandler={handleModeChange}
-                    disabled={!isFeatureEnabled}
-                  />
+                <RadioInput
+                  className="disabled-menu"
+                  id="turnBasedRadio"
+                  labelText="Turn Based"
+                  selectedValueType={mode}
+                  selectedValue={MODE_SETTING_TYPES.TURN_BASED}
+                  onChangeHandler={handleModeChange}
+                  disabled={!isFeatureEnabled}
+                />
 
-                  <RadioInput
-                    id="relaxedRadio"
-                    labelText="Free"
-                    selectedValueType={mode}
-                    selectedValue={MODE_SETTING_TYPES.FREE}
-                    onChangeHandler={handleModeChange}
-                    disabled={!isFeatureEnabled}
-                  />
-                </div>
+                <RadioInput
+                  id="relaxedRadio"
+                  labelText="Free"
+                  selectedValueType={mode}
+                  selectedValue={MODE_SETTING_TYPES.FREE}
+                  onChangeHandler={handleModeChange}
+                />
               </div>
             </div>
 
