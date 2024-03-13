@@ -10,7 +10,6 @@ import GameControls from '../../components/game-control/game-control.component.j
 import './game.styles.scss';
 import WinModal from '../../components/win-modal/win-modal.component.jsx';
 import GameOverModal from '../../components/game-over-modal/game-over-modal.component.jsx';
-import { useGameTimer } from './../../utilities/useGameTimer';
 
 const Game = (props) => {
   const [cardDeck, setCardDeck] = useState([]);
@@ -23,36 +22,27 @@ const Game = (props) => {
   const [winTime, setWinTime] = useState(0);
 
   const { turns, setTurns } = useContext(GameStateContext);
-  const { timeCounter, setTimeCounter } = useContext(GameStateContext);
-  const { timeLeft, setTimeLeft } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { gameOver, setGameOver } = useContext(GameStateContext);
-  const { SetInitialTimer } = useContext(GameStateContext);
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
-  const { expiryTimestamp, setExpiryTimestamp } = useContext(GameStateContext);
 
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { mode } = useContext(GameSettingsContext);
   const { difficulty } = useContext(GameSettingsContext);
 
-  // Timer related logic
-  const { isTimeUp, minutes, seconds, start, pause, resume } = useGameTimer(
-    numberOfCards,
-    difficulty,
-    mode,
-    gameInProgress,
-    isWon
-  );
+  // Timer related code
+  const { firstFlipAtStart, setFirstFlipAtStart } =
+    useContext(GameStateContext);
 
   // Handle game over logic
-  useEffect(() => {
-    if (isTimeUp) {
-      setGameOver(true);
-    }
-  }, [isTimeUp]);
+  // useEffect(() => {
+  //   if (isTimeUp) {
+  //     setGameOver(true);
+  //   }
+  // }, [isTimeUp]);
 
   // Create initial card deck
   useEffect(() => {
@@ -82,6 +72,7 @@ const Game = (props) => {
     setGameInProgress(false);
     setTimeout(() => setGameOver(false), 500);
     setNeedNewGame(false);
+    setFirstFlipAtStart(false);
   };
 
   // Create the initial card deck on game start
@@ -124,8 +115,8 @@ const Game = (props) => {
   useEffect(() => {
     if (needNewGame) {
       initiateNewGame();
-      SetInitialTimer();
-      console.log('setInitialTimer is run?');
+      // SetInitialTimer();
+      // console.log('setInitialTimer is run?');
     }
   }, [needNewGame]);
 
@@ -135,9 +126,14 @@ const Game = (props) => {
       return;
     }
 
-    // Set the timer when the game starting the first time
+    // Set firstFlip to true when first card is flipped at the start of the game
+    console.log('First flip was: ', firstFlipAtStart);
+    if (!firstFlipAtStart) {
+      setFirstFlipAtStart(true);
+    }
+
     if (!gameInProgress) {
-      handleGameStart();
+      // handleGameStart();
     } else {
       // Continue the game if it was paused
       if (gamePaused) {
@@ -145,28 +141,11 @@ const Game = (props) => {
       }
     }
 
-    setGameInProgress(true);
-
-    // Continue the game if it was paused
-    // if (gamePaused) {
-    //   setGamePaused(false);
-    //   setGameInProgress(true);
-    // }
-
     if (firstChoice != null) {
       setSecondChoice(card);
     } else {
       setFirstChoice(card);
     }
-  };
-
-  // First game start
-  const handleGameStart = () => {
-    // Set game in progress state
-    setGameInProgress(true);
-    // Start the timer
-    start();
-    console.log('game is started...');
   };
 
   // Compare selected cards
@@ -216,12 +195,12 @@ const Game = (props) => {
     }
     const result = cards.every((card) => {
       if (card.isPaired) {
-        pause(); // Stop the timer when all cards are paired
         return true;
       } else {
         return false;
       }
     });
+
     return result;
   };
 
@@ -234,7 +213,7 @@ const Game = (props) => {
       // }
       setTimeout(() => setShowWinModal(isWon), 1500);
       // Save win time and Stop the game
-      setWinTime(timeCounter);
+
       setGameInProgress(false);
       // setTimeout(() => setGameOver(true), 1000);
     }
@@ -273,6 +252,10 @@ const Game = (props) => {
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {
+    if (isWon || gameOver) {
+      //setTimerStarted(false); // Reset timer start trigger on game over or win
+    }
+
     setFirstChoice(null);
     setSecondChoice(null);
 

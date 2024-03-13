@@ -28,7 +28,7 @@ const Settings = () => {
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { inProgressDeck } = useContext(GameStateContext);
-  const { SetInitialTimer } = useContext(GameStateContext);
+  // const { SetInitialTimer } = useContext(GameStateContext);
   const { setIsWon } = useContext(GameStateContext);
 
   const { mode, setMode } = useContext(GameSettingsContext);
@@ -96,7 +96,7 @@ const Settings = () => {
     setIsWon(false);
     // setTimeout(() => setNeedNewGame(true), 200);
 
-    SetInitialTimer();
+    // SetInitialTimer();
     navigate('/game');
   };
 
