@@ -5,24 +5,25 @@ import { GameSettingsContext } from '../../contexts/game-settings.context';
 import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
 
 import TimerComponent from '../timer/timer.component';
+import StopwatchComponent from '../stopwatch/stopwatch.component';
 
 import './game-control.styles.scss';
 
 const GameControls = ({ newGameClick, firstFlip }) => {
   const { turns } = useContext(GameStateContext);
-
   const { mode } = useContext(GameSettingsContext);
-
-  // const handleTimerExpire = () => {
-  //   // Handle expiration logic
-  //   console.log('Timer expired');
-  // };
 
   return (
     <div className="button-container">
       <button className="btn game-control new-game-btn" onClick={newGameClick}>
         NEW GAME
       </button>
+
+      {mode === MODE_SETTING_TYPES.FREE && (
+        <button className="btn game-control game-stat time-passed-btn">
+          TIME PASSED: <StopwatchComponent />
+        </button>
+      )}
 
       {mode === MODE_SETTING_TYPES.TIME_BASED && (
         <button className="btn game-control game-stat time-left-btn">

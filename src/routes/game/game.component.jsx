@@ -129,7 +129,7 @@ const Game = (props) => {
     // Set firstFlip to true when first card is flipped at the start of the game
     console.log('First flip was: ', firstFlipAtStart);
     if (!firstFlipAtStart) {
-      setFirstFlipAtStart(true);
+      setFirstFlipAtStart(true); // TODO Both timer and stopwatch start prematurely when starting a new game, only a second fresh start is fixing it
     }
 
     if (!gameInProgress) {
