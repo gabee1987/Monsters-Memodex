@@ -25,6 +25,8 @@ export const GameStateContext = createContext({
   setGameOver: () => {},
   firstFlipAtStart: false,
   setFirstFlipAtStart: () => {},
+  needToRestartTimer: false,
+  setNeedToRestartTimer: () => {},
 });
 
 export const GameStateProvider = ({ children }) => {
@@ -37,6 +39,7 @@ export const GameStateProvider = ({ children }) => {
   const [gamePaused, setGamePaused] = useState(false);
   const { mode } = useContext(GameSettingsContext);
   const [firstFlipAtStart, setFirstFlipAtStart] = useState(false);
+  const [needToRestartTimer, setNeedToRestartTimer] = useState(false);
 
   const value = {
     turns,
@@ -55,6 +58,8 @@ export const GameStateProvider = ({ children }) => {
     setGameOver,
     firstFlipAtStart,
     setFirstFlipAtStart,
+    needToRestartTimer,
+    setNeedToRestartTimer,
   };
 
   return (

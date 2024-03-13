@@ -86,17 +86,12 @@ const Settings = () => {
   };
 
   const handleStartClick = () => {
-    // if (needNewGame) {
-    //   setNeedNewGame(false);
-    // }
     setNeedNewGame(true);
-    setGamePaused(false);
-    setGameInProgress(false);
+    // setGamePaused(false);
+    // setGameInProgress(false);
     // TODO Need to extract and centralize this state change
     setIsWon(false);
     // setTimeout(() => setNeedNewGame(true), 200);
-
-    // SetInitialTimer();
     navigate('/game');
   };
 

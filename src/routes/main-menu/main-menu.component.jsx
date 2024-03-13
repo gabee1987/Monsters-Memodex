@@ -1,16 +1,14 @@
 import { useState, useEffect, useRef, useContext } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { GameStateContext } from '../../contexts/game-state.context';
-import { GameSettingsContext } from '../../contexts/game-settings.context';
 
 import './main-menu.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const MainMenu = () => {
   const { gameInProgress } = useContext(GameStateContext);
-  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
-  const { SetInitialTimer } = useContext(GameStateContext);
+  const { setNeedNewGame } = useContext(GameStateContext);
   const { setIsWon } = useContext(GameStateContext);
 
   const isLinkEnabled = false;
@@ -19,7 +17,6 @@ const MainMenu = () => {
     setNeedNewGame(true);
     // TODO Need to extract and centralize this state change
     setIsWon(false);
-    SetInitialTimer();
   };
 
   const handleContinueClick = () => {

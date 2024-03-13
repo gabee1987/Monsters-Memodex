@@ -34,7 +34,7 @@ const Game = (props) => {
   const { difficulty } = useContext(GameSettingsContext);
 
   // Timer related code
-  const { firstFlipAtStart, setFirstFlipAtStart } =
+  const { firstFlipAtStart, setFirstFlipAtStart, setNeedToRestartTimer } =
     useContext(GameStateContext);
 
   // Handle game over logic
@@ -73,6 +73,7 @@ const Game = (props) => {
     setTimeout(() => setGameOver(false), 500);
     setNeedNewGame(false);
     setFirstFlipAtStart(false);
+    setIsWon(false);
   };
 
   // Create the initial card deck on game start
@@ -106,17 +107,13 @@ const Game = (props) => {
 
   // Start a New Game on click
   const handleNewGameClick = () => {
-    setNeedNewGame(true);
-    setGameInProgress(false);
-    // TODO Need to extract and centralize this state change
-    setIsWon(false);
+    initiateNewGame();
+    setNeedToRestartTimer(true);
   };
 
   useEffect(() => {
     if (needNewGame) {
       initiateNewGame();
-      // SetInitialTimer();
-      // console.log('setInitialTimer is run?');
     }
   }, [needNewGame]);
 

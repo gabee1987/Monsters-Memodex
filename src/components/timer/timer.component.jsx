@@ -41,25 +41,11 @@ const GetTimerSeconds = (numOfCards) => {
   }
 };
 
-const GetActualTimeInSeconds = (secondsToShiftWith) => {
-  let time = new Date();
-  return time.setSeconds(time.getSeconds() + secondsToShiftWith);
-};
-
-const GetTimerMinutesBasedOnCardNumber = (cardNumber) => {
-  let expirySeconds = GetTimerSeconds(cardNumber);
-  return Math.floor(expirySeconds / 60);
-};
-const GetTimerSecondsBasedOnCardNumber = (cardNumber) => {
-  let expirySeconds = GetTimerSeconds(cardNumber);
-  let minutes = Math.floor(expirySeconds / 60);
-  return expirySeconds - minutes * 60;
-};
-
 const TimerComponent = () => {
   const { numberOfCards } = useContext(GameSettingsContext);
-  const { firstFlipAtStart } = useContext(GameStateContext);
-  const { gameInProgress } = useContext(GameStateContext);
+  const { firstFlipAtStart, needToRestartTimer, gameInProgress, needNewGame } =
+    useContext(GameStateContext);
+  console.log('what is needToRestartTimer hereee? -> ', needToRestartTimer);
 
   const expiryTimestamp = useMemo(() => {
     const newExpiryTime = new Date();
@@ -72,17 +58,33 @@ const TimerComponent = () => {
     console.warn('onExpire called');
   }, []);
 
-  const { seconds, minutes, start } = useTimer({
+  const {
+    seconds: timerSeconds,
+    minutes: timerMinutes,
+    isRunning: timerIsRunning,
+    start: startTimer,
+    pause: pauseTimer,
+    resume: resumeTimer,
+    restart: restartTimer,
+  } = useTimer({
     expiryTimestamp,
-    onExpire: handleExpire,
     autoStart: false,
+    onExpire: () => handleExpire(),
   });
 
   useEffect(() => {
     if (firstFlipAtStart) {
-      start();
+      startTimer();
     }
-  }, [firstFlipAtStart, start]);
+  }, [firstFlipAtStart, startTimer]);
+
+  useEffect(() => {
+    console.log('what is needToRestartTimer? -> ', needToRestartTimer);
+    if (needToRestartTimer) {
+      console.log('Expiry timestamp:', expiryTimestamp);
+      restartTimer();
+    }
+  }, [needToRestartTimer]);
 
   // const SetInitialTimer = () => {
   //   if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
@@ -127,20 +129,6 @@ const TimerComponent = () => {
   //   pause: pauseStopWatch,
   //   reset: resetStopWatch,
   // } = useStopwatch({ autoStart: false });
-
-  // const {
-  //   seconds: timerSeconds,
-  //   minutes: timerMinutes,
-  //   isRunning: timerIsRunning,
-  //   start: startTimer,
-  //   pause: pauseTimer,
-  //   resume: resumeTimer,
-  //   restart: restartTimer,
-  // } = useTimer({
-  //   expiryTimestamp,
-  //   autoStart: false,
-  //   onExpire: () => OnTimerExpire(),
-  // });
 
   // Start the timer on game start
   // useEffect(() => {
@@ -234,8 +222,8 @@ const TimerComponent = () => {
   return (
     <div className="timer-container">
       <div className="timer">
-        {minutes.toString().padStart(2, '0')}:
-        {seconds.toString().padStart(2, '0')}
+        {timerMinutes.toString().padStart(2, '0')}:
+        {timerSeconds.toString().padStart(2, '0')}
       </div>
       {/* The start, pause, etc., can be controlled externally via props if needed */}
     </div>
