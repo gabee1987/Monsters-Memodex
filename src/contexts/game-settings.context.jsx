@@ -75,8 +75,8 @@ export const calculateTimerValue = (numOfCards, difficulty) => {
 export const GameSettingsContext = createContext({
   activeTab: TAB_VALUES.GAME_TAB,
   setActiveTab: () => {},
-  mode: MODE_SETTING_TYPES.FREE,
-  setMode: () => {},
+  gameMode: MODE_SETTING_TYPES.FREE,
+  setGameMode: () => {},
   difficulty: DIFFICULTY_SETTING_TYPES.EASY,
   setDifficulty: () => {},
   numberOfCards: 10,
@@ -89,21 +89,17 @@ export const GameSettingsContext = createContext({
 
 export const GameSettingsProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
-  const [mode, setMode] = useState(MODE_SETTING_TYPES.FREE);
+  const [gameMode, setGameMode] = useState(MODE_SETTING_TYPES.FREE);
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
   const [numberOfCards, setNumberOfCards] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
   const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BUBBLES);
-  // console.log('number of cards in context: ', numberOfCards);
-  // console.log('mode in context is: ', mode);
-  // console.log('cardSet in context is: ', cardSet);
-  // console.log('cardBack in context is: ', cardBack);
 
   const value = {
     activeTab,
     setActiveTab,
-    mode,
-    setMode,
+    gameMode,
+    setGameMode,
     difficulty,
     setDifficulty,
     numberOfCards,

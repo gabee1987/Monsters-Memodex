@@ -31,7 +31,7 @@ const Settings = () => {
   // const { SetInitialTimer } = useContext(GameStateContext);
   const { setIsWon } = useContext(GameStateContext);
 
-  const { mode, setMode } = useContext(GameSettingsContext);
+  const { gameMode, setGameMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
   const { activeTab, setActiveTab } = useContext(GameSettingsContext);
@@ -53,7 +53,7 @@ const Settings = () => {
 
   // GAME SETTINGS HANDLES
   const handleModeChange = (event) => {
-    setMode(event.target.value);
+    setGameMode(event.target.value);
     console.log('mode changed to: ', event.target.value);
   };
 
@@ -153,7 +153,7 @@ const Settings = () => {
                 <RadioInput
                   id="timeBasedRadio"
                   labelText="Time Based"
-                  selectedValueType={mode}
+                  selectedValueType={gameMode}
                   selectedValue={MODE_SETTING_TYPES.TIME_BASED}
                   onChangeHandler={handleModeChange}
                 />
@@ -162,7 +162,7 @@ const Settings = () => {
                   className="disabled-menu"
                   id="turnBasedRadio"
                   labelText="Turn Based"
-                  selectedValueType={mode}
+                  selectedValueType={gameMode}
                   selectedValue={MODE_SETTING_TYPES.TURN_BASED}
                   onChangeHandler={handleModeChange}
                   disabled={!isFeatureEnabled}
@@ -171,7 +171,7 @@ const Settings = () => {
                 <RadioInput
                   id="relaxedRadio"
                   labelText="Free"
-                  selectedValueType={mode}
+                  selectedValueType={gameMode}
                   selectedValue={MODE_SETTING_TYPES.FREE}
                   onChangeHandler={handleModeChange}
                 />

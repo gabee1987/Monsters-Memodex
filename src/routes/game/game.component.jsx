@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
+import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context.jsx';
 
 import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
@@ -19,7 +20,6 @@ const Game = (props) => {
   const [cardDisabled, setCardDisabled] = useState(false);
   const [showWinModal, setShowWinModal] = useState(false);
   const [showGameOverModal, setGameOverModal] = useState(false);
-  const [winTime, setWinTime] = useState(0);
 
   const { turns, setTurns } = useContext(GameStateContext);
   const { gamePaused, setGamePaused } = useContext(GameStateContext);
@@ -30,12 +30,16 @@ const Game = (props) => {
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
 
   const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
-  const { mode } = useContext(GameSettingsContext);
+  const { gameMode } = useContext(GameSettingsContext);
   const { difficulty } = useContext(GameSettingsContext);
 
   // Timer related code
-  const { firstFlipAtStart, setFirstFlipAtStart, setNeedToRestartTimer } =
-    useContext(GameStateContext);
+  const {
+    firstFlipAtStart,
+    setFirstFlipAtStart,
+    setNeedToRestartTimer,
+    winTime,
+  } = useContext(GameStateContext);
 
   // Handle game over logic
   // useEffect(() => {
@@ -185,7 +189,6 @@ const Game = (props) => {
 
   // Check win condition
   const checkWinCondition = (cards) => {
-    //console.log('cards:', cards);
     if (cards.length < 1) {
       return false;
     }
@@ -200,20 +203,17 @@ const Game = (props) => {
     return result;
   };
 
-  // Show the win modal with stats
+  // Handling the win state, show the won modal and save the timer is its a timer based mode
   useEffect(() => {
     if (isWon) {
-      // console.log('game over?', gameOver);
-      // if (gameOver) {
-      //   return;
+      // Save win time and Stop the game
+      // if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
+      //   console.log('Is pause happening in game component?');
       // }
       setTimeout(() => setShowWinModal(isWon), 1500);
-      // Save win time and Stop the game
-
       setGameInProgress(false);
-      // setTimeout(() => setGameOver(true), 1000);
     }
-  }, [isWon]);
+  }, [isWon, setGameInProgress]);
 
   const flipAndDisableAllCards = (cardsToFlip) => {
     return cardsToFlip.map((card) => {
@@ -291,7 +291,7 @@ const Game = (props) => {
           turns={turns}
           time={winTime}
           onClose={handleWinModalClose}
-          mode={mode}
+          gameMode={gameMode}
         />
       )}
       {showGameOverModal && (

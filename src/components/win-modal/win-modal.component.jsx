@@ -7,7 +7,7 @@ import './win-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const WinModal = (props) => {
-  const { show, turns, time, mode, onClose } = props;
+  const { show, turns, time, gameMode, onClose } = props;
   const hasTransitionedIn = useMountTransition(show, 1000);
 
   const handleClick = () => {
@@ -26,14 +26,14 @@ const WinModal = (props) => {
   }, []);
 
   // Convert the seconds to a time format
-  function formatTime(stopWatchSeconds) {
-    const h = Math.floor(stopWatchSeconds / 3600);
-    const m = Math.floor((stopWatchSeconds % 3600) / 60);
-    const s = Math.round(stopWatchSeconds % 60);
-    return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
-      .filter(Boolean)
-      .join(':');
-  }
+  // function formatTime(stopWatchSeconds) {
+  //   const h = Math.floor(stopWatchSeconds / 3600);
+  //   const m = Math.floor((stopWatchSeconds % 3600) / 60);
+  //   const s = Math.round(stopWatchSeconds % 60);
+  //   return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
+  //     .filter(Boolean)
+  //     .join(':');
+  // }
 
   return (
     <div className="win-modal">
@@ -54,9 +54,9 @@ const WinModal = (props) => {
             <div className="modal-body">
               Looks like your memory is still working! Hooray! <br /> You
               completed the game in
-              {mode !== MODE_SETTING_TYPES.TIME_BASED && (
+              {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
                 <div>
-                  <span>{formatTime(time)}</span> <br /> and it took
+                  <span>{time}</span> <br /> and it took
                 </div>
               )}
               <span>{turns}</span> turns

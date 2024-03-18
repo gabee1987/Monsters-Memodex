@@ -42,16 +42,18 @@ const GetTimerSeconds = (numOfCards) => {
 };
 
 const TimerComponent = () => {
+  const [currentTimerState, setCurrentTimerState] = useState();
   const { numberOfCards } = useContext(GameSettingsContext);
   const {
     firstFlipAtStart,
     setFirstFlipAtStart,
     needToRestartTimer,
     setNeedToRestartTimer,
-    gameInProgress,
     setGameInProgress,
-    needNewGame,
     setGameOver,
+    isWon,
+    winTime,
+    setWinTime,
   } = useContext(GameStateContext);
 
   const setExpiryTimeForTimer = (numberOfCards) => {
@@ -66,12 +68,6 @@ const TimerComponent = () => {
     return newExpiryTime;
   }, [numberOfCards]);
 
-  const handleExpire = useCallback(() => {
-    setGameInProgress(false);
-    console.log('Time is expired!');
-    setGameOver(true);
-  }, [setGameOver, setGameInProgress]);
-
   const {
     seconds: timerSeconds,
     minutes: timerMinutes,
@@ -85,6 +81,22 @@ const TimerComponent = () => {
     autoStart: false,
     onExpire: () => handleExpire(),
   });
+
+  const handleExpire = useCallback(() => {
+    setGameInProgress(false);
+    console.log('Time is expired!');
+    setGameOver(true);
+  }, [setGameOver, setGameInProgress]);
+
+  const handlePause = useCallback(() => {
+    console.log('Timer is paused at ', timerMinutes, timerSeconds);
+    pauseTimer();
+    // Format the time and save it
+    const formattedTime = `${timerMinutes
+      .toString()
+      .padStart(2, '0')}:${timerSeconds.toString().padStart(2, '0')}`;
+    setWinTime(formattedTime);
+  }, [pauseTimer, timerMinutes, timerSeconds, setWinTime]);
 
   // Effect to start the timer on first flip
   useEffect(() => {
@@ -111,24 +123,13 @@ const TimerComponent = () => {
     numberOfCards,
   ]);
 
-  // const StartTheTimer = () => {
-  //   if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
-  //     return;
-  //   }
-
-  //   if (!gameInProgress) {
-  //     restartTimer(expiryTimestamp);
-  //   } else if (gamePaused) {
-  //     resumeTimer();
-  //   }
-  // };
-
-  // const PauseTheTimer = () => {
-  //   if (mode !== MODE_SETTING_TYPES.TIME_BASED) {
-  //     return;
-  //   }
-  //   pauseTimer();
-  // };
+  useEffect(() => {
+    if (isWon === true) {
+      console.log('Is pause happening in timer component?');
+      pauseTimer();
+      handlePause();
+    }
+  }, [isWon, handlePause, pauseTimer]);
 
   // const {
   //   seconds: stopWatchSeconds,

@@ -11,7 +11,7 @@ import './game-control.styles.scss';
 
 const GameControls = ({ newGameClick, firstFlip }) => {
   const { turns } = useContext(GameStateContext);
-  const { mode } = useContext(GameSettingsContext);
+  const { gameMode } = useContext(GameSettingsContext);
 
   return (
     <div className="button-container">
@@ -19,18 +19,18 @@ const GameControls = ({ newGameClick, firstFlip }) => {
         NEW GAME
       </button>
 
-      {mode === MODE_SETTING_TYPES.FREE && (
+      {gameMode === MODE_SETTING_TYPES.FREE && (
         <button className="btn game-control game-stat time-passed-btn">
           TIME PASSED: <StopwatchComponent />
         </button>
       )}
 
-      {mode === MODE_SETTING_TYPES.TIME_BASED && (
+      {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
         <button className="btn game-control game-stat time-left-btn">
           TIME LEFT: <TimerComponent />
         </button>
       )}
-      {mode === MODE_SETTING_TYPES.TURN_BASED && (
+      {gameMode === MODE_SETTING_TYPES.TURN_BASED && (
         <button className="btn game-control game-stat turn-left-btn">
           TURN LEFT: <span>TODO</span>
         </button>
