@@ -2,15 +2,15 @@ import { Fragment, useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 
 import { GameStateContext } from '../../contexts/game-state.context';
-import { TimerContext } from '../../contexts/timer-context';
+import { TimeContext } from '../../contexts/time-context';
 
 import './navigation.styles.scss';
 
 const Navigation = () => {
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
   const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
-  const { timerState, setTimerState } = useContext(TimerContext);
-  const { pauseTimer } = useContext(TimerContext);
+  const { timerState, setTimerState } = useContext(TimeContext);
+  const { pauseTimer } = useContext(TimeContext);
 
   // Pause the game when we leave the game page
   const handleGamePause = () => {

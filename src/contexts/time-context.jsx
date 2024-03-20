@@ -60,7 +60,7 @@ const GetTimerSecondsBasedOnCardNumber = (pairNumber) => {
   return expirySeconds - minutes * 60;
 };
 
-export const TimerContext = createContext({
+export const TimeContext = createContext({
   timerSeconds: null,
   timerMinutes: null,
   timerIsRunning: false,
@@ -77,7 +77,7 @@ export const TimerContext = createContext({
   resumeTimer: () => {},
 });
 
-export const TimerProvider = ({ children }) => {
+export const TimeProvider = ({ children }) => {
   const { numberOfPairs } = useContext(GameSettingsContext);
   const { gameMode } = useContext(GameSettingsContext);
   const [expiryTimestamp, setExpiryTimestamp] = useState(
@@ -129,11 +129,6 @@ export const TimerProvider = ({ children }) => {
     setTimerState((prevState) => ({ ...prevState, startTime: newExpiryTime }));
   }, [numberOfPairs]);
 
-  //   useEffect(() => {
-  //     const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
-  //     restartTimer(newExpiryTime, false);
-  //   }, [numberOfPairs, restartTimer]);
-
   const handleExpire = useCallback(() => {
     setIsGameInProgress(false);
     console.log('Time is expired!');
@@ -149,7 +144,7 @@ export const TimerProvider = ({ children }) => {
       ...prevState,
       winTime: formattedTime,
     }));
-  }, [timerSeconds]);
+  }, [timerSeconds, timerMinutes]);
 
   const handleTimerPauseMidGame = useCallback(() => {}, []);
 
@@ -187,34 +182,11 @@ export const TimerProvider = ({ children }) => {
   useEffect(() => {
     if (isGamePaused === true) {
       pauseTimer();
-      handleTimerPauseMidGame();
     } else if (!isGamePaused && isGameInProgress) {
       resumeTimer();
       console.log('timer continues after pause...');
     }
-  }, [isGamePaused, isGameInProgress, handleTimerPauseMidGame]);
-
-  // const totalDuration = GetTimerSeconds(numberOfPairs); // total duration in seconds
-  // const calculateRemainingTime = () => {
-  //   const now = new Date();
-  //   const elapsed = (now.getTime() - timerState.startTime.getTime()) / 1000; // in seconds
-
-  //   return timerState.wasPaused
-  //     ? timerState.remainingTime
-  //     : totalDuration - elapsed;
-  // };
-
-  // useEffect(() => {
-  //   // Logic to calculate the current state of the timer
-  //   const currentRemainingTime = calculateRemainingTime(); // Implement this function based on your timer logic
-
-  //   setTimerState((prevState) => ({
-  //     ...prevState,
-  //     remainingTime: currentRemainingTime,
-  //   }));
-
-  //   // Additional logic for pause, resume, etc.
-  // }, [timerSeconds, timerMinutes, setTimerState]);
+  }, [isGamePaused, isGameInProgress]);
 
   const value = {
     timerSeconds,
@@ -228,7 +200,5 @@ export const TimerProvider = ({ children }) => {
     setNeedToRestartTimer,
   };
 
-  return (
-    <TimerContext.Provider value={value}>{children}</TimerContext.Provider>
-  );
+  return <TimeContext.Provider value={value}>{children}</TimeContext.Provider>;
 };

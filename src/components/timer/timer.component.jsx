@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 
-import { TimerContext } from '../../contexts/timer-context';
+import { TimeContext } from '../../contexts/time-context';
 
 import './timer.styles.scss';
 
 const TimerComponent = () => {
   const { timerSeconds, timerMinutes, timerIsRunning } =
-    useContext(TimerContext);
+    useContext(TimeContext);
   // useEffect(() => {
   //   if (timerState.wasPaused) {
   //     // Calculate new expiry timestamp based on remaining time

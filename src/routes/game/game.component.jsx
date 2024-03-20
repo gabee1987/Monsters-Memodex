@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context.jsx';
-import { TimerContext } from '../../contexts/timer-context.jsx';
+import { TimeContext } from '../../contexts/time-context.jsx';
 
 import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
@@ -39,7 +39,7 @@ const Game = (props) => {
     useContext(GameStateContext);
 
   // Timer related code
-  const { setNeedToRestartTimer, timerState } = useContext(TimerContext);
+  const { setNeedToRestartTimer, timerState } = useContext(TimeContext);
 
   // Handle game over logic
   // useEffect(() => {
