@@ -71,6 +71,8 @@ export const TimeContext = createContext({
     winTime: null,
   },
   setTimerState: () => {}, // Function to update the timer state
+  needToStartTimer: false,
+  setNeedToStartTimer: () => {},
   needToRestartTimer: true,
   setNeedToRestartTimer: () => {},
   pauseTimer: () => {},
@@ -83,6 +85,7 @@ export const TimeProvider = ({ children }) => {
   const [expiryTimestamp, setExpiryTimestamp] = useState(
     GetActualTimeInSeconds(GetTimerSeconds(numberOfPairs))
   );
+  const [needToStartTimer, setNeedToStartTimer] = useState(false);
   const [needToRestartTimer, setNeedToRestartTimer] = useState(true);
   const [timerState, setTimerState] = useState({
     startTime: null,
@@ -124,7 +127,6 @@ export const TimeProvider = ({ children }) => {
   // Set initial timer value
   useEffect(() => {
     const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
-    console.log('number of pairs : ', numberOfPairs);
     restartTimer(newExpiryTime, false);
     setTimerState((prevState) => ({ ...prevState, startTime: newExpiryTime }));
   }, [numberOfPairs]);
@@ -150,16 +152,24 @@ export const TimeProvider = ({ children }) => {
 
   // Start the timer on first flip
   useEffect(() => {
-    if (firstFlipAtStart) {
-      const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
-      setTimerState((prevState) => ({
-        ...prevState,
-        startTime: newExpiryTime,
-      }));
-      startTimer(newExpiryTime);
-      setFirstFlipAtStart(false);
+    if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (firstFlipAtStart) {
+        const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
+        setTimerState((prevState) => ({
+          ...prevState,
+          startTime: newExpiryTime,
+        }));
+        startTimer(newExpiryTime);
+        setFirstFlipAtStart(false);
+      }
     }
-  }, [firstFlipAtStart, startTimer, setFirstFlipAtStart, numberOfPairs]);
+  }, [
+    firstFlipAtStart,
+    startTimer,
+    setFirstFlipAtStart,
+    numberOfPairs,
+    gameMode,
+  ]);
 
   // Restart the timer when needed
   useEffect(() => {
@@ -180,11 +190,13 @@ export const TimeProvider = ({ children }) => {
 
   // Pause and save the timer when the game is paused
   useEffect(() => {
-    if (isGamePaused === true) {
-      pauseTimer();
-    } else if (!isGamePaused && isGameInProgress) {
-      resumeTimer();
-      console.log('timer continues after pause...');
+    if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
+      if (isGamePaused === true) {
+        pauseTimer();
+      } else if (!isGamePaused && isGameInProgress) {
+        resumeTimer();
+        console.log('timer continues after pause...');
+      }
     }
   }, [isGamePaused, isGameInProgress]);
 
@@ -196,6 +208,8 @@ export const TimeProvider = ({ children }) => {
     resumeTimer,
     timerState,
     setTimerState,
+    needToStartTimer,
+    setNeedToStartTimer,
     needToRestartTimer,
     setNeedToRestartTimer,
   };

@@ -35,10 +35,8 @@ const Game = (props) => {
   const { gameMode } = useContext(GameSettingsContext);
   const { difficulty } = useContext(GameSettingsContext);
 
-  const { firstFlipAtStart, setFirstFlipAtStart } =
-    useContext(GameStateContext);
-
   // Timer related code
+  const { needToStartTimer, setNeedToStartTimer } = useContext(TimeContext);
   const { setNeedToRestartTimer, timerState } = useContext(TimeContext);
 
   // Handle game over logic
@@ -77,7 +75,7 @@ const Game = (props) => {
     setIsGameInProgress(false);
     setTimeout(() => setIsGameOver(false), 500);
     setNeedNewGame(false);
-    setFirstFlipAtStart(false);
+    setNeedToStartTimer(false);
     setIsWon(false);
   };
 
@@ -128,13 +126,12 @@ const Game = (props) => {
       return;
     }
 
-    // Set firstFlip to true when first card is flipped at the start of the game
-    if (!firstFlipAtStart) {
-      setFirstFlipAtStart(true);
+    // When first card is flipped at the start of the game triggers timer to start
+    if (!needToStartTimer && gameMode === MODE_SETTING_TYPES.TIME_BASED) {
+      setNeedToStartTimer(true);
     }
 
     if (!isGameInProgress) {
-      // handleGameStart();
       setIsGameInProgress(true);
     } else {
       // Continue the game if it was paused
