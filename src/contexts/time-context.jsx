@@ -7,7 +7,7 @@ import React, {
   useCallback,
 } from 'react';
 
-import { useTimer } from 'react-timer-hook';
+import { useTimer, useStopwatch } from 'react-timer-hook';
 
 import { GameSettingsContext } from './game-settings.context';
 import { GameStateContext } from './game-state.context';
@@ -50,16 +50,6 @@ const GetActualTimeInSeconds = (secondsToShiftWith) => {
   return time.setSeconds(time.getSeconds() + secondsToShiftWith);
 };
 
-const GetTimerMinutesBasedOnCardNumber = (pairNumber) => {
-  let expirySeconds = GetTimerSeconds(pairNumber);
-  return Math.floor(expirySeconds / 60);
-};
-const GetTimerSecondsBasedOnCardNumber = (pairNumber) => {
-  let expirySeconds = GetTimerSeconds(pairNumber);
-  let minutes = Math.floor(expirySeconds / 60);
-  return expirySeconds - minutes * 60;
-};
-
 export const TimeContext = createContext({
   timerSeconds: null,
   timerMinutes: null,
@@ -67,16 +57,29 @@ export const TimeContext = createContext({
   timerState: {
     startTime: null, // The initial start time of the timer
     remainingTime: null, // The remaining time when the timer is paused
-    wasPaused: false, // Flag to check if the timer was paused
+    wasPaused: false,
     winTime: null,
   },
-  setTimerState: () => {}, // Function to update the timer state
+  setTimerState: () => {},
   needToStartTimer: false,
   setNeedToStartTimer: () => {},
   needToRestartTimer: true,
   setNeedToRestartTimer: () => {},
   pauseTimer: () => {},
   resumeTimer: () => {},
+  // Stopwatch
+  needToStartStopwatch: false,
+  setNeedToStartStopwatch: () => {},
+  needToResetStopwatch: false,
+  setNeedToResetStopwatch: () => {},
+  stopwatchSeconds: null,
+  stopwatchMinutes: null,
+  stopwatchIsRunning: false,
+  stopwatchState: {
+    wasPaused: false,
+    winTime: null,
+  },
+  setStopWatchState: () => {},
 });
 
 export const TimeProvider = ({ children }) => {
@@ -94,15 +97,15 @@ export const TimeProvider = ({ children }) => {
     winTime: null,
   });
   const {
-    firstFlipAtStart,
-    setFirstFlipAtStart,
     isGameInProgress,
     setIsGameInProgress,
     setIsGameOver,
     isWon,
     isGamePaused,
+    needNewGame,
   } = useContext(GameStateContext);
 
+  // ================ TIMER RELATED LOGIC ================
   const setExpiryTimeForTimer = (numberOfPairs) => {
     const newExpiryTime = new Date();
     const timerSeconds = GetTimerSeconds(numberOfPairs);
@@ -153,20 +156,20 @@ export const TimeProvider = ({ children }) => {
   // Start the timer on first flip
   useEffect(() => {
     if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
-      if (firstFlipAtStart) {
+      if (needToStartTimer) {
         const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
         setTimerState((prevState) => ({
           ...prevState,
           startTime: newExpiryTime,
         }));
         startTimer(newExpiryTime);
-        setFirstFlipAtStart(false);
+        setNeedToStartTimer(false);
       }
     }
   }, [
-    firstFlipAtStart,
+    needToStartTimer,
+    setNeedToStartTimer,
     startTimer,
-    setFirstFlipAtStart,
     numberOfPairs,
     gameMode,
   ]);
@@ -200,6 +203,64 @@ export const TimeProvider = ({ children }) => {
     }
   }, [isGamePaused, isGameInProgress]);
 
+  // ================ STOPWATCH RELATED LOGIC ================
+  const [needToStartStopwatch, setNeedToStartStopwatch] = useState(false);
+  const [needToResetStopwatch, setNeedToResetStopwatch] = useState(false);
+  const [stopwatchState, setStopwatchState] = useState({
+    wasPaused: false,
+    winTime: null,
+  });
+  const {
+    seconds: stopwatchSeconds,
+    minutes: stopwatchMinutes,
+    isRunning: stopwatchIsRunning,
+    start: startStopwatch,
+    pause: pauseStopwatch,
+    reset: resetStopwatch,
+  } = useStopwatch({ autoStart: false });
+
+  // Reset the stopwatch
+  useEffect(() => {
+    if (gameMode === MODE_SETTING_TYPES.FREE) {
+      if (needToResetStopwatch && !needToStartStopwatch) {
+        pauseStopwatch();
+        resetStopwatch(null, false);
+        console.log('stopwatch reset');
+      }
+    }
+  }, [needToResetStopwatch, needToStartStopwatch, gameMode]);
+
+  // Pause/start the stopwatch when a game starts or pauses
+  useEffect(() => {
+    if (gameMode === MODE_SETTING_TYPES.FREE) {
+      if (isGamePaused === true) {
+        pauseStopwatch();
+      } else if (!isGamePaused && isGameInProgress) {
+        startStopwatch();
+        console.log('stopwatch continues');
+      }
+    }
+  }, [isGamePaused, isGameInProgress, gameMode]);
+
+  const handleStopWatchStopEndGame = useCallback(() => {
+    const formattedTime = `${stopwatchMinutes
+      .toString()
+      .padStart(2, '0')}:${stopwatchSeconds.toString().padStart(2, '0')}`;
+
+    setStopwatchState((prevState) => ({
+      ...prevState,
+      winTime: formattedTime,
+    }));
+  }, [stopwatchSeconds, stopwatchMinutes]);
+
+  // Stop and save stopwatch time when the game is won
+  useEffect(() => {
+    if (isWon === true) {
+      pauseStopwatch();
+      handleStopWatchStopEndGame();
+    }
+  }, [isWon, handleTimerStopEndGame]);
+
   const value = {
     timerSeconds,
     timerMinutes,
@@ -212,6 +273,15 @@ export const TimeProvider = ({ children }) => {
     setNeedToStartTimer,
     needToRestartTimer,
     setNeedToRestartTimer,
+    // Stopwatch
+    needToStartStopwatch,
+    setNeedToStartStopwatch,
+    needToResetStopwatch,
+    setNeedToResetStopwatch,
+    stopwatchMinutes,
+    stopwatchSeconds,
+    stopwatchIsRunning,
+    stopwatchState,
   };
 
   return <TimeContext.Provider value={value}>{children}</TimeContext.Provider>;

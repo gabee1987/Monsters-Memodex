@@ -7,7 +7,7 @@ import './win-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 const WinModal = (props) => {
-  const { show, turns, time, gameMode, onClose } = props;
+  const { show, turns, timer, stopWatch, gameMode, onClose } = props;
   const hasTransitionedIn = useMountTransition(show, 1000);
 
   const handleClick = () => {
@@ -24,16 +24,6 @@ const WinModal = (props) => {
       easing: 'cubic-bezier(.03,.98,.52,.99)',
     });
   }, []);
-
-  // Convert the seconds to a time format
-  // function formatTime(stopWatchSeconds) {
-  //   const h = Math.floor(stopWatchSeconds / 3600);
-  //   const m = Math.floor((stopWatchSeconds % 3600) / 60);
-  //   const s = Math.round(stopWatchSeconds % 60);
-  //   return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
-  //     .filter(Boolean)
-  //     .join(':');
-  // }
 
   return (
     <div className="win-modal">
@@ -56,7 +46,12 @@ const WinModal = (props) => {
               completed the game in
               {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
                 <div>
-                  <span>{time}</span> <br /> and it took
+                  <span>{timer}</span> <br /> and it took
+                </div>
+              )}
+              {gameMode === MODE_SETTING_TYPES.FREE && (
+                <div>
+                  <span>{stopWatch}</span> <br /> and it took
                 </div>
               )}
               <span>{turns}</span> turns

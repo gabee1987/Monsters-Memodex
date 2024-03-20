@@ -37,7 +37,14 @@ const Game = (props) => {
 
   // Timer related code
   const { needToStartTimer, setNeedToStartTimer } = useContext(TimeContext);
-  const { setNeedToRestartTimer, timerState } = useContext(TimeContext);
+  const { setNeedToRestartTimer, timerState, stopwatchState } =
+    useContext(TimeContext);
+  const {
+    needToStartStopwatch,
+    setNeedToStartStopwatch,
+    needToResetStopwatch,
+    setNeedToResetStopwatch,
+  } = useContext(TimeContext);
 
   // Handle game over logic
   // useEffect(() => {
@@ -75,7 +82,6 @@ const Game = (props) => {
     setIsGameInProgress(false);
     setTimeout(() => setIsGameOver(false), 500);
     setNeedNewGame(false);
-    setNeedToStartTimer(false);
     setIsWon(false);
   };
 
@@ -111,7 +117,14 @@ const Game = (props) => {
   // Start a New Game on click
   const handleNewGameClick = () => {
     initiateNewGame();
-    setNeedToRestartTimer(true);
+    if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
+      setNeedToRestartTimer(true);
+    } else if (gameMode === MODE_SETTING_TYPES.FREE) {
+      console.log('ide befut?');
+      setNeedToResetStopwatch(true);
+      setNeedToStartStopwatch(false);
+      console.log(needToResetStopwatch);
+    }
   };
 
   useEffect(() => {
@@ -126,9 +139,13 @@ const Game = (props) => {
       return;
     }
 
-    // When first card is flipped at the start of the game triggers timer to start
+    // When first card is flipped at the start of the game it triggers timer to start
     if (!needToStartTimer && gameMode === MODE_SETTING_TYPES.TIME_BASED) {
       setNeedToStartTimer(true);
+    }
+    // Or it triggers the stopwatch in free mode
+    if (!needToStartStopwatch && gameMode === MODE_SETTING_TYPES.FREE) {
+      setNeedToStartStopwatch(true);
     }
 
     if (!isGameInProgress) {
@@ -136,7 +153,6 @@ const Game = (props) => {
     } else {
       // Continue the game if it was paused
       if (isGamePaused) {
-        console.log('isGamePaused sets to false here in game component...');
         setIsGamePaused(false);
       }
     }
@@ -289,7 +305,8 @@ const Game = (props) => {
         <WinModal
           show={showWinModal}
           turns={turns}
-          time={timerState.winTime}
+          timer={timerState.winTime}
+          stopWatch={stopwatchState.winTime}
           onClose={handleWinModalClose}
           gameMode={gameMode}
         />
