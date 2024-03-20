@@ -25,7 +25,7 @@ const cardSetPictureId = Math.floor(Math.random() * 100);
 
 const Settings = () => {
   const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
-  const { gamePaused, setGamePaused } = useContext(GameStateContext);
+  const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { inProgressDeck } = useContext(GameStateContext);
   // const { SetInitialTimer } = useContext(GameStateContext);

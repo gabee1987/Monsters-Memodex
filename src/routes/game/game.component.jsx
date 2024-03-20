@@ -135,6 +135,7 @@ const Game = (props) => {
 
     if (!isGameInProgress) {
       // handleGameStart();
+      setIsGameInProgress(true);
     } else {
       // Continue the game if it was paused
       if (isGamePaused) {

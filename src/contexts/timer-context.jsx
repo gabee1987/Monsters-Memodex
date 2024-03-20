@@ -11,7 +11,10 @@ import { useTimer } from 'react-timer-hook';
 
 import { GameSettingsContext } from './game-settings.context';
 import { GameStateContext } from './game-state.context';
-import { DEFAULT_TIMER_SECONDS } from './game-settings.context';
+import {
+  MODE_SETTING_TYPES,
+  DEFAULT_TIMER_SECONDS,
+} from './game-settings.context';
 
 const GetTimerSeconds = (numberOfPairs) => {
   // console.log('card number: ', numOfCards);
@@ -70,15 +73,23 @@ export const TimerContext = createContext({
   setTimerState: () => {}, // Function to update the timer state
   needToRestartTimer: true,
   setNeedToRestartTimer: () => {},
+  pauseTimer: () => {},
+  resumeTimer: () => {},
 });
 
 export const TimerProvider = ({ children }) => {
   const { numberOfPairs } = useContext(GameSettingsContext);
+  const { gameMode } = useContext(GameSettingsContext);
   const [expiryTimestamp, setExpiryTimestamp] = useState(
     GetActualTimeInSeconds(GetTimerSeconds(numberOfPairs))
   );
   const [needToRestartTimer, setNeedToRestartTimer] = useState(true);
-  const [timerState, setTimerState] = useState(0);
+  const [timerState, setTimerState] = useState({
+    startTime: null,
+    remainingTime: null,
+    wasPaused: false,
+    winTime: null,
+  });
   const {
     firstFlipAtStart,
     setFirstFlipAtStart,
@@ -89,21 +100,12 @@ export const TimerProvider = ({ children }) => {
     isGamePaused,
   } = useContext(GameStateContext);
 
-  // const expirySeconds = GetTimerSeconds(numberOfPairs);
-  // const expiryTimestamp = new Date();
-  // expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + expirySeconds);
-
   const setExpiryTimeForTimer = (numberOfPairs) => {
     const newExpiryTime = new Date();
     const timerSeconds = GetTimerSeconds(numberOfPairs);
     newExpiryTime.setSeconds(newExpiryTime.getSeconds() + timerSeconds);
     return newExpiryTime;
   };
-
-  //   const expiryTimestamp = useMemo(() => {
-  //     const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
-  //     return newExpiryTime;
-  //   }, [numberOfPairs]);
 
   const {
     seconds: timerSeconds,
@@ -119,6 +121,14 @@ export const TimerProvider = ({ children }) => {
     onExpire: () => handleExpire(),
   });
 
+  // Set initial timer value
+  useEffect(() => {
+    const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
+    console.log('number of pairs : ', numberOfPairs);
+    restartTimer(newExpiryTime, false);
+    setTimerState((prevState) => ({ ...prevState, startTime: newExpiryTime }));
+  }, [numberOfPairs]);
+
   //   useEffect(() => {
   //     const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
   //     restartTimer(newExpiryTime, false);
@@ -131,41 +141,26 @@ export const TimerProvider = ({ children }) => {
   }, [setIsGameOver, setIsGameInProgress]);
 
   const handleTimerStopEndGame = useCallback(() => {
-    console.log('Timer is stopped at ', timerMinutes, timerSeconds);
-    // pauseTimer();
-    // Format the time and save it
     const formattedTime = `${timerMinutes
       .toString()
       .padStart(2, '0')}:${timerSeconds.toString().padStart(2, '0')}`;
-    // setTimerState({ remainingTime: formattedTime });
-  }, [timerMinutes, timerSeconds]);
 
-  const handleTimerPauseMidGame = useCallback(() => {
-    console.log('Timer is paused at ', timerMinutes, timerSeconds);
-    // pauseTimer();
-    // Format the time and save it
-    const formattedTime = `${timerMinutes
-      .toString()
-      .padStart(2, '0')}:${timerSeconds.toString().padStart(2, '0')}`;
-    // setTimerState({ remainingTime: formattedTime });
-    // setTimerState({
-    //   startTime: initialStartTime,
-    //   remainingTime: remainingTime,
-    //   wasPaused: true
-    // });
-  }, [timerMinutes, timerSeconds]);
+    setTimerState((prevState) => ({
+      ...prevState,
+      winTime: formattedTime,
+    }));
+  }, [timerSeconds]);
 
-  // Set initial timer value
-  useEffect(() => {
-    const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
-    console.log('number of pairs : ', numberOfPairs);
-    restartTimer(newExpiryTime, false);
-  }, [numberOfPairs]);
+  const handleTimerPauseMidGame = useCallback(() => {}, []);
 
   // Start the timer on first flip
   useEffect(() => {
     if (firstFlipAtStart) {
       const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
+      setTimerState((prevState) => ({
+        ...prevState,
+        startTime: newExpiryTime,
+      }));
       startTimer(newExpiryTime);
       setFirstFlipAtStart(false);
     }
@@ -180,54 +175,53 @@ export const TimerProvider = ({ children }) => {
     }
   }, [needToRestartTimer, restartTimer, setNeedToRestartTimer, numberOfPairs]);
 
+  // Stop and save timer when the game is won
   useEffect(() => {
     if (isWon === true) {
       pauseTimer();
-      //   handleTimerStopEndGame();
+      handleTimerStopEndGame();
     }
-  }, [isWon, handleTimerStopEndGame, pauseTimer]);
+  }, [isWon, handleTimerStopEndGame]);
 
+  // Pause and save the timer when the game is paused
   useEffect(() => {
     if (isGamePaused === true) {
       pauseTimer();
-      //   handleTimerPauseMidGame();
+      handleTimerPauseMidGame();
     } else if (!isGamePaused && isGameInProgress) {
       resumeTimer();
+      console.log('timer continues after pause...');
     }
-  }, [
-    isGamePaused,
-    isGameInProgress,
-    handleTimerPauseMidGame,
-    pauseTimer,
-    resumeTimer,
-  ]);
+  }, [isGamePaused, isGameInProgress, handleTimerPauseMidGame]);
 
-  //   const totalDuration = GetTimerSeconds(numberOfPairs); // total duration in seconds
-  //   const calculateRemainingTime = () => {
-  //     const now = new Date();
-  //     const elapsed = (now.getTime() - timerState.startTime.getTime()) / 1000; // in seconds
+  // const totalDuration = GetTimerSeconds(numberOfPairs); // total duration in seconds
+  // const calculateRemainingTime = () => {
+  //   const now = new Date();
+  //   const elapsed = (now.getTime() - timerState.startTime.getTime()) / 1000; // in seconds
 
-  //     return timerState.wasPaused
-  //       ? timerState.remainingTime
-  //       : totalDuration - elapsed;
-  //   };
+  //   return timerState.wasPaused
+  //     ? timerState.remainingTime
+  //     : totalDuration - elapsed;
+  // };
 
-  //   useEffect(() => {
-  //     // Logic to calculate the current state of the timer
-  //     const currentRemainingTime = calculateRemainingTime(); // Implement this function based on your timer logic
+  // useEffect(() => {
+  //   // Logic to calculate the current state of the timer
+  //   const currentRemainingTime = calculateRemainingTime(); // Implement this function based on your timer logic
 
-  //     setTimerState((prevState) => ({
-  //       ...prevState,
-  //       remainingTime: currentRemainingTime,
-  //     }));
+  //   setTimerState((prevState) => ({
+  //     ...prevState,
+  //     remainingTime: currentRemainingTime,
+  //   }));
 
-  //     // Additional logic for pause, resume, etc.
-  //   }, [timerSeconds, timerMinutes, setTimerState]);
+  //   // Additional logic for pause, resume, etc.
+  // }, [timerSeconds, timerMinutes, setTimerState]);
 
   const value = {
     timerSeconds,
     timerMinutes,
     timerIsRunning,
+    pauseTimer,
+    resumeTimer,
     timerState,
     setTimerState,
     needToRestartTimer,
