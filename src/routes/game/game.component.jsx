@@ -83,6 +83,16 @@ const Game = (props) => {
     setTimeout(() => setIsGameOver(false), 500);
     setNeedNewGame(false);
     setIsWon(false);
+
+    // Time related states
+    if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
+      setNeedToRestartTimer(true);
+    } else if (gameMode === MODE_SETTING_TYPES.FREE) {
+      console.log('ide befut?');
+      setNeedToResetStopwatch(true);
+      setNeedToStartStopwatch(false);
+      console.log(needToResetStopwatch);
+    }
   };
 
   // Create the initial card deck on game start
@@ -117,14 +127,6 @@ const Game = (props) => {
   // Start a New Game on click
   const handleNewGameClick = () => {
     initiateNewGame();
-    if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
-      setNeedToRestartTimer(true);
-    } else if (gameMode === MODE_SETTING_TYPES.FREE) {
-      console.log('ide befut?');
-      setNeedToResetStopwatch(true);
-      setNeedToStartStopwatch(false);
-      console.log(needToResetStopwatch);
-    }
   };
 
   useEffect(() => {
