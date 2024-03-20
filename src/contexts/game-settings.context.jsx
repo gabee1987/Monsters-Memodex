@@ -45,16 +45,16 @@ export const CARBACK_SETTING_TYPES = {
 
 export const DEFAULT_TIMER_SECONDS = {
   TIMER_DEFAULT: 600,
-  TIMER_AT_2_CARDS: 30,
-  TIMER_AT_4_CARDS: 60,
-  TIMER_AT_6_CARDS: 120,
-  TIMER_AT_8_CARDS: 180,
-  TIMER_AT_10_CARDS: 240,
-  TIMER_AT_12_CARDS: 300,
-  TIMER_AT_14_CARDS: 360,
-  TIMER_AT_16_CARDS: 420,
-  TIMER_AT_18_CARDS: 480,
-  TIMER_AT_20_CARDS: 540,
+  TIMER_AT_2_PAIRS: 30,
+  TIMER_AT_4_PAIRS: 60,
+  TIMER_AT_6_PAIRS: 120,
+  TIMER_AT_8_PAIRS: 180,
+  TIMER_AT_10_PAIRS: 240,
+  TIMER_AT_12_PAIRS: 300,
+  TIMER_AT_14_PAIRS: 360,
+  TIMER_AT_16_PAIRS: 420,
+  TIMER_AT_18_PAIRS: 480,
+  TIMER_AT_20_PAIRS: 540,
 };
 
 export const calculateTimerValue = (numOfCards, difficulty) => {
@@ -79,11 +79,11 @@ export const GameSettingsContext = createContext({
   setGameMode: () => {},
   difficulty: DIFFICULTY_SETTING_TYPES.EASY,
   setDifficulty: () => {},
-  numberOfCards: 10,
-  setNumberOfCards: () => {},
+  numberOfPairs: 10,
+  setNumberOfPairs: () => {},
   cardSet: CARDSET_SETTING_TYPES.MONSTERS,
   setCardSet: () => {},
-  cardBack: CARBACK_SETTING_TYPES.BUBBLES,
+  cardBack: CARBACK_SETTING_TYPES.BASIC,
   setCardBack: () => {},
 });
 
@@ -91,9 +91,9 @@ export const GameSettingsProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
   const [gameMode, setGameMode] = useState(MODE_SETTING_TYPES.FREE);
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
-  const [numberOfCards, setNumberOfCards] = useState(10);
+  const [numberOfPairs, setNumberOfPairs] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
-  const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BUBBLES);
+  const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BASIC);
 
   const value = {
     activeTab,
@@ -102,8 +102,8 @@ export const GameSettingsProvider = ({ children }) => {
     setGameMode,
     difficulty,
     setDifficulty,
-    numberOfCards,
-    setNumberOfCards,
+    numberOfPairs,
+    setNumberOfPairs,
     cardSet,
     setCardSet,
     cardBack,

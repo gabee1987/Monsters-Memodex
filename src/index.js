@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GameStateProvider } from './contexts/game-state.context';
 import { GameSettingsProvider } from './contexts/game-settings.context';
+import { TimerProvider } from './contexts/timer-context';
 
 import './index.css';
 
@@ -15,7 +16,9 @@ root.render(
     <BrowserRouter>
       <GameSettingsProvider>
         <GameStateProvider>
-          <App />
+          <TimerProvider>
+            <App />
+          </TimerProvider>
         </GameStateProvider>
       </GameSettingsProvider>
     </BrowserRouter>

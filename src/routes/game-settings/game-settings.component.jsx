@@ -33,7 +33,7 @@ const Settings = () => {
 
   const { gameMode, setGameMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
-  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
+  const { numberOfPairs, setNumberOfPairs } = useContext(GameSettingsContext);
   const { activeTab, setActiveTab } = useContext(GameSettingsContext);
   const { cardSet, setCardSet } = useContext(GameSettingsContext);
   const { cardBack, setCardBack } = useContext(GameSettingsContext);
@@ -62,8 +62,8 @@ const Settings = () => {
     console.log('difficulty changed to: ', event.target.value);
   };
 
-  const handleCardNumberChange = (event) => {
-    setNumberOfCards(event.target.value);
+  const handlePairNumberChange = (event) => {
+    setNumberOfPairs(event.target.value);
     console.log('cardNumber changed to:', event.target.value);
   };
 
@@ -210,21 +210,21 @@ const Settings = () => {
               </div>
             </div>
 
-            <div className="settings-category card-number-settings">
+            <div className="settings-category pair-number-settings">
               <span>Number of Pairs</span>
-              <div className="settings-input-group card-number-group">
-                <label htmlFor="cardNumberSlider">
-                  {numberOfCards}
+              <div className="settings-input-group pair-number-group">
+                <label htmlFor="pairNumberSlider">
+                  {numberOfPairs}
 
                   <input
-                    id="cardNumberSlider"
-                    className="card-number-input"
+                    id="pairNumberSlider"
+                    className="pair-number-input"
                     type="range"
                     min="2"
                     max="20"
                     step="2"
-                    value={numberOfCards}
-                    onChange={handleCardNumberChange}
+                    value={numberOfPairs}
+                    onChange={handlePairNumberChange}
                   />
                 </label>
               </div>

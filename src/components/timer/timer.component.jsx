@@ -1,135 +1,24 @@
-import React, {
-  useEffect,
-  useContext,
-  useState,
-  useMemo,
-  useCallback,
-} from 'react';
-import { useTimer } from 'react-timer-hook';
-import { GameStateContext } from '../../contexts/game-state.context';
-import { GameSettingsContext } from '../../contexts/game-settings.context';
-import { DEFAULT_TIMER_SECONDS } from '../../contexts/game-settings.context';
+import React, { useContext } from 'react';
+
+import { TimerContext } from '../../contexts/timer-context';
 
 import './timer.styles.scss';
 
-const GetTimerSeconds = (numOfCards) => {
-  // console.log('card number: ', numOfCards);
-  switch (numOfCards) {
-    case '2':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_2_CARDS;
-    case '4':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_4_CARDS;
-    case '6':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_6_CARDS;
-    case '8':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_8_CARDS;
-    case '10':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_10_CARDS;
-    case '12':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_12_CARDS;
-    case '14':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_14_CARDS;
-    case '16':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_16_CARDS;
-    case '18':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_18_CARDS;
-    case '20':
-      return DEFAULT_TIMER_SECONDS.TIMER_AT_20_CARDS;
-
-    default:
-      return DEFAULT_TIMER_SECONDS.TIMER_DEFAULT;
-  }
-};
-
 const TimerComponent = () => {
-  const [currentTimerState, setCurrentTimerState] = useState();
-  const { numberOfCards } = useContext(GameSettingsContext);
-  const {
-    firstFlipAtStart,
-    setFirstFlipAtStart,
-    needToRestartTimer,
-    setNeedToRestartTimer,
-    setGameInProgress,
-    setGameOver,
-    isWon,
-    winTime,
-    setWinTime,
-  } = useContext(GameStateContext);
+  const { timerSeconds, timerMinutes, timerIsRunning } =
+    useContext(TimerContext);
+  // useEffect(() => {
+  //   if (timerState.wasPaused) {
+  //     // Calculate new expiry timestamp based on remaining time
+  //     const newExpiryTime = new Date();
+  //     newExpiryTime.setSeconds(
+  //       newExpiryTime.getSeconds() + timerState.remainingTime
+  //     );
 
-  const setExpiryTimeForTimer = (numberOfCards) => {
-    const newExpiryTime = new Date();
-    const timerSeconds = GetTimerSeconds(numberOfCards);
-    newExpiryTime.setSeconds(newExpiryTime.getSeconds() + timerSeconds);
-    return newExpiryTime;
-  };
-
-  const expiryTimestamp = useMemo(() => {
-    const newExpiryTime = setExpiryTimeForTimer(numberOfCards);
-    return newExpiryTime;
-  }, [numberOfCards]);
-
-  const {
-    seconds: timerSeconds,
-    minutes: timerMinutes,
-    isRunning: timerIsRunning,
-    start: startTimer,
-    pause: pauseTimer,
-    resume: resumeTimer,
-    restart: restartTimer,
-  } = useTimer({
-    expiryTimestamp,
-    autoStart: false,
-    onExpire: () => handleExpire(),
-  });
-
-  const handleExpire = useCallback(() => {
-    setGameInProgress(false);
-    console.log('Time is expired!');
-    setGameOver(true);
-  }, [setGameOver, setGameInProgress]);
-
-  const handlePause = useCallback(() => {
-    console.log('Timer is paused at ', timerMinutes, timerSeconds);
-    pauseTimer();
-    // Format the time and save it
-    const formattedTime = `${timerMinutes
-      .toString()
-      .padStart(2, '0')}:${timerSeconds.toString().padStart(2, '0')}`;
-    setWinTime(formattedTime);
-  }, [pauseTimer, timerMinutes, timerSeconds, setWinTime]);
-
-  // Effect to start the timer on first flip
-  useEffect(() => {
-    if (firstFlipAtStart) {
-      const newExpiryTime = setExpiryTimeForTimer(numberOfCards);
-      startTimer(newExpiryTime);
-      setFirstFlipAtStart(false);
-    }
-  }, [firstFlipAtStart, startTimer, setFirstFlipAtStart, numberOfCards]);
-
-  // Effect to restart the timer when needed
-  useEffect(() => {
-    if (needToRestartTimer) {
-      const newExpiryTime = setExpiryTimeForTimer(numberOfCards);
-      restartTimer(newExpiryTime, false);
-      setNeedToRestartTimer(false);
-    }
-  }, [
-    needToRestartTimer,
-    restartTimer,
-    pauseTimer,
-    setNeedToRestartTimer,
-    expiryTimestamp,
-    numberOfCards,
-  ]);
-
-  useEffect(() => {
-    if (isWon === true) {
-      console.log('Is pause happening in timer component?');
-      pauseTimer();
-      handlePause();
-    }
-  }, [isWon, handlePause, pauseTimer]);
+  //     restartTimer(newExpiryTime);
+  //     setTimerState({ ...timerState, wasPaused: false }); // Reset the pause flag
+  //   }
+  // }, [timerState, restartTimer, setTimerState]);
 
   // const {
   //   seconds: stopWatchSeconds,
@@ -201,10 +90,9 @@ const TimerComponent = () => {
   return (
     <div className="timer-container">
       <div className="timer">
-        {timerMinutes.toString().padStart(2, '0')}:
-        {timerSeconds.toString().padStart(2, '0')}
+        {String(timerMinutes).padStart(2, '0')}:
+        {String(timerSeconds).padStart(2, '0')}
       </div>
-      {/* The start, pause, etc., can be controlled externally via props if needed */}
     </div>
   );
 };

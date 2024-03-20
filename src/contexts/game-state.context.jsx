@@ -11,60 +11,50 @@ import {
 export const GameStateContext = createContext({
   turns: 0,
   setTurns: () => {},
-  gameInProgress: false,
-  setGameInProgress: () => {},
+  isGameInProgress: false,
+  setIsGameInProgress: () => {},
   isWon: false,
   setIsWon: () => {},
   inProgressDeck: [],
   setInProgressDeck: () => {},
   needNewGame: false,
   setNeedNewGame: () => {},
-  gamePaused: false,
-  setGamePaused: () => {},
-  gameOver: false,
-  setGameOver: () => {},
+  isGamePaused: false,
+  setIsGamePaused: () => {},
+  isGameOver: false,
+  setIsGameOver: () => {},
   firstFlipAtStart: false,
   setFirstFlipAtStart: () => {},
-  needToRestartTimer: false,
-  setNeedToRestartTimer: () => {},
-  winTime: 0,
-  setWinTime: () => {},
 });
 
 export const GameStateProvider = ({ children }) => {
   const [turns, setTurns] = useState(0);
-  const [gameInProgress, setGameInProgress] = useState(false);
+  const [isGameInProgress, setIsGameInProgress] = useState(false);
   const [isWon, setIsWon] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [inProgressDeck, setInProgressDeck] = useState([]);
   const [needNewGame, setNeedNewGame] = useState();
-  const [gamePaused, setGamePaused] = useState(false);
+  const [isGamePaused, setIsGamePaused] = useState(false);
   const { gameMode } = useContext(GameSettingsContext);
   const [firstFlipAtStart, setFirstFlipAtStart] = useState(false);
-  const [needToRestartTimer, setNeedToRestartTimer] = useState(false);
-  const [winTime, setWinTime] = useState(0);
 
   const value = {
     turns,
     setTurns,
-    gameInProgress,
-    setGameInProgress,
+    isGameInProgress,
+    setIsGameInProgress,
     isWon,
     setIsWon,
     inProgressDeck,
     setInProgressDeck,
     needNewGame,
     setNeedNewGame,
-    gamePaused,
-    setGamePaused,
-    gameOver,
-    setGameOver,
+    isGamePaused,
+    setIsGamePaused,
+    isGameOver,
+    setIsGameOver,
     firstFlipAtStart,
     setFirstFlipAtStart,
-    needToRestartTimer,
-    setNeedToRestartTimer,
-    winTime,
-    setWinTime,
   };
 
   return (

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context.jsx';
+import { TimerContext } from '../../contexts/timer-context.jsx';
 
 import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
@@ -22,36 +23,35 @@ const Game = (props) => {
   const [showGameOverModal, setGameOverModal] = useState(false);
 
   const { turns, setTurns } = useContext(GameStateContext);
-  const { gamePaused, setGamePaused } = useContext(GameStateContext);
-  const { gameOver, setGameOver } = useContext(GameStateContext);
-  const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
+  const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
+  const { isGameOver, setIsGameOver } = useContext(GameStateContext);
+  const { isGameInProgress, setIsGameInProgress } =
+    useContext(GameStateContext);
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
 
-  const { numberOfCards, setNumberOfCards } = useContext(GameSettingsContext);
+  const { numberOfPairs, setNumberOfPairs } = useContext(GameSettingsContext);
   const { gameMode } = useContext(GameSettingsContext);
   const { difficulty } = useContext(GameSettingsContext);
 
+  const { firstFlipAtStart, setFirstFlipAtStart } =
+    useContext(GameStateContext);
+
   // Timer related code
-  const {
-    firstFlipAtStart,
-    setFirstFlipAtStart,
-    setNeedToRestartTimer,
-    winTime,
-  } = useContext(GameStateContext);
+  const { setNeedToRestartTimer, timerState } = useContext(TimerContext);
 
   // Handle game over logic
   // useEffect(() => {
   //   if (isTimeUp) {
-  //     setGameOver(true);
+  //     setIsGameOver(true);
   //   }
   // }, [isTimeUp]);
 
   // Create initial card deck
   useEffect(() => {
     if (needNewGame) {
-      setNumberOfCards(numberOfCards);
+      setNumberOfPairs(numberOfPairs);
       initiateNewGame();
     } else if (inProgressDeck != null) {
       let savedCards = getCurrentDeckFromLocalStorage();
@@ -73,8 +73,9 @@ const Game = (props) => {
 
     setTurns(-1);
     resetTurn();
-    setGameInProgress(false);
-    setTimeout(() => setGameOver(false), 500);
+    setIsGamePaused(false);
+    setIsGameInProgress(false);
+    setTimeout(() => setIsGameOver(false), 500);
     setNeedNewGame(false);
     setFirstFlipAtStart(false);
     setIsWon(false);
@@ -85,7 +86,7 @@ const Game = (props) => {
     // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
     let cards = [];
 
-    for (let index = 0; index < numberOfCards; index++) {
+    for (let index = 0; index < numberOfPairs; index++) {
       cards.push({
         id: 'pairOne-' + index,
         pictureId: index,
@@ -132,12 +133,13 @@ const Game = (props) => {
       setFirstFlipAtStart(true);
     }
 
-    if (!gameInProgress) {
+    if (!isGameInProgress) {
       // handleGameStart();
     } else {
       // Continue the game if it was paused
-      if (gamePaused) {
-        setGamePaused(false);
+      if (isGamePaused) {
+        console.log('isGamePaused sets to false here in game component...');
+        setIsGamePaused(false);
       }
     }
 
@@ -211,9 +213,9 @@ const Game = (props) => {
       //   console.log('Is pause happening in game component?');
       // }
       setTimeout(() => setShowWinModal(isWon), 1500);
-      setGameInProgress(false);
+      setIsGameInProgress(false);
     }
-  }, [isWon, setGameInProgress]);
+  }, [isWon, setIsGameInProgress]);
 
   const flipAndDisableAllCards = (cardsToFlip) => {
     return cardsToFlip.map((card) => {
@@ -230,11 +232,11 @@ const Game = (props) => {
 
   // Show the Game Over modal with stats
   useEffect(() => {
-    if (gameOver) {
+    if (isGameOver) {
       handleGameOver();
-      setTimeout(() => setGameOverModal(gameOver), 1500);
+      setTimeout(() => setGameOverModal(isGameOver), 1500);
     }
-  }, [gameOver]);
+  }, [isGameOver]);
 
   // Handle the close of the win modal
   const handleWinModalClose = () => {
@@ -248,7 +250,7 @@ const Game = (props) => {
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {
-    if (isWon || gameOver) {
+    if (isWon || isGameOver) {
       //setTimerStarted(false); // Reset timer start trigger on game over or win
     }
 
@@ -289,7 +291,7 @@ const Game = (props) => {
         <WinModal
           show={showWinModal}
           turns={turns}
-          time={winTime}
+          time={timerState.winTime}
           onClose={handleWinModalClose}
           gameMode={gameMode}
         />
