@@ -88,10 +88,8 @@ const Game = (props) => {
     if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
       setNeedToRestartTimer(true);
     } else if (gameMode === MODE_SETTING_TYPES.FREE) {
-      console.log('ide befut?');
       setNeedToResetStopwatch(true);
       setNeedToStartStopwatch(false);
-      console.log(needToResetStopwatch);
     }
   };
 

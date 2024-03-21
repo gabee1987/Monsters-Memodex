@@ -15,7 +15,6 @@ const Navigation = () => {
   // Pause the game when we leave the game page
   const handleGamePause = () => {
     setIsGamePaused(true);
-    console.log('game paused... from navigation');
   };
 
   return (

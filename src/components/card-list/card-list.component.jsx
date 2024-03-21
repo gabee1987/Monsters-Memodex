@@ -13,38 +13,11 @@ const CardList = ({
   disabled,
 }) => {
   const [cardSize, setCardSize] = useState(250); // default size
-  // const [columns, setColumns] = useState(4);
-  // const [rows, setRows] = useState(4);
-  const minCardSize = 50; // minimum card size
-  const maxCardSize = 250; // maximum card size
-  const gapSize = 10; // space between cards
+  const minCardSize = 50;
+  const maxCardSize = 250;
+  const gapSize = 10;
 
   const adjustCardSize = () => {
-    // const cardListContainer = document.querySelector('.card-list-container');
-    // const navigationBar = document.querySelector('.navigation');
-    // const gameControls = document.querySelector('.button-container');
-    // if (!cardListContainer || !navigationBar || !gameControls) return;
-    // const containerWidth = cardListContainer.offsetWidth;
-    // const navHeight = navigationBar.offsetHeight;
-    // const controlsHeight = gameControls.offsetHeight;
-    // const containerHeight = window.innerHeight - navHeight - controlsHeight;
-    // let cardWidth = maxCardSize;
-    // let maxCardPerRow = Math.floor(containerWidth / cardWidth);
-    // let maxIterations = 100; // Safeguard
-    // while (
-    //   (maxCardPerRow * (cardWidth + gapSize) - gapSize > containerWidth ||
-    //     Math.ceil(cards.length / maxCardPerRow) * (cardWidth + gapSize) -
-    //       gapSize >
-    //       containerHeight) &&
-    //   maxIterations > 0
-    // ) {
-    //   cardWidth -= 5; // decrement card width
-    //   maxCardPerRow = Math.floor(containerWidth / (cardWidth + gapSize));
-    //   maxIterations--;
-    // }
-    // cardWidth = Math.max(cardWidth, minCardSize); // enforce minimum card size
-    // setCardSize(Math.floor(cardWidth));
-
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
@@ -53,17 +26,22 @@ const CardList = ({
     const gameControls = document.querySelector('.button-container');
     if (!cardListContainer || !navigationBar || !gameControls) return;
 
-    // Estimate heights of other components (Navigation and GameControls)
-    const navHeight = 60; // example height
-    const controlHeight = 100; // example height
+    // Heights of other components (Navigation and GameControls)
+    const navHeight = navigationBar.offsetHeight;
+    const controlsHeight = gameControls.offsetHeight;
 
-    const availableHeight = screenHeight - navHeight - controlHeight;
+    const availableHeight = screenHeight - navHeight - controlsHeight;
 
     let currentCardSize = maxCardSize;
     let columns = Math.floor(screenWidth / (currentCardSize + gapSize));
     let rows = Math.ceil(cards.length / columns);
     let totalHeight = rows * (currentCardSize + gapSize);
 
+    // Failsafe
+    const loopLimit = 100;
+    let iterations = 0;
+
+    // Calculate the card size
     while (totalHeight > availableHeight && currentCardSize > minCardSize) {
       currentCardSize -= 10; // decrement size
       columns = Math.floor(screenWidth / (currentCardSize + gapSize));
@@ -71,9 +49,11 @@ const CardList = ({
       totalHeight = rows * (currentCardSize + gapSize);
     }
 
-    setCardSize(currentCardSize);
-    // setColumns(columns);
-    // setRows(rows);
+    if (iterations < loopLimit) {
+      setCardSize(currentCardSize);
+    } else {
+      console.error('Failed to resize cards within loop limit');
+    }
   };
 
   useEffect(() => {
@@ -89,9 +69,8 @@ const CardList = ({
   useEffect(() => {
     const cardList = document.querySelector('.card-list');
     if (cardList) {
-      // cardList.style.gridTemplateColumns = `repeat(${columns}, ${cardSize}px)`;
-      // cardList.style.gridTemplateRows = `repeat(${rows}, ${cardSize}px)`;
       cardList.style.gridTemplateColumns = `repeat(auto-fill, minmax(${cardSize}px, 1fr))`;
+      // cardList.style.gap = `${gapSize}px`;
     }
   }, [cardSize]);
 

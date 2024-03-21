@@ -2,9 +2,10 @@
   width: 100%;
   margin: 0 auto;
   display: grid;
-  gap: 5px;
   justify-items: center;
   align-items: center;
+  justify-content: space-evenly;
+  // gap: 5px;
   // padding: 1rem;
   // grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   // grid-template-rows: auto;

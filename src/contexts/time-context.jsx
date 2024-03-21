@@ -198,7 +198,6 @@ export const TimeProvider = ({ children }) => {
         pauseTimer();
       } else if (!isGamePaused && isGameInProgress) {
         resumeTimer();
-        console.log('timer continues after pause...');
       }
     }
   }, [isGamePaused, isGameInProgress]);
