@@ -10,7 +10,7 @@ import {
 
 import './card.styles.scss';
 
-const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
+const Card = ({ card, onClick, flipped, isShuffling, disabled, size }) => {
   const { id, pictureId, isPaired, flippedOnGameOver } = card;
   const { cardSet } = useContext(GameSettingsContext);
   const { cardBack } = useContext(GameSettingsContext);
@@ -54,13 +54,16 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled }) => {
       className={`card-container ${isPaired ? 'isPaired' : ''} ${
         isShuffling ? 'isShuffling' : ''
       } ${flippedOnGameOver ? 'flippedOnGameOver' : ''}`}
+      style={{ width: `${size}px`, height: `${size}px` }}
     >
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>
         <div className="card-front">
           <img
             id={pictureId}
             alt={`card-${id}`}
-            src={`https://robohash.org/${pictureId}?set=set${roboHashId}&size=250x250`}
+            src={`https://robohash.org/${pictureId}?set=set${roboHashId}&size=${Math.floor(
+              size
+            )}x${Math.floor(size)}`}
           />
         </div>
         <div
