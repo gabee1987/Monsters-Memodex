@@ -6,12 +6,15 @@ import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context.jsx';
 import { TimeContext } from '../../contexts/time-context.jsx';
 
+import { localStorageService } from '../../services/local-storage.service.jsx';
+import { CardDeckService } from '../../services/card-deck.service.jsx';
+
 import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
-
-import './game.styles.scss';
 import WinModal from '../../components/win-modal/win-modal.component.jsx';
 import GameOverModal from '../../components/game-over-modal/game-over-modal.component.jsx';
+
+import './game.styles.scss';
 
 const Game = (props) => {
   const [cardDeck, setCardDeck] = useState([]);
@@ -42,7 +45,6 @@ const Game = (props) => {
   const {
     needToStartStopwatch,
     setNeedToStartStopwatch,
-    needToResetStopwatch,
     setNeedToResetStopwatch,
   } = useContext(TimeContext);
 
@@ -53,22 +55,22 @@ const Game = (props) => {
   //   }
   // }, [isTimeUp]);
 
-  // Create initial card deck
+  // Create initial card deck on first page load or load a previous state if was one
   useEffect(() => {
-    if (needNewGame) {
-      setNumberOfPairs(numberOfPairs);
-      initiateNewGame();
-    } else if (inProgressDeck != null) {
-      let savedCards = getCurrentDeckFromLocalStorage();
+    const savedCards = localStorageService.load('inProgressDeck');
+    if (savedCards && savedCards.length > 0) {
+      console.log('Deck is loaded from a previous state.');
       setCardDeck(savedCards);
+    } else {
+      initiateNewGame();
     }
   }, []);
 
   const initiateNewGame = () => {
-    const newCardDeck = createInitialCardDeck();
+    const newCardDeck = CardDeckService.createNewDeck(numberOfPairs);
     // Set the shuffle animation state
     setIsShufflingActive(true);
-    const shuffledCardDeck = shufflingCards(newCardDeck);
+    const shuffledCardDeck = CardDeckService.shuffleCards(newCardDeck);
     setTimeout(() => setCardDeck(shuffledCardDeck), 855);
 
     // Remove the animation state
@@ -89,42 +91,6 @@ const Game = (props) => {
       setNeedToResetStopwatch(true);
       setNeedToStartStopwatch(false);
     }
-  };
-
-  // Create the initial card deck on game start
-  const createInitialCardDeck = () => {
-    // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card
-    let cards = [];
-
-    for (let index = 0; index < numberOfPairs; index++) {
-      cards.push({
-        id: 'pairOne-' + index,
-        pictureId: index,
-        isPaired: false,
-      });
-      cards.push({
-        id: 'pairTwo-' + index,
-        pictureId: index,
-        isPaired: false,
-      });
-    }
-    return cards;
-  };
-
-  const shufflingCards = (cards) => {
-    let shuffledCardDeck = [...cards];
-
-    // Fisher-Yates (or Knuth) Shuffle algorithm
-    for (let i = shuffledCardDeck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledCardDeck[i], shuffledCardDeck[j]] = [
-        shuffledCardDeck[j],
-        shuffledCardDeck[i],
-      ];
-    }
-
-    setTurns(0);
-    return shuffledCardDeck;
   };
 
   // Start a New Game on click
@@ -198,15 +164,18 @@ const Game = (props) => {
 
   // Save the current progress to the context
   useEffect(() => {
-    setTimeout(() => setInProgressDeck(cardDeck), 500);
-    setTimeout(() => saveCurrentDeckToLocalStorage(cardDeck), 500);
+    const timeoutId = setTimeout(() => {
+      localStorageService.save('inProgressDeck', cardDeck);
+    }, 300);
+    console.log('Current deck is saved to local storage.');
+    return () => clearTimeout(timeoutId);
   }, [cardDeck]);
 
   // Check win condition
   useEffect(() => {
     const winState = checkWinCondition(cardDeck);
     setIsWon(winState);
-  }, [cardDeck]);
+  }, [cardDeck, setIsWon]);
 
   // Check win condition
   const checkWinCondition = (cards) => {
@@ -224,13 +193,9 @@ const Game = (props) => {
     return result;
   };
 
-  // Handling the win state, show the won modal and save the timer is its a timer based mode
+  // Handling the win state, show the won modal
   useEffect(() => {
     if (isWon) {
-      // Save win time and Stop the game
-      // if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {
-      //   console.log('Is pause happening in game component?');
-      // }
       setTimeout(() => setShowWinModal(isWon), 1500);
       setIsGameInProgress(false);
     }
@@ -243,7 +208,6 @@ const Game = (props) => {
   };
 
   const handleGameOver = () => {
-    // console.log('gameover why showing up: ', gameOver);
     setIsWon(false);
     const flippedAndDisabledCards = flipAndDisableAllCards(cardDeck);
     setTimeout(() => setCardDeck(flippedAndDisabledCards), 2000);
@@ -269,10 +233,6 @@ const Game = (props) => {
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {
-    if (isWon || isGameOver) {
-      //setTimerStarted(false); // Reset timer start trigger on game over or win
-    }
-
     setFirstChoice(null);
     setSecondChoice(null);
 
@@ -281,18 +241,6 @@ const Game = (props) => {
 
     // Cancel the disabled state of the cards
     setTimeout(() => setCardDisabled(false), 200);
-  };
-
-  const saveCurrentDeckToLocalStorage = (cards) => {
-    localStorage.setItem('inProgressDeck', JSON.stringify(cards));
-    // console.log('deck is saved to local storage:', cards);
-  };
-
-  const getCurrentDeckFromLocalStorage = () => {
-    const cards = JSON.parse(localStorage.getItem('inProgressDeck'));
-    if (cards) {
-      return cards;
-    }
   };
 
   return (
