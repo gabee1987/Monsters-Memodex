@@ -18,7 +18,9 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled, size }) => {
 
   useEffect(() => {
     getRoboHashIdFromSettingsType();
-    // console.log('robohash id: ', roboHashId);
+    console.log('robohash id: ', roboHashId);
+    console.log('picture id: ', pictureId);
+    console.log('card id: ', id);
   }, []);
 
   const getRoboHashIdFromSettingsType = () => {

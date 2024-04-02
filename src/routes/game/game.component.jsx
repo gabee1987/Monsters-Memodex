@@ -66,8 +66,6 @@ const Game = (props) => {
 
   const initiateNewGame = () => {
     const newCardDeck = createInitialCardDeck();
-    if (cardDeck.length < 1) {
-    }
     // Set the shuffle animation state
     setIsShufflingActive(true);
     const shuffledCardDeck = shufflingCards(newCardDeck);
@@ -114,9 +112,16 @@ const Game = (props) => {
   };
 
   const shufflingCards = (cards) => {
-    let shuffledCardDeck = [...cards]
-      .sort(() => Math.random() - 0.5)
-      .map((card) => ({ ...card, id: Math.random(), isPaired: false }));
+    let shuffledCardDeck = [...cards];
+
+    // Fisher-Yates (or Knuth) Shuffle algorithm
+    for (let i = shuffledCardDeck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledCardDeck[i], shuffledCardDeck[j]] = [
+        shuffledCardDeck[j],
+        shuffledCardDeck[i],
+      ];
+    }
 
     setTurns(0);
     return shuffledCardDeck;
