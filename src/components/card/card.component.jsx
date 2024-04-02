@@ -2,11 +2,7 @@ import { useEffect } from 'react';
 import { useState, useContext } from 'react';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 
-import {
-  CARDSET_SETTING_TYPES,
-  CARDSET_ROBOHASH_IDS,
-  CARBACK_SETTING_TYPES,
-} from '../../contexts/game-settings.context.jsx';
+import { cardService } from '../../services/card.service.jsx';
 
 import './card.styles.scss';
 
@@ -16,30 +12,7 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled, size }) => {
   const { cardBack } = useContext(GameSettingsContext);
   const [roboHashId, setRoboHashId] = useState();
 
-  useEffect(() => {
-    getRoboHashIdFromSettingsType();
-  }, []);
-
-  const getRoboHashIdFromSettingsType = () => {
-    switch (cardSet) {
-      case CARDSET_SETTING_TYPES.MONSTERS:
-        setRoboHashId(CARDSET_ROBOHASH_IDS.MONSTERS);
-        break;
-      case CARDSET_SETTING_TYPES.ROBOTS:
-        setRoboHashId(CARDSET_ROBOHASH_IDS.ROBOTS);
-        break;
-      case CARDSET_SETTING_TYPES.ROBOTHEADS:
-        setRoboHashId(CARDSET_ROBOHASH_IDS.ROBOTHEADS);
-        break;
-      case CARDSET_SETTING_TYPES.CATS:
-        setRoboHashId(CARDSET_ROBOHASH_IDS.CATS);
-        break;
-
-      default:
-        setRoboHashId(CARDSET_ROBOHASH_IDS.MONSTERS);
-        break;
-    }
-  };
+  const imageUrl = cardService.generateCardImageUrl(pictureId, cardSet, size);
 
   const handleClick = () => {
     // Only handle click if the card is not disabled
@@ -57,13 +30,7 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled, size }) => {
     >
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>
         <div className="card-front">
-          <img
-            id={pictureId}
-            alt={`card-${id}`}
-            src={`https://robohash.org/${pictureId}?set=set${roboHashId}&size=${Math.floor(
-              size
-            )}x${Math.floor(size)}`}
-          />
+          <img id={pictureId} alt={`card-${id}`} src={imageUrl} />
         </div>
         <div
           className={`card-back type-${cardBack}`}
