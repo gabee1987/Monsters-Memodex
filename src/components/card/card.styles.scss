@@ -3,10 +3,10 @@
   // height: 250px;
   padding: 0;
   perspective: 600px;
-  transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.575) 250ms,
-    opacity cubic-bezier(0.175, 0.885, 0.32, 1.675) 250ms;
-  transform-origin: center;
-  transform: scale(0.95, 0.95);
+  // transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.575) 250ms,
+  //   opacity cubic-bezier(0.175, 0.885, 0.32, 1.675) 250ms;
+  // transform-origin: center;
+  // transform: scale(0.95, 0.95);
   user-select: none;
 
   // Animation after successful pairing
@@ -40,7 +40,7 @@
     cursor: pointer;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    transform: translateY(-0.05em) scale(1, 1) rotate(1.2deg);
+    // transform: translateY(-0.05em) scale(1, 1) rotate(1.2deg);
   }
 
   &:active,
@@ -126,10 +126,10 @@
 }
 
 .isShuffling {
-  transition: transform cubic-bezier(0.54, -0.19, 0.39, 0.9) 850ms,
-    opacity cubic-bezier(0.54, -0.19, 0.39, 0.9) 850ms;
-  transform: scale(0, 0);
-  opacity: 0;
+  // transition: transform cubic-bezier(0.54, -0.19, 0.39, 0.9) 850ms,
+  //   opacity cubic-bezier(0.54, -0.19, 0.39, 0.9) 850ms;
+  // transform: scale(0, 0);
+  // opacity: 0;
   // transition: transform cubic-bezier(0.5, -0.185, 0.32, 0.875) 1450ms,
   //   opacity cubic-bezier(0.5, -0.185, 0.32, 0.875) 1450ms;
   // transition: transform cubic-bezier(0.375, 0.885, 0.32, 0.975) 1050ms;
@@ -139,13 +139,13 @@
 
 @keyframes pop {
   0% {
-    transform: scale(0.95, 0.95);
+    transform: scale(1, 1);
   }
   50% {
     transform: scale(1.1, 1.1) rotate(1.2deg);
   }
   100% {
-    transform: scale(0.95, 0.95);
+    transform: scale(1, 1);
   }
 }
 

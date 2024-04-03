@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 import Card from '../card/card.component.jsx';
 
@@ -12,7 +13,7 @@ const CardList = ({
   isShufflingActive,
   disabled,
 }) => {
-  const [cardSize, setCardSize] = useState(250); // default size
+  const [cardSize, setCardSize] = useState(230); // default size
   const minCardSize = 50;
   const maxCardSize = 250;
   const gapSize = 10;
@@ -21,7 +22,7 @@ const CardList = ({
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    const cardListContainer = document.querySelector('.card-list-container');
+    const cardListContainer = document.querySelector('.card-list');
     const navigationBar = document.querySelector('.navigation');
     const gameControls = document.querySelector('.button-container');
     if (!cardListContainer || !navigationBar || !gameControls) return;
@@ -74,9 +75,38 @@ const CardList = ({
     }
   }, [cardSize]);
 
+  // Animation for card creation and for the shuffle ->
+  const parentVariants = {
+    visible: {
+      opacity: 1,
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.5, // Adjust the stagger timing
+      },
+    },
+    hidden: { opacity: 0 },
+  };
+
+  const childVariants = {
+    visible: {
+      scale: 0.95,
+      opacity: 1,
+      transition: { type: 'spring', stiffness: 120, yoyo: 1, mass: 0.3 },
+    },
+    hidden: {
+      scale: 0.55,
+      opacity: 0,
+    },
+  };
+
   return (
     <div className="card-list-container">
-      <div className="card-list">
+      <motion.div
+        className="card-list"
+        variants={parentVariants}
+        initial="hidden"
+        animate={isShufflingActive ? 'hidden' : 'visible'}
+      >
         {cards.map((card) => {
           return (
             <Card
@@ -92,10 +122,11 @@ const CardList = ({
               isShuffling={isShufflingActive}
               disabled={disabled}
               size={cardSize}
+              variants={childVariants}
             />
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 };
