@@ -10,7 +10,6 @@ const Card = ({ card, onClick, flipped, isShuffling, disabled, size }) => {
   const { id, pictureId, isPaired, flippedOnGameOver } = card;
   const { cardSet } = useContext(GameSettingsContext);
   const { cardBack } = useContext(GameSettingsContext);
-  const [roboHashId, setRoboHashId] = useState();
 
   const imageUrl = cardService.generateCardImageUrl(pictureId, cardSet, size);
 

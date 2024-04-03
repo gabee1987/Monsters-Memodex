@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'; // Have to run "yarn add react-router-dom" if not found
+import { Routes, Route, useLocation } from 'react-router-dom'; // Have to run "yarn add react-router-dom" if not found
+import { AnimatePresence } from 'framer-motion';
 
 // Components
 import Navigation from './routes/navigation/navigation.component';
@@ -9,14 +10,18 @@ import GameSettings from './routes/game-settings/game-settings.component';
 import './App.scss';
 
 const App = () => {
+  const location = useLocation();
+  const isNotHome = location.pathname !== '/';
+
   return (
-    <Routes>
-      <Route path="/" element={<Navigation />}>
-        <Route index element={<MainMenu />} />
+    <>
+      <AnimatePresence>{isNotHome && <Navigation />}</AnimatePresence>
+      <Routes>
+        <Route path="/" index element={<MainMenu />} />
         <Route path="game" element={<Game />} />
         <Route path="settings" element={<GameSettings />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 };
 

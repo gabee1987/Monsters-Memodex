@@ -115,7 +115,6 @@ const Settings = () => {
 
   return (
     <div className="settings">
-      <h1 className="settings-title">Settings</h1>
       <div className="settings-container" id="mainMenu" ref={tilt}>
         <div className="settings-tab-container">
           <button

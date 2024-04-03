@@ -1,18 +1,22 @@
+.main-menu {
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  top: 50%;
+  max-width: 700px;
+  transform: translateY(-65%) translateX(-50%); // Adjusts for both X and Y centering
+  margin: auto;
+  // perspective: 1000px;
+}
+
 .app-title {
   font-family: 'Mouse Memoirs', sans-serif;
-  //   color: #95dada;
-  // color: #ffff00;
   color: #ffff00;
   font-size: 6rem;
-  margin: 1rem 0rem;
   text-shadow: rgba(0, 0, 0, 0.8) 5px 5px 10px;
 }
 
 .main-menu-container {
-  position: relative;
-  width: 50%;
-  max-width: 700px;
-  margin: 0 auto;
   background-color: #009485;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
