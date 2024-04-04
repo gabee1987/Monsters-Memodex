@@ -80,7 +80,6 @@ const CardList = ({
     visible: {
       opacity: 1,
       transition: {
-        when: 'beforeChildren',
         staggerChildren: 0.5, // Adjust the stagger timing
       },
     },

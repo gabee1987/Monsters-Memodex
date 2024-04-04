@@ -77,6 +77,11 @@ const Card = ({
         translateY: '-0.05em',
         transition: { ease: customEasing, duration: 0.25 },
       }}
+      whileTap={{
+        scale: 1,
+        rotate: -0.2,
+      }}
+      // TODO need to create click animation here
     >
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>
         <div className="card-front">
