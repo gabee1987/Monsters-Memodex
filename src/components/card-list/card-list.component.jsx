@@ -77,20 +77,32 @@ const CardList = ({
 
   // Animation for card creation and for the shuffle ->
   const parentVariants = {
-    visible: {
+    show: {
       opacity: 1,
       transition: {
+        // delay: 0.5,
+        // when: 'afterChildren',
+        when: 'beforeChildren',
+        // delayChildren: 0.5,
         staggerChildren: 0.5, // Adjust the stagger timing
+        // staggerDirection: -1,
       },
     },
     hidden: { opacity: 0 },
   };
 
   const childVariants = {
-    visible: {
-      scale: 0.95,
+    show: {
+      scale: 1,
       opacity: 1,
-      transition: { type: 'spring', stiffness: 120, yoyo: 1, mass: 0.3 },
+      transition: {
+        // delay: 1,
+        type: 'spring',
+        stiffness: 120,
+        damping: 5,
+        mass: 0.25,
+        duration: 0.25,
+      },
     },
     hidden: {
       scale: 0.55,
@@ -99,34 +111,34 @@ const CardList = ({
   };
 
   return (
-    <div className="card-list-container">
-      <motion.div
-        className="card-list"
-        variants={parentVariants}
-        initial="hidden"
-        animate={isShufflingActive ? 'hidden' : 'visible'}
-      >
-        {cards.map((card) => {
-          return (
-            <Card
-              key={card.id}
-              card={card}
-              onClick={handleChoice}
-              flipped={
-                card === firstChoice ||
-                card === secondChoice ||
-                card.isPaired ||
-                card.flippedOnGameOver
-              }
-              isShuffling={isShufflingActive}
-              disabled={disabled}
-              size={cardSize}
-              variants={childVariants}
-            />
-          );
-        })}
-      </motion.div>
-    </div>
+    // <div className="card-list-container">
+    <motion.div
+      className="card-list"
+      variants={parentVariants}
+      initial="hidden"
+      animate="show"
+    >
+      {cards.map((card) => {
+        return (
+          <Card
+            key={card.id}
+            card={card}
+            onClick={handleChoice}
+            flipped={
+              card === firstChoice ||
+              card === secondChoice ||
+              card.isPaired ||
+              card.flippedOnGameOver
+            }
+            isShuffling={isShufflingActive}
+            disabled={disabled}
+            size={cardSize}
+            variants={childVariants}
+          />
+        );
+      })}
+    </motion.div>
+    // </div>
   );
 };
 export default CardList;

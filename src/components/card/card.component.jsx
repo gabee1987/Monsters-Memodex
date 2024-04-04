@@ -20,6 +20,7 @@ const Card = ({
   const { id, pictureId, isPaired, flippedOnGameOver } = card;
   const { cardSet } = useContext(GameSettingsContext);
   const { cardBack } = useContext(GameSettingsContext);
+  console.log('variants: ', variants);
 
   const imageUrl = cardService.generateCardImageUrl(pictureId, cardSet, size);
 
@@ -69,13 +70,20 @@ const Card = ({
         isShuffling ? '' : ''
       } ${flippedOnGameOver ? 'flippedOnGameOver' : ''}`}
       style={{ width: `${size}px`, height: `${size}px` }}
-      variants={motionVariants}
-      animate={animateState}
+      initial="hidden"
+      variants={variants}
+      animate={isShuffling ? 'shuffling' : 'show'}
       whileHover={{
         scale: 1.05,
         rotate: 1.2,
         translateY: '-0.05em',
-        transition: { ease: customEasing, duration: 0.25 },
+        transition: {
+          type: 'spring',
+          stiffness: 120,
+          damping: 5,
+          mass: 0.25,
+          duration: 0.25,
+        },
       }}
       whileTap={{
         scale: 1,
