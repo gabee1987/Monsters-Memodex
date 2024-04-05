@@ -82,9 +82,9 @@ const CardList = ({
       transition: {
         // delay: 0.5,
         // when: 'afterChildren',
-        when: 'beforeChildren',
+        // when: 'beforeChildren',
         // delayChildren: 0.5,
-        staggerChildren: 0.5, // Adjust the stagger timing
+        staggerChildren: 0.15, // Adjust the stagger timing
         // staggerDirection: -1,
       },
     },
@@ -118,9 +118,10 @@ const CardList = ({
       initial="hidden"
       animate="show"
     >
-      {cards.map((card) => {
+      {cards.map((card, i) => {
         return (
           <Card
+            id={i}
             key={card.id}
             card={card}
             onClick={handleChoice}

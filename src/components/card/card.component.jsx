@@ -20,7 +20,6 @@ const Card = ({
   const { id, pictureId, isPaired, flippedOnGameOver } = card;
   const { cardSet } = useContext(GameSettingsContext);
   const { cardBack } = useContext(GameSettingsContext);
-  console.log('variants: ', variants);
 
   const imageUrl = cardService.generateCardImageUrl(pictureId, cardSet, size);
 
