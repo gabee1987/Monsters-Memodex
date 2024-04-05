@@ -98,14 +98,14 @@ const CardList = ({
       transition: {
         // delay: 1,
         type: 'spring',
-        stiffness: 120,
+        stiffness: 100,
         damping: 5,
-        mass: 0.25,
+        mass: 0.2,
         duration: 0.25,
       },
     },
     hidden: {
-      scale: 0.55,
+      scale: 0,
       opacity: 0,
     },
   };

@@ -36,7 +36,7 @@ const Card = ({
   const shufflingVariants = {
     shuffling: {
       // Define the animation for shuffling (e.g., scale down and fade out)
-      scale: 0.55,
+      scale: 0,
       opacity: 0,
       transition: {
         duration: 0.7,
