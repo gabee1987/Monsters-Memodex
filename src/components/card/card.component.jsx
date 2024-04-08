@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 
+import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 
 import { cardService } from '../../services/card.service.jsx';
@@ -20,6 +21,8 @@ const Card = ({
   const { id, pictureId, isPaired, flippedOnGameOver } = card;
   const { cardSet } = useContext(GameSettingsContext);
   const { cardBack } = useContext(GameSettingsContext);
+  const { isShufflingActive, setIsShufflingActive } =
+    useContext(GameStateContext);
 
   const imageUrl = cardService.generateCardImageUrl(pictureId, cardSet, size);
 
@@ -39,11 +42,12 @@ const Card = ({
       scale: 0,
       opacity: 0,
       transition: {
-        type: 'spring',
-        stiffness: 120,
+        // type: 'spring',
+        // type: 'tween',
+        // stiffness: 100,
         // damping: 5.5,
         // mass: 0.2,
-        duration: 0.7,
+        // duration: 0.7,
         // yoyo: 1,
         // ease: customEasing,
       },
@@ -54,11 +58,11 @@ const Card = ({
       opacity: 1,
       transition: {
         type: 'spring',
-        stiffness: 120,
+        stiffness: 100,
         damping: 5.5,
         mass: 0.2,
         duration: 0.7,
-        // delay: -1,
+        // delay: 0.2,
         // ease: customEasing,
       },
     },
@@ -74,6 +78,17 @@ const Card = ({
     damping: 5,
     mass: 0.25,
     duration: 0.25,
+    delay: 0,
+  };
+
+  // This function gets called when shuffling animation in CardList completes
+  const onShuffleComplete = () => {
+    // console.log('Shuffling complete');
+    if (isShufflingActive) {
+      // setTimeout(() => console.log('Shuffling complete'), 800);
+      setIsShufflingActive(false);
+      // setTimeout(() => setIsShufflingActive(false), 800); // Resets the shuffling state
+    }
   };
 
   return (
@@ -95,6 +110,11 @@ const Card = ({
         scale: 1,
         rotate: -0.2,
         transition: hoverTransition,
+      }}
+      onAnimationComplete={() => {
+        if (isShuffling) {
+          onShuffleComplete(); // Inform state component that shuffling is done
+        }
       }}
       // TODO need to create click animation here
     >

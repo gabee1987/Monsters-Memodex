@@ -20,7 +20,6 @@ const Game = (props) => {
   const [cardDeck, setCardDeck] = useState([]);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
-  const [isShufflingActive, setIsShufflingActive] = useState(false);
   const [cardDisabled, setCardDisabled] = useState(false);
   const [showWinModal, setShowWinModal] = useState(false);
   const [showGameOverModal, setGameOverModal] = useState(false);
@@ -33,6 +32,8 @@ const Game = (props) => {
   const { isWon, setIsWon } = useContext(GameStateContext);
   const { inProgressDeck, setInProgressDeck } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
+  const { isShufflingActive, setIsShufflingActive } =
+    useContext(GameStateContext);
 
   const { numberOfPairs, setNumberOfPairs } = useContext(GameSettingsContext);
   const { gameMode } = useContext(GameSettingsContext);
@@ -68,13 +69,12 @@ const Game = (props) => {
 
   const initiateNewGame = () => {
     const newCardDeck = CardDeckService.createNewDeck(numberOfPairs);
-    // Set the shuffle animation state
-    setIsShufflingActive(true);
+
     const shuffledCardDeck = CardDeckService.shuffleCards(newCardDeck);
     setTimeout(() => setCardDeck(shuffledCardDeck), 855);
 
     // Remove the animation state
-    setTimeout(() => setIsShufflingActive(false), 860);
+    // setTimeout(() => setIsShufflingActive(false), 1360);
 
     setTurns(-1);
     resetTurn();
@@ -95,6 +95,8 @@ const Game = (props) => {
 
   // Start a New Game on click
   const handleNewGameClick = () => {
+    // Set the shuffle animation state
+    setIsShufflingActive(true);
     initiateNewGame();
   };
 

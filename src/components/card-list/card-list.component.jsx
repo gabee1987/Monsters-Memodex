@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
+
+import { GameStateContext } from '../../contexts/game-state.context.jsx';
 
 import Card from '../card/card.component.jsx';
 
@@ -10,7 +12,6 @@ const CardList = ({
   handleChoice,
   firstChoice,
   secondChoice,
-  isShufflingActive,
   disabled,
 }) => {
   const [cardSize, setCardSize] = useState(230); // default size
@@ -76,6 +77,8 @@ const CardList = ({
   }, [cardSize]);
 
   // Framer-Motion animation logic
+  const { isShufflingActive, setIsShufflingActive } =
+    useContext(GameStateContext);
 
   // Animation for card creation and for the shuffle ->
   const parentVariants = {
