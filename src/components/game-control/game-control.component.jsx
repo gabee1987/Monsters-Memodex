@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
+import { motion } from 'framer-motion';
+
 import { GameStateContext } from '../../contexts/game-state.context';
 import { GameSettingsContext } from '../../contexts/game-settings.context';
-
 import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
 
 import TimerComponent from '../timer/timer.component';
@@ -13,32 +14,87 @@ const GameControls = ({ newGameClick, firstFlip }) => {
   const { turns } = useContext(GameStateContext);
   const { gameMode } = useContext(GameSettingsContext);
 
+  const parentVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3, delayChildren: 0.7 },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { scale: 0, opacity: 0 },
+    show: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 5,
+        mass: 0.2,
+        duration: 0.25,
+      },
+    },
+  };
+
+  // const firstButtonVariants = {
+  //   ...buttonVariants,
+  //   show: {
+  //     ...buttonVariants.show,
+  //     transition: {
+  //       ...buttonVariants.show.transition,
+  //       delay: 0.7, // Delay for the first button
+  //     },
+  //   },
+  // };
+
   return (
-    <div className="button-container">
-      <button className="btn game-control new-game-btn" onClick={newGameClick}>
+    <motion.div
+      className="button-container"
+      variants={parentVariants}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.button
+        className="btn game-control new-game-btn"
+        onClick={newGameClick}
+        variants={buttonVariants}
+      >
         NEW GAME
-      </button>
+      </motion.button>
 
       {gameMode === MODE_SETTING_TYPES.FREE && (
-        <button className="btn game-control game-stat time-passed-btn">
+        <motion.button
+          className="btn game-control game-stat time-passed-btn"
+          variants={buttonVariants}
+        >
           TIME PASSED: <StopwatchComponent />
-        </button>
+        </motion.button>
       )}
 
       {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
-        <button className="btn game-control game-stat time-left-btn">
+        <motion.button
+          className="btn game-control game-stat time-left-btn"
+          variants={buttonVariants}
+        >
           TIME LEFT: <TimerComponent />
-        </button>
+        </motion.button>
       )}
       {gameMode === MODE_SETTING_TYPES.TURN_BASED && (
-        <button className="btn game-control game-stat turn-left-btn">
+        <motion.button
+          className="btn game-control game-stat turn-left-btn"
+          variants={buttonVariants}
+        >
           TURN LEFT: <span>TODO</span>
-        </button>
+        </motion.button>
       )}
-      <button className="btn game-control game-stat turn-taken-btn">
+      <motion.button
+        className="btn game-control game-stat turn-taken-btn"
+        variants={buttonVariants}
+      >
         TURNS: {turns}
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 };
 

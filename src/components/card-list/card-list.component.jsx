@@ -75,38 +75,37 @@ const CardList = ({
     }
   }, [cardSize]);
 
+  // Framer-Motion animation logic
+
   // Animation for card creation and for the shuffle ->
   const parentVariants = {
+    hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        // delay: 0.5,
+        // delay: 1,
         // when: 'afterChildren',
         // when: 'beforeChildren',
-        // delayChildren: 0.5,
-        staggerChildren: 0.15, // Adjust the stagger timing
+        staggerChildren: 0.1, // Adjust the stagger timing
+        delayChildren: 1.5,
         // staggerDirection: -1,
       },
     },
-    hidden: { opacity: 0 },
   };
 
   const childVariants = {
+    hidden: { scale: 0, opacity: 0 },
     show: {
       scale: 1,
       opacity: 1,
       transition: {
-        // delay: 1,
         type: 'spring',
         stiffness: 100,
         damping: 5,
         mass: 0.2,
         duration: 0.25,
+        // delay: 1,
       },
-    },
-    hidden: {
-      scale: 0,
-      opacity: 0,
     },
   };
 
@@ -116,26 +115,28 @@ const CardList = ({
       className="card-list"
       variants={parentVariants}
       initial="hidden"
-      animate="show"
+      animate={cards.length > 0 && 'show'}
     >
       {cards.map((card, i) => {
         return (
-          <Card
-            id={i}
-            key={card.id}
-            card={card}
-            onClick={handleChoice}
-            flipped={
-              card === firstChoice ||
-              card === secondChoice ||
-              card.isPaired ||
-              card.flippedOnGameOver
-            }
-            isShuffling={isShufflingActive}
-            disabled={disabled}
-            size={cardSize}
-            variants={childVariants}
-          />
+          <motion.div key={`card-${i}`} variants={childVariants}>
+            <Card
+              id={card.id}
+              key={card.id}
+              card={card}
+              onClick={handleChoice}
+              flipped={
+                card === firstChoice ||
+                card === secondChoice ||
+                card.isPaired ||
+                card.flippedOnGameOver
+              }
+              isShuffling={isShufflingActive}
+              disabled={disabled}
+              size={cardSize}
+              // variants={childVariants}
+            />
+          </motion.div>
         );
       })}
     </motion.div>

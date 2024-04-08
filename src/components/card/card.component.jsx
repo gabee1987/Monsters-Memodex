@@ -34,59 +34,67 @@ const Card = ({
   const customEasing = [0.175, 0.885, 0.32, 1.575];
 
   const shufflingVariants = {
+    // Define the animation for shuffling (e.g., scale down and fade out)
     shuffling: {
-      // Define the animation for shuffling (e.g., scale down and fade out)
       scale: 0,
       opacity: 0,
       transition: {
-        duration: 0.7,
         type: 'spring',
         stiffness: 120,
-        yoyo: 1,
-        ease: customEasing,
+        // damping: 5.5,
+        // mass: 0.2,
+        duration: 0.7,
+        // yoyo: 1,
+        // ease: customEasing,
       },
     },
     idle: {
       // Define the normal state (no shuffling)
-      scale: 0.95,
+      scale: 1,
       opacity: 1,
       transition: {
-        duration: 0.7,
+        type: 'spring',
         stiffness: 120,
-        yoyo: 1,
-        ease: customEasing,
+        damping: 5.5,
+        mass: 0.2,
+        duration: 0.7,
+        // delay: -1,
+        // ease: customEasing,
       },
     },
   };
 
   let animateState = isShuffling ? 'shuffling' : 'idle'; // Use the 'idle' state for no shuffling
+  // let motionVariants = isShuffling ? shufflingVariants : variants; // If not shuffling, use the provided variants for staggered animation
 
-  let motionVariants = isShuffling ? shufflingVariants : variants; // If not shuffling, use the provided variants for staggered animation
+  // Define separate transition for hover effect
+  const hoverTransition = {
+    type: 'spring',
+    stiffness: 120,
+    damping: 5,
+    mass: 0.25,
+    duration: 0.25,
+  };
 
   return (
     <motion.div
-      className={`card-container ${isPaired ? 'isPaired' : ''} ${
-        isShuffling ? '' : ''
-      } ${flippedOnGameOver ? 'flippedOnGameOver' : ''}`}
+      className={`card-container ${isPaired ? 'isPaired' : ''}  ${
+        flippedOnGameOver ? 'flippedOnGameOver' : ''
+      }`}
       style={{ width: `${size}px`, height: `${size}px` }}
       initial="hidden"
-      variants={variants}
-      animate={isShuffling ? 'shuffling' : 'show'}
+      variants={shufflingVariants}
+      animate={animateState}
       whileHover={{
         scale: 1.05,
         rotate: 1.2,
         translateY: '-0.05em',
-        transition: {
-          type: 'spring',
-          stiffness: 120,
-          damping: 5,
-          mass: 0.25,
-          duration: 0.25,
-        },
+        transition: hoverTransition,
       }}
       whileTap={{
         scale: 1,
         rotate: -0.2,
+        transition: hoverTransition,
       }}
       // TODO need to create click animation here
     >
