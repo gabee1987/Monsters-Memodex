@@ -6,6 +6,12 @@ import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
 
 import { cardService } from '../../services/card.service.jsx';
+import {
+  cardShufflingVariants,
+  CARD_HOVER_ANIMATION,
+  CARD_CLICK_ANIMATION,
+  CARD_HOVER_TRANSITION,
+} from '../../utilities/animation-helper.js';
 
 import './card.styles.scss';
 
@@ -33,53 +39,7 @@ const Card = ({
     }
   };
 
-  // Shuffling animation with Framer Motion
-  const customEasing = [0.175, 0.885, 0.32, 1.575];
-
-  const shufflingVariants = {
-    // Define the animation for shuffling (e.g., scale down and fade out)
-    shuffling: {
-      scale: 0,
-      opacity: 0,
-      transition: {
-        // type: 'spring',
-        // type: 'tween',
-        // stiffness: 100,
-        // damping: 5.5,
-        // mass: 0.2,
-        // duration: 0.7,
-        // yoyo: 1,
-        // ease: customEasing,
-      },
-    },
-    idle: {
-      // Define the normal state (no shuffling)
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 5.5,
-        mass: 0.2,
-        duration: 0.7,
-        // delay: 0.2,
-        // ease: customEasing,
-      },
-    },
-  };
-
   let animateState = isShuffling ? 'shuffling' : 'idle'; // Use the 'idle' state for no shuffling
-  // let motionVariants = isShuffling ? shufflingVariants : variants; // If not shuffling, use the provided variants for staggered animation
-
-  // Define separate transition for hover effect
-  const hoverTransition = {
-    type: 'spring',
-    stiffness: 120,
-    damping: 5,
-    mass: 0.25,
-    duration: 0.25,
-    delay: 0,
-  };
 
   // This function gets called when shuffling animation in CardList completes
   const onShuffleComplete = () => {
@@ -98,19 +58,11 @@ const Card = ({
       }`}
       style={{ width: `${size}px`, height: `${size}px` }}
       initial="hidden"
-      variants={shufflingVariants}
+      variants={cardShufflingVariants}
       animate={animateState}
-      whileHover={{
-        scale: 1.05,
-        rotate: 1.2,
-        translateY: '-0.05em',
-        transition: hoverTransition,
-      }}
-      whileTap={{
-        scale: 1,
-        rotate: -0.2,
-        transition: hoverTransition,
-      }}
+      whileHover={CARD_HOVER_ANIMATION}
+      whileTap={CARD_CLICK_ANIMATION}
+      transition={CARD_HOVER_TRANSITION}
       onAnimationComplete={() => {
         if (isShuffling) {
           onShuffleComplete(); // Inform state component that shuffling is done
