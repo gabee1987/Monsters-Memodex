@@ -5,6 +5,9 @@ import { GameStateContext } from '../../contexts/game-state.context.jsx';
 
 import Card from '../card/card.component.jsx';
 
+import { calculateStaggerDelay } from '../../utilities/animation-helper.js';
+import { adjustCardSize } from '../../utilities/card-size-helper.js';
+
 import './card-list.styles.scss';
 
 const CardList = ({
@@ -15,56 +18,20 @@ const CardList = ({
   disabled,
 }) => {
   const [cardSize, setCardSize] = useState(230); // default size
-  const minCardSize = 50;
-  const maxCardSize = 250;
-  const gapSize = 10;
-
-  const adjustCardSize = () => {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    const cardListContainer = document.querySelector('.card-list');
-    const navigationBar = document.querySelector('.navigation');
-    const gameControls = document.querySelector('.button-container');
-    if (!cardListContainer || !navigationBar || !gameControls) return;
-
-    // Heights of other components (Navigation and GameControls)
-    const navHeight = navigationBar.offsetHeight;
-    const controlsHeight = gameControls.offsetHeight;
-
-    const availableHeight = screenHeight - navHeight - controlsHeight;
-
-    let currentCardSize = maxCardSize;
-    let columns = Math.floor(screenWidth / (currentCardSize + gapSize));
-    let rows = Math.ceil(cards.length / columns);
-    let totalHeight = rows * (currentCardSize + gapSize);
-
-    // Failsafe
-    const loopLimit = 100;
-    let iterations = 0;
-
-    // Calculate the card size
-    while (totalHeight > availableHeight && currentCardSize > minCardSize) {
-      currentCardSize -= 10; // decrement size
-      columns = Math.floor(screenWidth / (currentCardSize + gapSize));
-      rows = Math.ceil(cards.length / columns);
-      totalHeight = rows * (currentCardSize + gapSize);
-    }
-
-    if (iterations < loopLimit) {
-      setCardSize(currentCardSize);
-    } else {
-      console.error('Failed to resize cards within loop limit');
-    }
-  };
 
   useEffect(() => {
-    adjustCardSize();
-    window.addEventListener('resize', adjustCardSize);
-
-    return () => {
-      window.removeEventListener('resize', adjustCardSize);
+    const handleResize = () => {
+      const newCardSize = adjustCardSize(
+        window.innerWidth,
+        window.innerHeight,
+        cards.length
+      );
+      setCardSize(newCardSize);
     };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [cards.length]);
 
   // Adjust grid layout
@@ -80,6 +47,8 @@ const CardList = ({
   const { isShufflingActive, setIsShufflingActive } =
     useContext(GameStateContext);
 
+  const staggerDelay = calculateStaggerDelay(cards.length);
+
   // Animation for card creation and for the shuffle ->
   const parentVariants = {
     hidden: { opacity: 0 },
@@ -89,7 +58,7 @@ const CardList = ({
         // delay: 1,
         // when: 'afterChildren',
         // when: 'beforeChildren',
-        staggerChildren: 0.1, // Adjust the stagger timing
+        staggerChildren: staggerDelay, // Dynamic stagger timing
         delayChildren: 1.5,
         // staggerDirection: -1,
       },

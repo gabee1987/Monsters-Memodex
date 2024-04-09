@@ -69,12 +69,9 @@ const Game = (props) => {
 
   const initiateNewGame = () => {
     const newCardDeck = CardDeckService.createNewDeck(numberOfPairs);
-
     const shuffledCardDeck = CardDeckService.shuffleCards(newCardDeck);
-    setTimeout(() => setCardDeck(shuffledCardDeck), 855);
-
-    // Remove the animation state
-    // setTimeout(() => setIsShufflingActive(false), 1360);
+    setCardDeck(shuffledCardDeck);
+    // setTimeout(() => setCardDeck(shuffledCardDeck), 855);
 
     setTurns(-1);
     resetTurn();
