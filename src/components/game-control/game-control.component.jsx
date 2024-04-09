@@ -13,12 +13,19 @@ import './game-control.styles.scss';
 const GameControls = ({ newGameClick, firstFlip }) => {
   const { turns } = useContext(GameStateContext);
   const { gameMode } = useContext(GameSettingsContext);
+  const { isNeedStaggerAnimation } = useContext(GameStateContext);
+
+  const staggerDelay = isNeedStaggerAnimation ? 0.3 : 0;
+  const childrenDelay = isNeedStaggerAnimation ? 0.7 : 0;
 
   const parentVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.3, delayChildren: 0.7 },
+      transition: {
+        staggerChildren: staggerDelay,
+        delayChildren: childrenDelay,
+      },
     },
   };
 

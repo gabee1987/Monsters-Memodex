@@ -2,7 +2,7 @@
 //(Fewer cards means bigger size, more cards means smaller size)
 const minCardSize = 50;
 const maxCardSize = 250;
-const gapSize = 10;
+const gapSize = 20;
 const loopLimit = 100;
 
 export const adjustCardSize = (screenWidth, screenHeight, cardCount) => {

@@ -44,10 +44,15 @@ const CardList = ({
   }, [cardSize]);
 
   // Framer-Motion animation logic
+  const { isNeedStaggerAnimation } = useContext(GameStateContext);
   const { isShufflingActive, setIsShufflingActive } =
     useContext(GameStateContext);
 
-  const staggerDelay = calculateStaggerDelay(cards.length);
+  const staggerDelay = isNeedStaggerAnimation
+    ? calculateStaggerDelay(cards.length)
+    : 0;
+
+  const childrenDelay = isNeedStaggerAnimation ? 1.5 : 0;
 
   // Animation for card creation and for the shuffle ->
   const parentVariants = {
@@ -59,7 +64,7 @@ const CardList = ({
         // when: 'afterChildren',
         // when: 'beforeChildren',
         staggerChildren: staggerDelay, // Dynamic stagger timing
-        delayChildren: 1.5,
+        delayChildren: childrenDelay,
         // staggerDirection: -1,
       },
     },
@@ -87,7 +92,7 @@ const CardList = ({
       className="card-list"
       variants={parentVariants}
       initial="hidden"
-      animate={cards.length > 0 && 'show'}
+      animate={cards.length > 0 ? 'show' : 'hidden'}
     >
       {cards.map((card, i) => {
         return (

@@ -34,6 +34,7 @@ const Game = (props) => {
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { isShufflingActive, setIsShufflingActive } =
     useContext(GameStateContext);
+  const { setIsNeedStaggerAnimation } = useContext(GameStateContext);
 
   const { numberOfPairs, setNumberOfPairs } = useContext(GameSettingsContext);
   const { gameMode } = useContext(GameSettingsContext);
@@ -80,6 +81,7 @@ const Game = (props) => {
     setTimeout(() => setIsGameOver(false), 500);
     setNeedNewGame(false);
     setIsWon(false);
+    setTimeout(() => setIsNeedStaggerAnimation(false), 300); // Reset stagger animation state after initiating new game
 
     // Time related states
     if (gameMode === MODE_SETTING_TYPES.TIME_BASED) {

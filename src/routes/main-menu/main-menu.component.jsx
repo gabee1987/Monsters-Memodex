@@ -10,11 +10,13 @@ const MainMenu = () => {
   const { gameInProgress } = useContext(GameStateContext);
   const { setNeedNewGame } = useContext(GameStateContext);
   const { setIsWon } = useContext(GameStateContext);
+  const { setIsNeedStaggerAnimation } = useContext(GameStateContext);
 
   const isLinkEnabled = false;
 
   const handleNewGameClick = () => {
     setNeedNewGame(true);
+    setIsNeedStaggerAnimation(true); // Indicate new game from menu
     // TODO Need to extract and centralize this state change
     setIsWon(false);
   };

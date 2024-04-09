@@ -25,6 +25,8 @@ export const GameStateContext = createContext({
   setIsGameOver: () => {},
   isShufflingActive: false,
   setIsShufflingActive: () => {},
+  isNeedStaggerAnimation: true,
+  setIsNeedStaggerAnimation: () => {},
 });
 
 export const GameStateProvider = ({ children }) => {
@@ -37,6 +39,7 @@ export const GameStateProvider = ({ children }) => {
   const [isGamePaused, setIsGamePaused] = useState(false);
   const { gameMode } = useContext(GameSettingsContext);
   const [isShufflingActive, setIsShufflingActive] = useState(false);
+  const [isNeedStaggerAnimation, setIsNeedStaggerAnimation] = useState(true);
 
   const value = {
     turns,
@@ -55,6 +58,8 @@ export const GameStateProvider = ({ children }) => {
     setIsGameOver,
     isShufflingActive,
     setIsShufflingActive,
+    isNeedStaggerAnimation,
+    setIsNeedStaggerAnimation,
   };
 
   return (

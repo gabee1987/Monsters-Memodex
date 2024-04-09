@@ -28,8 +28,8 @@ const Settings = () => {
   const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
   const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
   const { inProgressDeck } = useContext(GameStateContext);
-  // const { SetInitialTimer } = useContext(GameStateContext);
   const { setIsWon } = useContext(GameStateContext);
+  const { setIsNeedStaggerAnimation } = useContext(GameStateContext);
 
   const { gameMode, setGameMode } = useContext(GameSettingsContext);
   const { difficulty, setDifficulty } = useContext(GameSettingsContext);
@@ -82,11 +82,13 @@ const Settings = () => {
   const handleBackClick = () => {
     console.log('deck before going back from settings:', inProgressDeck);
     setNeedNewGame(false);
+    setIsNeedStaggerAnimation(false);
     navigate(-1);
   };
 
   const handleStartClick = () => {
     setNeedNewGame(true);
+    setIsNeedStaggerAnimation(true);
     // TODO Need to extract and centralize this state change
     setIsWon(false);
     navigate('/game');
