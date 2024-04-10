@@ -16,7 +16,7 @@ import {
 
 import './game-control.styles.scss';
 
-const GameControls = ({ newGameClick, firstFlip }) => {
+const GameControls = ({ newGameClick, firstFlip, isNewGameButtonDisabled }) => {
   const { turns } = useContext(GameStateContext);
   const { gameMode } = useContext(GameSettingsContext);
   const { isNeedStaggerAnimation } = useContext(GameStateContext);
@@ -32,6 +32,7 @@ const GameControls = ({ newGameClick, firstFlip }) => {
         className="btn game-control new-game-btn"
         onClick={newGameClick}
         variants={gameControlButtonVariants}
+        disabled={isNewGameButtonDisabled}
       >
         NEW GAME
       </MotionButton>

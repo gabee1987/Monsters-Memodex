@@ -35,6 +35,8 @@ const Game = (props) => {
   const { isShufflingActive, setIsShufflingActive } =
     useContext(GameStateContext);
   const { setIsNeedStaggerAnimation } = useContext(GameStateContext);
+  const { isNewGameButtonDisabled, setIsNewGameButtonDisabled } =
+    useContext(GameStateContext);
 
   const { numberOfPairs, setNumberOfPairs } = useContext(GameSettingsContext);
   const { gameMode } = useContext(GameSettingsContext);
@@ -90,13 +92,17 @@ const Game = (props) => {
       setNeedToResetStopwatch(true);
       setNeedToStartStopwatch(false);
     }
+
+    // Re-enable the new game button after the setup is complete
+    setIsNewGameButtonDisabled(false);
   };
 
   // Start a New Game on click
   const handleNewGameClick = () => {
-    // Set the shuffle animation state
-    setIsShufflingActive(true);
-    initiateNewGame();
+    if (!isNewGameButtonDisabled) {
+      setIsShufflingActive(true); // Set the shuffle animation state
+      initiateNewGame();
+    }
   };
 
   useEffect(() => {
@@ -246,7 +252,10 @@ const Game = (props) => {
 
   return (
     <div className="game-container">
-      <GameControls newGameClick={handleNewGameClick} />
+      <GameControls
+        newGameClick={handleNewGameClick}
+        isNewGameButtonDisabled={isNewGameButtonDisabled}
+      />
       <CardList
         cards={cardDeck}
         handleChoice={handleChoice}
