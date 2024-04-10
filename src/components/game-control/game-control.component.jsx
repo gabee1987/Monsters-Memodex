@@ -20,21 +20,35 @@ const GameControls = ({ newGameClick, firstFlip, isNewGameButtonDisabled }) => {
   const { turns } = useContext(GameStateContext);
   const { gameMode } = useContext(GameSettingsContext);
   const { isNeedStaggerAnimation } = useContext(GameStateContext);
+  const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
+
+  const handlePauseClick = () => {
+    setIsGamePaused(!isGamePaused);
+  };
 
   return (
     <motion.div
-      className="button-container"
+      className="game-control-button-container"
       variants={getGameControlParentVariants(isNeedStaggerAnimation)}
       initial="hidden"
       animate="show"
     >
       <MotionButton
-        className="btn game-control new-game-btn"
+        className="game-control new-game-btn"
         onClick={newGameClick}
         variants={gameControlButtonVariants}
         disabled={isNewGameButtonDisabled}
       >
         NEW GAME
+      </MotionButton>
+
+      <MotionButton
+        className="btn game-control pause-btn"
+        onClick={handlePauseClick}
+        variants={gameControlButtonVariants}
+        disabled={isNewGameButtonDisabled}
+      >
+        {isGamePaused ? '▶ RESUME' : '|| PAUSE'}
       </MotionButton>
 
       {gameMode === MODE_SETTING_TYPES.FREE && (

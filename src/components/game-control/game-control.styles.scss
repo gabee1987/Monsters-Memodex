@@ -1,4 +1,4 @@
-.button-container {
+.game-control-button-container {
   margin: 1rem 0rem 1rem 0;
   display: flex;
   justify-content: flex-end;
@@ -6,11 +6,19 @@
   .game-control {
     position: relative;
     min-width: 140px;
+    margin: 0 0 0 1em;
   }
 
   .game-stat {
     display: flex;
     pointer-events: none;
-    margin: 0 0 0 1em;
+    justify-content: center;
+  }
+
+  .time-passed-btn {
+    min-width: 220px;
+  }
+
+  .time-left-btn {
   }
 }
