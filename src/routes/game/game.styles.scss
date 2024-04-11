@@ -1,4 +1,19 @@
 .game-container {
   width: 100%;
   padding: 0;
+
+  // .pause-overlay {
+  //   position: fixed;
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+  //   height: 500px; /* Adjust as needed */
+  //   background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+  //   z-index: 10; /* Ensure it's above game elements */
+  //   // transition: all cubic-bezier(0.175, 0.885, 0.32, 1.675) 250ms;
+  //   // transform: scale(1, 1);
+  //   color: #ffff00;
+  //   font-size: 8em;
+  //   padding-top: 1em;
+  // }
 }

@@ -183,3 +183,22 @@ export const gameControlButtonVariants = {
     },
   },
 };
+
+// =================================================== FOR NAV COMPONENT
+export const navigationVariants = {
+  initial: { rotateX: 110, opacity: 0 },
+  animate: { rotateX: 0, opacity: 1 },
+  exit: { rotateX: 110, opacity: 0 },
+};
+
+export const navigationTransition = {
+  duration: 2.5,
+  type: 'spring',
+  stiffness: 100,
+};
+
+export const navTextVariants = {
+  hidden: { scale: 0, opacity: 0 },
+  show: { scale: 1, opacity: 1 },
+  exit: { scale: 20, opacity: 0 },
+};

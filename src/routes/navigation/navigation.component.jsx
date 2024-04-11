@@ -4,6 +4,12 @@ import { motion } from 'framer-motion';
 
 import { GameStateContext } from '../../contexts/game-state.context';
 
+import {
+  navigationVariants,
+  navigationTransition,
+  navTextVariants,
+} from '../../utilities/animation-helper';
+
 import './navigation.styles.scss';
 
 const Navigation = () => {
@@ -20,14 +26,11 @@ const Navigation = () => {
   return (
     <div className="nav-container">
       <motion.nav
-        initial={{ rotateX: 110, opacity: 0 }}
-        animate={{ rotateX: 0, opacity: 1 }}
-        exit={{ rotateX: 110, opacity: 0 }}
-        transition={{
-          duration: 2.5,
-          type: 'spring',
-          stiffness: 100,
-        }}
+        variants={navigationVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={navigationTransition}
         // This Fragment element wont be rendered in the browser, we wont see it in the DOM tree
       >
         <Fragment>
@@ -41,7 +44,26 @@ const Navigation = () => {
               <span>Home</span>
             </Link>
             {onSettingsPage && (
-              <span className="settings-title-on-nav">Settings</span>
+              <motion.span
+                className="nav-text settings-title-on-nav"
+                variants={navTextVariants}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+              >
+                Settings
+              </motion.span>
+            )}
+            {isGamePaused && !onSettingsPage && (
+              <motion.span
+                className="nav-text paused-text-on-nav"
+                variants={navTextVariants}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+              >
+                Game is Paused...
+              </motion.span>
             )}
             <div className="nav-links-container">
               {/* <Link className="nav-link" to="/sign-in">

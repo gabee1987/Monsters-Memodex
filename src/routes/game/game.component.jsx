@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
@@ -281,6 +282,7 @@ const Game = (props) => {
         />
       )}
     </div>
+    // {isGamePaused && <motion.div className="pause-overlay">||</motion.div>}
   );
 };
 

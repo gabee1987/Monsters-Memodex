@@ -27,7 +27,7 @@
     justify-self: flex-start;
   }
 
-  .settings-title-on-nav {
+  .nav-text {
     font-family: 'Mouse Memoirs', sans-serif;
     color: #ffff00;
     font-size: 2rem;
@@ -35,7 +35,15 @@
     margin: 0 auto;
     z-index: 2;
     text-align: center;
-    transform: translateZ(50px);
+  }
+
+  .settings-title-on-nav {
+    // transform: translateZ(50px);
+  }
+
+  .paused-text-on-nav {
+    // transform: translateZ(50px);
+    // transition: all cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms;
   }
 
   .nav-links-container {
