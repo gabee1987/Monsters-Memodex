@@ -1,6 +1,6 @@
 import { Fragment, useContext } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { GameStateContext } from '../../contexts/game-state.context';
 
@@ -22,6 +22,8 @@ const Navigation = () => {
   const handleGamePause = () => {
     setIsGamePaused(true);
   };
+
+  const pausedText = 'Game is Paused...';
 
   return (
     <div className="nav-container">
@@ -54,17 +56,20 @@ const Navigation = () => {
                 Settings
               </motion.span>
             )}
-            {isGamePaused && !onSettingsPage && (
-              <motion.span
-                className="nav-text paused-text-on-nav"
-                variants={navTextVariants}
-                initial="hidden"
-                animate="show"
-                exit="exit"
-              >
-                Game is Paused...
-              </motion.span>
-            )}
+            <AnimatePresence>
+              {isGamePaused && !onSettingsPage && (
+                <motion.span
+                  className="nav-text paused-text-on-nav"
+                  variants={navTextVariants}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  key="1"
+                >
+                  Game is Paused...
+                </motion.span>
+              )}
+            </AnimatePresence>
             <div className="nav-links-container">
               {/* <Link className="nav-link" to="/sign-in">
             Sign In

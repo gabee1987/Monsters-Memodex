@@ -200,5 +200,22 @@ export const navigationTransition = {
 export const navTextVariants = {
   hidden: { scale: 0, opacity: 0 },
   show: { scale: 1, opacity: 1 },
-  exit: { scale: 20, opacity: 0 },
+  exit: { scale: 0.5, opacity: 0 },
+};
+
+// =================================================== FOR NAV COMPONENT
+export const letterAnimationVariants = {
+  animate: {
+    scale: [1, 1.08, 1],
+    rotate: [0, 1.4, 0],
+    transition: {
+      type: 'spring',
+      stiffness: 200,
+      damping: 6.5,
+      mass: 0.25,
+      repeat: Infinity,
+      repeatType: 'mirror',
+      duration: 0.8,
+    },
+  },
 };
