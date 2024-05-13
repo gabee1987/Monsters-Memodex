@@ -6,12 +6,12 @@ const gapSize = 20;
 const loopLimit = 100;
 
 export const adjustCardSize = (screenWidth, screenHeight, cardCount) => {
-  const navigationBar = document.querySelector('.navigation');
-  const gameControls = document.querySelector('.button-container');
+  const navigationBar = document.querySelector('.nav-container');
+  const gameControls = document.querySelector('.game-control-button-container');
 
   if (!navigationBar || !gameControls) return maxCardSize;
 
-  const navHeight = navigationBar.offsetHeight + 50;
+  const navHeight = navigationBar.offsetHeight;
   const controlsHeight = gameControls.offsetHeight;
   const availableHeight = screenHeight - navHeight - controlsHeight;
 

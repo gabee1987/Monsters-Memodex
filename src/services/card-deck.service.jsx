@@ -1,11 +1,5 @@
-
-const i     = {};
-i.am        = 'a full stack developer';
-i.love      = ['video games', 'board games', 'photography', 'reading', 'watching movies', 'hiking', 'drawing'];
-i.workWith  = ['.NET', 'react', 'html', 'scss', 'SQL', 'team players', 'my hand'];
-i.aspire    = 'to create impactful solutions, foster collaboration, and inspire creativity in teams'
 const createNewDeck = (numberOfPairs) => {
-  // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more card and more complex pictures
+  // TODO need to create some logic around the initial cards, for example a difficulty system where harder difficulty means more cards and more complex pictures
   let cards = [];
 
   for (let index = 0; index < numberOfPairs; index++) {
@@ -41,4 +35,3 @@ export const CardDeckService = {
   createNewDeck,
   // any other deck related functions
 };
-
