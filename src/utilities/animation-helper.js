@@ -20,7 +20,7 @@ export const CARD_HOVER_ANIMATION = {
 export const CARD_HOVER_TRANSITION = {
   type: 'spring',
   stiffness: 200,
-  damping: 5,
+  damping: 6.5,
   mass: 0.25,
   duration: 0.25,
 };
@@ -35,7 +35,7 @@ export const CARD_CLICK_ANIMATION = {
 export const BUTTON_HOVER_TRANSITION = {
   type: 'spring',
   stiffness: 200,
-  damping: 5,
+  damping: 6.5,
   mass: 0.25,
   duration: 0.25,
 };
