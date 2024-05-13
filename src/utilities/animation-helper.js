@@ -11,15 +11,15 @@ export const CARD_LIST_STAGGER = {
 
 // Hover Animation for Card
 export const CARD_HOVER_ANIMATION = {
-  scale: 1.05,
-  rotate: 1.2,
-  translateY: '-0.05em',
+  scale: 1.08,
+  rotate: 1.4,
+  translateY: '-0.1em',
 };
 
 // Transition settings for Hover Animation
 export const CARD_HOVER_TRANSITION = {
   type: 'spring',
-  stiffness: 120,
+  stiffness: 200,
   damping: 5,
   mass: 0.25,
   duration: 0.25,
@@ -28,21 +28,21 @@ export const CARD_HOVER_TRANSITION = {
 // Click Animation for Card
 export const CARD_CLICK_ANIMATION = {
   scale: 1,
-  rotate: -0.2,
+  rotate: -1.4,
 };
 
 // Constants for button hover and active animations
 export const BUTTON_HOVER_TRANSITION = {
   type: 'spring',
-  stiffness: 100,
+  stiffness: 200,
   damping: 5,
   mass: 0.25,
   duration: 0.25,
 };
 export const BUTTON_HOVER_ANIMATION = {
   translateY: '-0.05em',
-  scale: 1.05,
-  rotate: 1.2,
+  scale: 1.08,
+  rotate: 1.4,
   boxShadow: '5px 5px 20px 5px rgba(0, 0, 0, 0.5)',
   backgroundColor: '#ffff00',
   color: '#444444',
@@ -54,7 +54,7 @@ export const BUTTON_HOVER_ANIMATION = {
 
 export const BUTTON_ACTIVE_ANIMATION = {
   scale: 1,
-  rotate: -0.2,
+  rotate: -0.4,
   transition: {
     duration: 0.25,
     ease: [0.175, 0.885, 0.32, 1.675],
