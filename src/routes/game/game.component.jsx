@@ -3,8 +3,11 @@ import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
-import { GameSettingsContext } from '../../contexts/game-settings.context.jsx';
-import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context.jsx';
+import {
+  GameSettingsContext,
+  DEFAULT_TURN_VALUES,
+  MODE_SETTING_TYPES,
+} from '../../contexts/game-settings.context.jsx';
 import { TimeContext } from '../../contexts/time-context.jsx';
 
 import { localStorageService } from '../../services/local-storage.service.jsx';
@@ -39,9 +42,8 @@ const Game = (props) => {
   const { isNewGameButtonDisabled, setIsNewGameButtonDisabled } =
     useContext(GameStateContext);
 
-  const { numberOfPairs, setNumberOfPairs } = useContext(GameSettingsContext);
-  const { gameMode } = useContext(GameSettingsContext);
-  const { difficulty } = useContext(GameSettingsContext);
+  const { numberOfPairs, gameMode, difficulty, GetTurnsCount } =
+    useContext(GameSettingsContext);
 
   // Timer related code
   const { needToStartTimer, setNeedToStartTimer } = useContext(TimeContext);
@@ -238,6 +240,29 @@ const Game = (props) => {
   const handleGameOverModalClose = () => {
     setGameOverModal(false);
   };
+
+  // Turned based game over logic
+  useEffect(() => {
+    if (gameMode === MODE_SETTING_TYPES.TURN_BASED) {
+      if (turns >= GetTurnsCount(numberOfPairs)) {
+        setIsGameOver(true);
+      }
+    }
+  }, [turns, gameMode, numberOfPairs, GetTurnsCount, setIsGameOver]);
+
+  // Free mode game over logic
+  useEffect(() => {
+    if (gameMode === MODE_SETTING_TYPES.FREE) {
+      const secretFreeModeTurnLimit = 100; // High turn limit for free mode
+      const secretFreeModeTimeLimit = 900; // High time limit for free mode
+      if (
+        turns >= secretFreeModeTurnLimit ||
+        turns >= secretFreeModeTimeLimit
+      ) {
+        setIsGameOver(true);
+      }
+    }
+  }, [turns, gameMode, numberOfPairs, GetTurnsCount, setIsGameOver]);
 
   // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {

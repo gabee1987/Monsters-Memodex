@@ -163,7 +163,7 @@ const Settings = () => {
                   selectedValueType={gameMode}
                   selectedValue={MODE_SETTING_TYPES.TURN_BASED}
                   onChangeHandler={handleModeChange}
-                  disabled={!isFeatureEnabled}
+                  disabled={isFeatureEnabled}
                 />
 
                 <RadioInput

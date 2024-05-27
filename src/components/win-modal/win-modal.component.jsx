@@ -25,6 +25,7 @@ const WinModal = (props) => {
     });
   }, []);
 
+  // <div>Looks like your memory is still working! Hooray!</div>
   return (
     <div className="win-modal">
       {(hasTransitionedIn || show) && (
@@ -42,8 +43,18 @@ const WinModal = (props) => {
               <h1>Congratulations!</h1>
             </div>
             <div className="modal-body">
-              Looks like your memory is still working! Hooray! <br /> You
-              completed the game in
+              {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
+                <div>You conquered time! Einstein would be proud.</div>
+              )}
+              {gameMode === MODE_SETTING_TYPES.TURN_BASED && (
+                <div>
+                  Turns out, you turned the tables and won! Well played!
+                </div>
+              )}
+              {gameMode === MODE_SETTING_TYPES.FREE && (
+                <div>Free mode conquered! You’re free to celebrate now!</div>
+              )}
+              <br /> You completed the game in
               {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
                 <div>
                   <span>{timer}</span> <br /> and it took

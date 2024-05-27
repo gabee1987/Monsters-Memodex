@@ -1,4 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+
+import {
+  GameSettingsContext,
+  MODE_SETTING_TYPES,
+} from '../../contexts/game-settings.context';
 
 import useMountTransition from '../../component-helpers/useMountTransition';
 import './game-over-modal.styles.scss';
@@ -6,6 +11,7 @@ import VanillaTilt from 'vanilla-tilt';
 
 const GameOverModal = (props) => {
   const { show, onClose } = props;
+  const { gameMode } = useContext(GameSettingsContext);
   const hasTransitionedIn = useMountTransition(show, 1000);
 
   const handleClick = () => {
@@ -38,7 +44,24 @@ const GameOverModal = (props) => {
               <h1>Game Over!</h1>
             </div>
             <div className="game-over-modal-body">
-              Your time is up! <br />
+              {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
+                <div className="time-based-mode-modal-body">
+                  Oops! The clock beat you to it. <br />
+                  Maybe try a sundial next time?
+                </div>
+              )}
+              {gameMode === MODE_SETTING_TYPES.TURN_BASED && (
+                <div className="turned-based-mode-modal-body">
+                  Turns out, you needed more turns. :( <br />
+                  Try again and turn the tables!
+                </div>
+              )}
+              {gameMode === MODE_SETTING_TYPES.FREE && (
+                <div className="free-mode-modal-body">
+                  Well, that’s a wrap! Free mode just gave you a free lesson in
+                  perseverance!
+                </div>
+              )}
             </div>
             <div className="game-over-modal-footer">
               <button onClick={handleClick} className="modal-close-btn">

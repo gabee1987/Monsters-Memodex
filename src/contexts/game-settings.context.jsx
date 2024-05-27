@@ -45,16 +45,30 @@ export const CARBACK_SETTING_TYPES = {
 
 export const DEFAULT_TIMER_SECONDS = {
   TIMER_DEFAULT: 600,
-  TIMER_AT_2_PAIRS: 30,
-  TIMER_AT_4_PAIRS: 60,
-  TIMER_AT_6_PAIRS: 120,
-  TIMER_AT_8_PAIRS: 180,
-  TIMER_AT_10_PAIRS: 240,
-  TIMER_AT_12_PAIRS: 300,
-  TIMER_AT_14_PAIRS: 360,
-  TIMER_AT_16_PAIRS: 420,
-  TIMER_AT_18_PAIRS: 480,
-  TIMER_AT_20_PAIRS: 540,
+  TIMER_AT_2_PAIRS: 30, // 15 seconds per pair
+  TIMER_AT_4_PAIRS: 60, // 15 seconds per pair
+  TIMER_AT_6_PAIRS: 120, // 20 seconds per pair
+  TIMER_AT_8_PAIRS: 180, // 22.5 seconds per pair
+  TIMER_AT_10_PAIRS: 240, // 24 seconds per pair
+  TIMER_AT_12_PAIRS: 300, // 25 seconds per pair
+  TIMER_AT_14_PAIRS: 360, // 25.7 seconds per pair
+  TIMER_AT_16_PAIRS: 420, // 26.25 seconds per pair
+  TIMER_AT_18_PAIRS: 480, // 26.6 seconds per pair
+  TIMER_AT_20_PAIRS: 540, // 27 seconds per pair
+};
+
+export const DEFAULT_TURN_VALUES = {
+  TURNS_DEFAULT: 70,
+  TURNS_AT_2_PAIRS: 5,
+  TURNS_AT_4_PAIRS: 10,
+  TURNS_AT_6_PAIRS: 18,
+  TURNS_AT_8_PAIRS: 24,
+  TURNS_AT_10_PAIRS: 30,
+  TURNS_AT_12_PAIRS: 36,
+  TURNS_AT_14_PAIRS: 42,
+  TURNS_AT_16_PAIRS: 48,
+  TURNS_AT_18_PAIRS: 54,
+  TURNS_AT_20_PAIRS: 60,
 };
 
 export const calculateTimerValue = (numOfCards, difficulty) => {
@@ -72,6 +86,50 @@ export const calculateTimerValue = (numOfCards, difficulty) => {
   }
 };
 
+export const calculateTurnValue = (numOfPairs, difficulty) => {
+  const baseTurns =
+    DEFAULT_TURN_VALUES[`TURNS_AT_${numOfPairs}_PAIRS`] ||
+    DEFAULT_TURN_VALUES.TURNS_DEFAULT;
+
+  switch (difficulty) {
+    case DIFFICULTY_SETTING_TYPES.EASY:
+      return Math.floor(baseTurns * 1.5); // 50% more turns for easy
+    case DIFFICULTY_SETTING_TYPES.HARD:
+      return Math.floor(baseTurns * 0.75); // 25% fewer turns for hard
+    default:
+      return baseTurns; // Default is medium difficulty
+  }
+};
+
+export const GetTurnsCount = (numberOfPairs) => {
+  // console.log('card number: ', numOfCards);
+  switch (numberOfPairs) {
+    case '2':
+      return DEFAULT_TURN_VALUES.TURNS_AT_2_PAIRS;
+    case '4':
+      return DEFAULT_TURN_VALUES.TURNS_AT_4_PAIRS;
+    case '6':
+      return DEFAULT_TURN_VALUES.TURNS_AT_6_PAIRS;
+    case '8':
+      return DEFAULT_TURN_VALUES.TURNS_AT_8_PAIRS;
+    case '10':
+      return DEFAULT_TURN_VALUES.TURNS_AT_10_PAIRS;
+    case '12':
+      return DEFAULT_TURN_VALUES.TURNS_AT_12_PAIRS;
+    case '14':
+      return DEFAULT_TURN_VALUES.TURNS_AT_14_PAIRS;
+    case '16':
+      return DEFAULT_TURN_VALUES.TURNS_AT_16_PAIRS;
+    case '18':
+      return DEFAULT_TURN_VALUES.TURNS_AT_18_PAIRS;
+    case '20':
+      return DEFAULT_TURN_VALUES.TURNS_AT_20_PAIRS;
+
+    default:
+      return DEFAULT_TURN_VALUES.TURNS_DEFAULT;
+  }
+};
+
 export const GameSettingsContext = createContext({
   activeTab: TAB_VALUES.GAME_TAB,
   setActiveTab: () => {},
@@ -85,6 +143,7 @@ export const GameSettingsContext = createContext({
   setCardSet: () => {},
   cardBack: CARBACK_SETTING_TYPES.BASIC,
   setCardBack: () => {},
+  GetTurnsCount,
 });
 
 export const GameSettingsProvider = ({ children }) => {
@@ -109,6 +168,7 @@ export const GameSettingsProvider = ({ children }) => {
     cardBack,
     setCardBack,
     calculateTimerValue,
+    GetTurnsCount,
   };
 
   return (
