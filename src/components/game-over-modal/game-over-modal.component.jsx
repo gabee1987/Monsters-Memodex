@@ -9,6 +9,16 @@ import useMountTransition from '../../component-helpers/useMountTransition';
 import './game-over-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
+import {
+  timeBasedGameOverMessages,
+  turnBasedGameOverMessages,
+  freeModeGameOverMessages,
+} from '../../game-end-messages/game-end-messages';
+
+const getRandomMessage = (messages) => {
+  return messages[Math.floor(Math.random() * messages.length)];
+};
+
 const GameOverModal = (props) => {
   const { show, onClose } = props;
   const { gameMode } = useContext(GameSettingsContext);
@@ -29,6 +39,19 @@ const GameOverModal = (props) => {
     });
   }, []);
 
+  const getGameOverMessage = () => {
+    switch (gameMode) {
+      case MODE_SETTING_TYPES.TIME_BASED:
+        return getRandomMessage(timeBasedGameOverMessages);
+      case MODE_SETTING_TYPES.TURN_BASED:
+        return getRandomMessage(turnBasedGameOverMessages);
+      case MODE_SETTING_TYPES.FREE:
+        return getRandomMessage(freeModeGameOverMessages);
+      default:
+        return 'Game Over!';
+    }
+  };
+
   return (
     <div className="game-over-modal">
       {(hasTransitionedIn || show) && (
@@ -43,26 +66,7 @@ const GameOverModal = (props) => {
             <div className="game-over-modal-header">
               <h1>Game Over!</h1>
             </div>
-            <div className="game-over-modal-body">
-              {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
-                <div className="time-based-mode-modal-body">
-                  Oops! The clock beat you to it. <br />
-                  Maybe try a sundial next time?
-                </div>
-              )}
-              {gameMode === MODE_SETTING_TYPES.TURN_BASED && (
-                <div className="turned-based-mode-modal-body">
-                  Turns out, you needed more turns. :( <br />
-                  Try again and turn the tables!
-                </div>
-              )}
-              {gameMode === MODE_SETTING_TYPES.FREE && (
-                <div className="free-mode-modal-body">
-                  Well, that’s a wrap! Free mode just gave you a free lesson in
-                  perseverance!
-                </div>
-              )}
-            </div>
+            <div className="game-over-modal-body">{getGameOverMessage()}</div>
             <div className="game-over-modal-footer">
               <button onClick={handleClick} className="modal-close-btn">
                 Close

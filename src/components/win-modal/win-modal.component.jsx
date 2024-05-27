@@ -6,6 +6,16 @@ import useMountTransition from '../../component-helpers/useMountTransition';
 import './win-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
+import {
+  timeBasedWinMessages,
+  turnBasedWinMessages,
+  freeModeWinMessages,
+} from '../../game-end-messages/game-end-messages';
+
+const getRandomMessage = (messages) => {
+  return messages[Math.floor(Math.random() * messages.length)];
+};
+
 const WinModal = (props) => {
   const { show, turns, timer, stopWatch, gameMode, onClose } = props;
   const hasTransitionedIn = useMountTransition(show, 1000);
@@ -25,7 +35,19 @@ const WinModal = (props) => {
     });
   }, []);
 
-  // <div>Looks like your memory is still working! Hooray!</div>
+  const getWinMessage = () => {
+    switch (gameMode) {
+      case MODE_SETTING_TYPES.TIME_BASED:
+        return getRandomMessage(timeBasedWinMessages);
+      case MODE_SETTING_TYPES.TURN_BASED:
+        return getRandomMessage(turnBasedWinMessages);
+      case MODE_SETTING_TYPES.FREE:
+        return getRandomMessage(freeModeWinMessages);
+      default:
+        return 'Looks like your memory is still working! Hooray!';
+    }
+  };
+
   return (
     <div className="win-modal">
       {(hasTransitionedIn || show) && (
@@ -43,18 +65,10 @@ const WinModal = (props) => {
               <h1>Congratulations!</h1>
             </div>
             <div className="modal-body">
-              {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
-                <div>You conquered time! Einstein would be proud.</div>
-              )}
-              {gameMode === MODE_SETTING_TYPES.TURN_BASED && (
-                <div>
-                  Turns out, you turned the tables and won! Well played!
-                </div>
-              )}
-              {gameMode === MODE_SETTING_TYPES.FREE && (
-                <div>Free mode conquered! You’re free to celebrate now!</div>
-              )}
-              <br /> You completed the game in
+              {getWinMessage()}
+              <br />
+              <br />
+              You completed the game in
               {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
                 <div>
                   <span>{timer}</span> <br /> and it took
