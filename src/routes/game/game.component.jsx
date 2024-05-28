@@ -224,14 +224,14 @@ const Game = (props) => {
   const handleGameOver = () => {
     setIsWon(false);
     const flippedAndDisabledCards = flipAndDisableAllCards(cardDeck);
-    setTimeout(() => setCardDeck(flippedAndDisabledCards), 2000);
+    setTimeout(() => setCardDeck(flippedAndDisabledCards), 1000);
   };
 
   // Show the Game Over modal with stats
   useEffect(() => {
     if (isGameOver) {
       handleGameOver();
-      setTimeout(() => setGameOverModal(isGameOver), 700);
+      setTimeout(() => setGameOverModal(isGameOver), 100);
     }
   }, [isGameOver]);
 
