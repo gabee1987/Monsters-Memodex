@@ -79,13 +79,14 @@ const Game = (props) => {
     setCardDeck(shuffledCardDeck);
     // setTimeout(() => setCardDeck(shuffledCardDeck), 855);
 
-    setTurns(-1);
-    resetTurn();
+    setTurns(0);
+    // resetTurn();
     setIsGamePaused(false);
     setIsGameInProgress(false);
     setTimeout(() => setIsGameOver(false), 500);
     setNeedNewGame(false);
     setIsWon(false);
+    setIsGameOver(false);
     setTimeout(() => setIsNeedStaggerAnimation(false), 300); // Reset stagger animation state after initiating new game
 
     // Time related states
@@ -98,12 +99,15 @@ const Game = (props) => {
 
     // Re-enable the new game button after the setup is complete
     setIsNewGameButtonDisabled(false);
+
+    setIsShufflingActive(true);
+    setTimeout(() => setIsShufflingActive(false), 1000);
   };
 
   // Start a New Game on click
   const handleNewGameClick = () => {
     if (!isNewGameButtonDisabled) {
-      setIsShufflingActive(true); // Set the shuffle animation state
+      // setIsShufflingActive(true); // Set the shuffle animation state
       initiateNewGame();
     }
   };
@@ -227,7 +231,7 @@ const Game = (props) => {
   useEffect(() => {
     if (isGameOver) {
       handleGameOver();
-      setTimeout(() => setGameOverModal(isGameOver), 1500);
+      setTimeout(() => setGameOverModal(isGameOver), 700);
     }
   }, [isGameOver]);
 
@@ -243,9 +247,10 @@ const Game = (props) => {
 
   // Turned based game over logic
   useEffect(() => {
-    if (gameMode === MODE_SETTING_TYPES.TURN_BASED) {
+    if (gameMode === MODE_SETTING_TYPES.TURN_BASED && turns > 0) {
       if (turns >= GetTurnsCount(numberOfPairs)) {
         setIsGameOver(true);
+        // setTimeout(() => setIsGameOver(true), 200);
       }
     }
   }, [turns, gameMode, numberOfPairs, GetTurnsCount, setIsGameOver]);
@@ -264,7 +269,6 @@ const Game = (props) => {
     }
   }, [turns, gameMode, numberOfPairs, GetTurnsCount, setIsGameOver]);
 
-  // TODO in a turn based mode we have to track the number of turns and if a certain amount is reached, game over
   const resetTurn = () => {
     setFirstChoice(null);
     setSecondChoice(null);

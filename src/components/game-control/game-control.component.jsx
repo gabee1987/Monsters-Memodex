@@ -3,7 +3,11 @@ import { motion } from 'framer-motion';
 
 import { GameStateContext } from '../../contexts/game-state.context';
 import { GameSettingsContext } from '../../contexts/game-settings.context';
-import { MODE_SETTING_TYPES } from '../../contexts/game-settings.context';
+import {
+  MODE_SETTING_TYPES,
+  DEFAULT_TURN_VALUES,
+  calculateTurnValue,
+} from '../../contexts/game-settings.context';
 
 import TimerComponent from '../timer/timer.component';
 import StopwatchComponent from '../stopwatch/stopwatch.component';
@@ -18,7 +22,7 @@ import './game-control.styles.scss';
 
 const GameControls = ({ newGameClick, firstFlip, isNewGameButtonDisabled }) => {
   const { turns } = useContext(GameStateContext);
-  const { gameMode } = useContext(GameSettingsContext);
+  const { gameMode, numberOfPairs } = useContext(GameSettingsContext);
   const { isNeedStaggerAnimation } = useContext(GameStateContext);
   const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
 
@@ -73,7 +77,7 @@ const GameControls = ({ newGameClick, firstFlip, isNewGameButtonDisabled }) => {
           className="btn game-control game-stat turn-left-btn"
           variants={gameControlButtonVariants}
         >
-          TURN LEFT: <span>TODO</span>
+          TURNS LEFT:<span>{calculateTurnValue(numberOfPairs) - turns}</span>
         </motion.button>
       )}
       <motion.button

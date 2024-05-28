@@ -87,9 +87,7 @@ export const calculateTimerValue = (numOfCards, difficulty) => {
 };
 
 export const calculateTurnValue = (numOfPairs, difficulty) => {
-  const baseTurns =
-    DEFAULT_TURN_VALUES[`TURNS_AT_${numOfPairs}_PAIRS`] ||
-    DEFAULT_TURN_VALUES.TURNS_DEFAULT;
+  const baseTurns = GetTurnsCount(numOfPairs);
 
   switch (difficulty) {
     case DIFFICULTY_SETTING_TYPES.EASY:

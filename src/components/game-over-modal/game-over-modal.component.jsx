@@ -1,23 +1,16 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 
+import { GameSettingsContext } from '../../contexts/game-settings.context';
+
 import {
-  GameSettingsContext,
-  MODE_SETTING_TYPES,
-} from '../../contexts/game-settings.context';
+  formatMessage,
+  getGameEndMessage,
+} from '../../utilities/message-helper';
+import { GAME_END_TYPES } from '../../game-end-utilities/game-end-types';
 
 import useMountTransition from '../../component-helpers/useMountTransition';
 import './game-over-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
-
-import {
-  timeBasedGameOverMessages,
-  turnBasedGameOverMessages,
-  freeModeGameOverMessages,
-} from '../../game-end-messages/game-end-messages';
-
-const getRandomMessage = (messages) => {
-  return messages[Math.floor(Math.random() * messages.length)];
-};
 
 const GameOverModal = (props) => {
   const { show, onClose } = props;
@@ -39,18 +32,7 @@ const GameOverModal = (props) => {
     });
   }, []);
 
-  const getGameOverMessage = () => {
-    switch (gameMode) {
-      case MODE_SETTING_TYPES.TIME_BASED:
-        return getRandomMessage(timeBasedGameOverMessages);
-      case MODE_SETTING_TYPES.TURN_BASED:
-        return getRandomMessage(turnBasedGameOverMessages);
-      case MODE_SETTING_TYPES.FREE:
-        return getRandomMessage(freeModeGameOverMessages);
-      default:
-        return 'Game Over!';
-    }
-  };
+  const gameOverMessage = getGameEndMessage(gameMode, GAME_END_TYPES.GAME_OVER);
 
   return (
     <div className="game-over-modal">
@@ -66,7 +48,9 @@ const GameOverModal = (props) => {
             <div className="game-over-modal-header">
               <h1>Game Over!</h1>
             </div>
-            <div className="game-over-modal-body">{getGameOverMessage()}</div>
+            <div className="game-over-modal-body">
+              {formatMessage(gameOverMessage)}
+            </div>
             <div className="game-over-modal-footer">
               <button onClick={handleClick} className="modal-close-btn">
                 Close

@@ -24,19 +24,30 @@ import VanillaTilt from 'vanilla-tilt';
 const cardSetPictureId = Math.floor(Math.random() * 100);
 
 const Settings = () => {
-  const { gameInProgress, setGameInProgress } = useContext(GameStateContext);
-  const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
-  const { needNewGame, setNeedNewGame } = useContext(GameStateContext);
-  const { inProgressDeck } = useContext(GameStateContext);
-  const { setIsWon } = useContext(GameStateContext);
-  const { setIsNeedStaggerAnimation } = useContext(GameStateContext);
+  const {
+    needNewGame,
+    setNeedNewGame,
+    setIsGameOver,
+    setIsWon,
+    inProgressDeck,
+    setIsNeedStaggerAnimation,
+    setTurns,
+  } = useContext(GameStateContext);
 
-  const { gameMode, setGameMode } = useContext(GameSettingsContext);
-  const { difficulty, setDifficulty } = useContext(GameSettingsContext);
-  const { numberOfPairs, setNumberOfPairs } = useContext(GameSettingsContext);
-  const { activeTab, setActiveTab } = useContext(GameSettingsContext);
-  const { cardSet, setCardSet } = useContext(GameSettingsContext);
-  const { cardBack, setCardBack } = useContext(GameSettingsContext);
+  const {
+    gameMode,
+    setGameMode,
+    difficulty,
+    setDifficulty,
+    numberOfPairs,
+    setNumberOfPairs,
+    activeTab,
+    setActiveTab,
+    cardSet,
+    setCardSet,
+    cardBack,
+    setCardBack,
+  } = useContext(GameSettingsContext);
 
   const isFeatureEnabled = false;
 
@@ -91,6 +102,8 @@ const Settings = () => {
     setIsNeedStaggerAnimation(true);
     // TODO Need to extract and centralize this state change
     setIsWon(false);
+    setIsGameOver(false);
+    setTurns(0);
     navigate('/game');
   };
 

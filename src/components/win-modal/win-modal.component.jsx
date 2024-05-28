@@ -7,14 +7,10 @@ import './win-modal.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 
 import {
-  timeBasedWinMessages,
-  turnBasedWinMessages,
-  freeModeWinMessages,
-} from '../../game-end-messages/game-end-messages';
-
-const getRandomMessage = (messages) => {
-  return messages[Math.floor(Math.random() * messages.length)];
-};
+  formatMessage,
+  getGameEndMessage,
+} from '../../utilities/message-helper';
+import { GAME_END_TYPES } from '../../game-end-utilities/game-end-types';
 
 const WinModal = (props) => {
   const { show, turns, timer, stopWatch, gameMode, onClose } = props;
@@ -35,18 +31,7 @@ const WinModal = (props) => {
     });
   }, []);
 
-  const getWinMessage = () => {
-    switch (gameMode) {
-      case MODE_SETTING_TYPES.TIME_BASED:
-        return getRandomMessage(timeBasedWinMessages);
-      case MODE_SETTING_TYPES.TURN_BASED:
-        return getRandomMessage(turnBasedWinMessages);
-      case MODE_SETTING_TYPES.FREE:
-        return getRandomMessage(freeModeWinMessages);
-      default:
-        return 'Looks like your memory is still working! Hooray!';
-    }
-  };
+  const winMessage = getGameEndMessage(gameMode, GAME_END_TYPES.WIN);
 
   return (
     <div className="win-modal">
@@ -65,7 +50,7 @@ const WinModal = (props) => {
               <h1>Congratulations!</h1>
             </div>
             <div className="modal-body">
-              {getWinMessage()}
+              {formatMessage(winMessage)}
               <br />
               <br />
               You completed the game in
