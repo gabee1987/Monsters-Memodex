@@ -2,7 +2,8 @@ import { createContext, useEffect, useState } from 'react';
 
 export const TAB_VALUES = {
   GAME_TAB: 'GAME_TAB',
-  VISUALS_TAB: 'VISUALS_TAB',
+  CARD_VISUALS_TAB: 'CARD_VISUALS_TAB',
+  APP_VISUALS_TAB: 'APP_VISUALS_TAB',
 };
 
 export const MODE_SETTING_TYPES = {
@@ -41,6 +42,14 @@ export const CARBACK_SETTING_TYPES = {
   SCALES: 'scales',
   TRIANGLES: 'triangles',
   MEMPHIS: 'memphis',
+};
+
+export const APP_BACKGROUND_SETTING_TYPES = {
+  BG_DEFAULT: 'bg-default',
+  BG_JAPANESE: 'bg-pattern-japanese',
+  BG_HEXAGON: 'bg-pattern-hexagon',
+  BG_GEOMETRIC_4: 'bg-pattern-geometric-4',
+  // TODO More backgrounds will come here...
 };
 
 export const DEFAULT_TIMER_SECONDS = {
@@ -141,6 +150,8 @@ export const GameSettingsContext = createContext({
   setCardSet: () => {},
   cardBack: CARBACK_SETTING_TYPES.BASIC,
   setCardBack: () => {},
+  appBackground: APP_BACKGROUND_SETTING_TYPES.BG_DEFAULT,
+  setAppBackground: () => {},
   GetTurnsCount,
 });
 
@@ -151,6 +162,9 @@ export const GameSettingsProvider = ({ children }) => {
   const [numberOfPairs, setNumberOfPairs] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
   const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BASIC);
+  const [appBackground, setAppBackground] = useState(
+    APP_BACKGROUND_SETTING_TYPES.BG_DEFAULT
+  );
 
   const value = {
     activeTab,
@@ -165,6 +179,8 @@ export const GameSettingsProvider = ({ children }) => {
     setCardSet,
     cardBack,
     setCardBack,
+    appBackground,
+    setAppBackground,
     calculateTimerValue,
     GetTurnsCount,
   };

@@ -16,6 +16,7 @@ import {
   CARDSET_SETTING_TYPES,
   TAB_VALUES,
   CARBACK_SETTING_TYPES,
+  APP_BACKGROUND_SETTING_TYPES,
 } from '../../contexts/game-settings.context';
 
 import './game-settings.styles.scss';
@@ -47,6 +48,8 @@ const Settings = () => {
     setCardSet,
     cardBack,
     setCardBack,
+    appBackground,
+    setAppBackground,
   } = useContext(GameSettingsContext);
 
   const isFeatureEnabled = false;
@@ -55,10 +58,18 @@ const Settings = () => {
 
   const handleTabChange = (event) => {
     console.log('activetab change to:', event.target.value);
-    if (event.target.value === TAB_VALUES.GAME_TAB) {
-      setActiveTab(TAB_VALUES.GAME_TAB);
-    } else if (event.target.value === TAB_VALUES.VISUALS_TAB) {
-      setActiveTab(TAB_VALUES.VISUALS_TAB);
+    switch (event.target.value) {
+      case TAB_VALUES.GAME_TAB:
+        setActiveTab(TAB_VALUES.GAME_TAB);
+        break;
+      case TAB_VALUES.CARD_VISUALS_TAB:
+        setActiveTab(TAB_VALUES.CARD_VISUALS_TAB);
+        break;
+      case TAB_VALUES.APP_VISUALS_TAB:
+        setActiveTab(TAB_VALUES.APP_VISUALS_TAB);
+        break;
+      default:
+        break;
     }
   };
 
@@ -78,7 +89,7 @@ const Settings = () => {
     console.log('cardNumber changed to:', event.target.value);
   };
 
-  // VISUAL SETTINGS HANDLES
+  // CARD VISUAL SETTINGS HANDLES
   const handleCardSetChange = (event) => {
     setCardSet(event.target.value);
     console.log('cardSet changed to:', event.target.value);
@@ -87,6 +98,12 @@ const Settings = () => {
   const handleCardBackChange = (event) => {
     setCardBack(event.target.value);
     console.log('cardBack changed to:', event.target.value);
+  };
+
+  // APP VISUAL SETTINGS HANDLES
+  const handleAppBackgroundChange = (event) => {
+    setAppBackground(event.target.value);
+    console.log('app background changed to:', event.target.value);
   };
 
   // GAME BUTTON HANDLES
@@ -142,13 +159,22 @@ const Settings = () => {
             Game
           </button>
           <button
-            className={`settings-tab visuals-tab ${
-              activeTab === TAB_VALUES.VISUALS_TAB ? 'active-tab' : ''
+            className={`settings-tab card-visuals-tab ${
+              activeTab === TAB_VALUES.CARD_VISUALS_TAB ? 'active-tab' : ''
             }`}
             onClick={handleTabChange}
-            value={TAB_VALUES.VISUALS_TAB}
+            value={TAB_VALUES.CARD_VISUALS_TAB}
           >
-            Visuals
+            Card Visuals
+          </button>
+          <button
+            className={`settings-tab app-visuals-tab ${
+              activeTab === TAB_VALUES.APP_VISUALS_TAB ? 'active-tab' : ''
+            }`}
+            onClick={handleTabChange}
+            value={TAB_VALUES.APP_VISUALS_TAB}
+          >
+            App Visuals
           </button>
         </div>
         <div className="settings-inner-container" id="mainMenuInner">
@@ -242,10 +268,10 @@ const Settings = () => {
             </div>
           </div>
 
-          {/* Visual Settings panel */}
+          {/* Card Visual Settings panel */}
           <div
             className={`game-settings-container ${
-              activeTab === TAB_VALUES.VISUALS_TAB ? 'active-settings' : ''
+              activeTab === TAB_VALUES.CARD_VISUALS_TAB ? 'active-settings' : ''
             }`}
           >
             {/* CARD SET SETTINGS */}
@@ -402,6 +428,69 @@ const Settings = () => {
                   onChangeHandler={handleCardBackChange}
                   cardSetId={null}
                   cardSetPicId={null}
+                />
+              </div>
+            </div>
+          </div>
+          {/* App Visual Settings panel */}
+          <div
+            className={`game-settings-container ${
+              activeTab === TAB_VALUES.APP_VISUALS_TAB ? 'active-settings' : ''
+            }`}
+          >
+            {/* App Background Settings */}
+            <div className="settings-category app-background-settings">
+              <span>App Background</span>
+              <div
+                id="appBgScrollContainer"
+                className="settings-input-group app-bg-group"
+              >
+                {/* =========================BASIC APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgDefault"
+                  labelText="Default"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_DEFAULT}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
+
+                {/* =========================JAPANESE PATTERN APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgJapanese"
+                  labelText="Japanese"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_JAPANESE}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
+
+                {/* =========================HEXAGON PATTERN APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgHexagon"
+                  labelText="HExagon"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_HEXAGON}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
+
+                {/* =========================GEOMETRIC 4 PATTERN APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgGeometric4"
+                  labelText="Geometric"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_GEOMETRIC_4}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
                 />
               </div>
             </div>

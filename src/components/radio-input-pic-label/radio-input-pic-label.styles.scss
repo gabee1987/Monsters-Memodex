@@ -1,4 +1,4 @@
-.settings-cardset-label-container {
+.settings-pic-label-container {
   width: 100px;
   height: 100px;
   padding: 0;
@@ -28,5 +28,14 @@
 }
 
 .selected-card-back {
+  border: 3px dotted #ffff00;
+}
+
+.app-bg-radio-img {
+  width: 100px;
+  border: 1px dotted #73ffca;
+}
+
+.selected-app-bg {
   border: 3px dotted #ffff00;
 }

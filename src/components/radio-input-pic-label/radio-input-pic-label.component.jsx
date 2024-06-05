@@ -8,6 +8,7 @@ const RadioInputPicLabel = ({
   onChangeHandler,
   cardSetId,
   cardSetPicId,
+  isAppBackground,
 }) => {
   return (
     <label
@@ -19,11 +20,19 @@ const RadioInputPicLabel = ({
       }`}
     >
       <div
-        className={`settings-cardset-label-container ${
+        className={`settings-pic-label-container ${
           selectedValueType === selectedValue ? 'selected-card-set' : ''
         }`}
       >
-        {cardSetPicId !== null ? (
+        {isAppBackground ? (
+          <img
+            className={`app-bg-radio-img ${
+              selectedValueType === selectedValue ? 'selected-app-bg' : ''
+            }`}
+            alt={`app-bg-${labelText}`}
+            src={require(`../../assets/bg/${selectedValue}.png`)}
+          />
+        ) : cardSetPicId !== null ? (
           <img
             className={`card-set-radio-img ${
               selectedValueType === selectedValue ? 'selected-card-set' : ''
