@@ -457,12 +457,48 @@ const Settings = () => {
                   isAppBackground={true}
                 />
 
+                {/* =========================SOLID LIGHT APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgSolidLight"
+                  labelText="SolidLight"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_SOLID_LIGHT}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
+
+                {/* =========================SOLID DARK APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgSolidDark"
+                  labelText="SolidDark"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_SOLID_DARK}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
+
                 {/* =========================JAPANESE PATTERN APP BACKGROUND */}
                 <RadioInputPicLabel
                   id="appBgJapanese"
                   labelText="Japanese"
                   selectedValueType={appBackground}
                   selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_JAPANESE}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
+
+                {/* =========================JAPANESE PATTERN 2 APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgJapanese2"
+                  labelText="Japanese2"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_JAPANESE_2}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}

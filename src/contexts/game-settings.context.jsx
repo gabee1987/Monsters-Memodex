@@ -46,7 +46,10 @@ export const CARBACK_SETTING_TYPES = {
 
 export const APP_BACKGROUND_SETTING_TYPES = {
   BG_DEFAULT: 'bg-default',
+  BG_SOLID_LIGHT: 'bg-solid-light',
+  BG_SOLID_DARK: 'bg-solid-dark',
   BG_JAPANESE: 'bg-pattern-japanese',
+  BG_JAPANESE_2: 'bg-pattern-japanese-2',
   BG_HEXAGON: 'bg-pattern-hexagon',
   BG_GEOMETRIC_4: 'bg-pattern-geometric-4',
   // TODO More backgrounds will come here...
