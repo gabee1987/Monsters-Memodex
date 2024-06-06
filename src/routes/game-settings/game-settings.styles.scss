@@ -150,7 +150,7 @@
       }
     }
 
-    .card-back-group {
+    .tile-group {
       display: flex;
       height: 160px;
       padding: 1rem 0.5rem;
@@ -173,6 +173,9 @@
         height: 10px;
       }
     }
+  }
+
+  .card-back-group {
   }
 
   .settings-button-container {

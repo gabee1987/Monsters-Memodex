@@ -21,6 +21,10 @@ import {
 
 import './game-settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
+import {
+  enableHorizontalScrolling,
+  disableHorizontalScrolling,
+} from '../../component-helpers/horizontal-scrolling';
 
 const cardSetPictureId = Math.floor(Math.random() * 100);
 
@@ -135,14 +139,14 @@ const Settings = () => {
     });
   }, []);
 
-  // Horizontal scrolling helper
+  // Horizontal scrolling helpers
   useEffect(() => {
-    const scrollContainer = document.querySelector('#cardBackScrollContainer');
+    enableHorizontalScrolling('.horizontal-scroll-container');
 
-    scrollContainer.addEventListener('wheel', (evt) => {
-      evt.preventDefault();
-      scrollContainer.scrollLeft += evt.deltaY;
-    });
+    // Cleanup function to remove event listeners
+    return () => {
+      disableHorizontalScrolling('.horizontal-scroll-container');
+    };
   }, []);
 
   return (
@@ -329,7 +333,7 @@ const Settings = () => {
               <span>Card Back</span>
               <div
                 id="cardBackScrollContainer"
-                className="settings-input-group card-back-group"
+                className="settings-input-group horizontal-scroll-container tile-group card-back-group"
               >
                 {/* =========================BASIC CARD BACK */}
                 <RadioInputPicLabel
@@ -443,7 +447,7 @@ const Settings = () => {
               <span>App Background</span>
               <div
                 id="appBgScrollContainer"
-                className="settings-input-group app-bg-group"
+                className="settings-input-group horizontal-scroll-container tile-group app-bg-group"
               >
                 {/* =========================BASIC APP BACKGROUND */}
                 <RadioInputPicLabel
