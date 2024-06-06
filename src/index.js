@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from './contexts/app-theme.context';
 import { GameStateProvider } from './contexts/game-state.context';
 import { GameSettingsProvider } from './contexts/game-settings.context';
 import { TimeProvider } from './contexts/time-context';
@@ -14,13 +15,15 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <GameSettingsProvider>
-        <GameStateProvider>
-          <TimeProvider>
-            <App />
-          </TimeProvider>
-        </GameStateProvider>
-      </GameSettingsProvider>
+      <ThemeProvider>
+        <GameSettingsProvider>
+          <GameStateProvider>
+            <TimeProvider>
+              <App />
+            </TimeProvider>
+          </GameStateProvider>
+        </GameSettingsProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

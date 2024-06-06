@@ -2,8 +2,6 @@ import { useEffect, useContext } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom'; // Have to run "yarn add react-router-dom" if not found
 import { AnimatePresence } from 'framer-motion';
 
-import { GameSettingsContext } from './contexts/game-settings.context';
-
 // Components
 import Navigation from './routes/navigation/navigation.component';
 import Game from './routes/game/game.component';
@@ -15,12 +13,6 @@ import './App.scss';
 const App = () => {
   const location = useLocation();
   const isNotHome = location.pathname !== '/';
-  const { appBackground } = useContext(GameSettingsContext);
-
-  useEffect(() => {
-    // Set the background class on the body element
-    document.body.className = appBackground;
-  }, [appBackground]);
 
   return (
     <>

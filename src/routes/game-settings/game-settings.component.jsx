@@ -16,15 +16,19 @@ import {
   CARDSET_SETTING_TYPES,
   TAB_VALUES,
   CARBACK_SETTING_TYPES,
-  APP_BACKGROUND_SETTING_TYPES,
 } from '../../contexts/game-settings.context';
+import {
+  ThemeContext,
+  APP_BACKGROUND_TYPES,
+} from '../../contexts/app-theme.context';
 
-import './game-settings.styles.scss';
 import VanillaTilt from 'vanilla-tilt';
 import {
   enableHorizontalScrolling,
   disableHorizontalScrolling,
 } from '../../component-helpers/horizontal-scrolling';
+
+import './game-settings.styles.scss';
 
 const cardSetPictureId = Math.floor(Math.random() * 100);
 
@@ -52,9 +56,10 @@ const Settings = () => {
     setCardSet,
     cardBack,
     setCardBack,
-    appBackground,
-    setAppBackground,
   } = useContext(GameSettingsContext);
+
+  const { appBackground, setAppBackground, theme, setTheme, toggleTheme } =
+    useContext(ThemeContext);
 
   const isFeatureEnabled = false;
 
@@ -126,6 +131,13 @@ const Settings = () => {
     setIsGameOver(false);
     setTurns(0);
     navigate('/game');
+  };
+
+  // APP THEME HANDLE
+  const handleThemeChange = (event) => {
+    const [themeName, mode] = event.target.value.split('-');
+    toggleTheme(themeName, mode);
+    console.log('Theme enabled in settings: ', themeName, mode);
   };
 
   // 3D perspective effect with Vanilla Tilt
@@ -442,6 +454,50 @@ const Settings = () => {
               activeTab === TAB_VALUES.APP_VISUALS_TAB ? 'active-settings' : ''
             }`}
           >
+            {/* App Theme Settings */}
+            <div className="settings-category app-theme-settings">
+              <span>App Theme</span>
+              <div className="settings-input-group app-theme-group">
+                {/* Dark Themes */}
+                <div className="dark-themes-group">
+                  {/* =========================DARK APP THEME */}
+                  <RadioInput
+                    id="defaultDarkTheme"
+                    labelText="Dark Theme"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="default-dark"
+                    onChangeHandler={handleThemeChange}
+                  />
+                  {/* =========================RETRO DARK APP THEME */}
+                  <RadioInput
+                    id="retroDarkTheme"
+                    labelText="Retro Dark"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="retro-dark"
+                    onChangeHandler={handleThemeChange}
+                  />
+                </div>
+                {/* Light Themes */}
+                <div className="light-themes-group">
+                  {/* =========================LIGHT APP THEME */}
+                  <RadioInput
+                    id="defaultLightTheme"
+                    labelText="Light Theme"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="default-light"
+                    onChangeHandler={handleThemeChange}
+                  />
+                  {/* =========================RETRO LIGHT APP THEME */}
+                  <RadioInput
+                    id="retroLightTheme"
+                    labelText="Retro Light"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="retro-light"
+                    onChangeHandler={handleThemeChange}
+                  />
+                </div>
+              </div>
+            </div>
             {/* App Background Settings */}
             <div className="settings-category app-background-settings">
               <span>App Background</span>
@@ -449,12 +505,24 @@ const Settings = () => {
                 id="appBgScrollContainer"
                 className="settings-input-group horizontal-scroll-container tile-group app-bg-group"
               >
-                {/* =========================BASIC APP BACKGROUND */}
+                {/* =========================BASIC APP DARK BACKGROUND */}
                 <RadioInputPicLabel
-                  id="appBgDefault"
-                  labelText="Default"
+                  id="appBgDefaultDark"
+                  labelText="Default Dark"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_DEFAULT}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_DEFAULT_DARK}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
+
+                {/* =========================BASIC APP LIGHT BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgDefaultLight"
+                  labelText="Default Light"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_DEFAULT_LIGHT}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -466,7 +534,7 @@ const Settings = () => {
                   id="appBgSolidLight"
                   labelText="SolidLight"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_SOLID_LIGHT}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_SOLID_LIGHT}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -478,7 +546,7 @@ const Settings = () => {
                   id="appBgSolidDark"
                   labelText="SolidDark"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_SOLID_DARK}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_SOLID_DARK}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -490,7 +558,7 @@ const Settings = () => {
                   id="appBgJapanese"
                   labelText="Japanese"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_JAPANESE}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_JAPANESE}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -502,7 +570,7 @@ const Settings = () => {
                   id="appBgJapanese2"
                   labelText="Japanese2"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_JAPANESE_2}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_JAPANESE_2}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -514,7 +582,7 @@ const Settings = () => {
                   id="appBgHexagon"
                   labelText="HExagon"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_HEXAGON}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_HEXAGON}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -526,7 +594,7 @@ const Settings = () => {
                   id="appBgGeometric4"
                   labelText="Geometric"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_SETTING_TYPES.BG_GEOMETRIC_4}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_GEOMETRIC_4}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}

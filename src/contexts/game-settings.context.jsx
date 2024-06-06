@@ -44,17 +44,6 @@ export const CARBACK_SETTING_TYPES = {
   MEMPHIS: 'memphis',
 };
 
-export const APP_BACKGROUND_SETTING_TYPES = {
-  BG_DEFAULT: 'bg-default',
-  BG_SOLID_LIGHT: 'bg-solid-light',
-  BG_SOLID_DARK: 'bg-solid-dark',
-  BG_JAPANESE: 'bg-pattern-japanese',
-  BG_JAPANESE_2: 'bg-pattern-japanese-2',
-  BG_HEXAGON: 'bg-pattern-hexagon',
-  BG_GEOMETRIC_4: 'bg-pattern-geometric-4',
-  // TODO More backgrounds will come here...
-};
-
 export const DEFAULT_TIMER_SECONDS = {
   TIMER_DEFAULT: 600,
   TIMER_AT_2_PAIRS: 30, // 15 seconds per pair
@@ -153,8 +142,6 @@ export const GameSettingsContext = createContext({
   setCardSet: () => {},
   cardBack: CARBACK_SETTING_TYPES.BASIC,
   setCardBack: () => {},
-  appBackground: APP_BACKGROUND_SETTING_TYPES.BG_DEFAULT,
-  setAppBackground: () => {},
   GetTurnsCount,
 });
 
@@ -165,9 +152,6 @@ export const GameSettingsProvider = ({ children }) => {
   const [numberOfPairs, setNumberOfPairs] = useState(10);
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
   const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BASIC);
-  const [appBackground, setAppBackground] = useState(
-    APP_BACKGROUND_SETTING_TYPES.BG_DEFAULT
-  );
 
   const value = {
     activeTab,
@@ -182,8 +166,6 @@ export const GameSettingsProvider = ({ children }) => {
     setCardSet,
     cardBack,
     setCardBack,
-    appBackground,
-    setAppBackground,
     calculateTimerValue,
     GetTurnsCount,
   };
