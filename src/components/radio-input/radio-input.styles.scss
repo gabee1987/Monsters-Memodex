@@ -10,7 +10,8 @@ label {
     color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
 
   &:hover {
-    color: #ffff00;
+    // color: #ffff00;
+    color: var(--hoverText);
     text-shadow: rgba(0, 0, 0, 0.3) 7px 7px 15px;
     transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
       rotate(1.4deg);
@@ -23,12 +24,14 @@ label {
 }
 
 .radioSelected {
-  color: #ffff00;
+  // color: #ffff00;
+  color: var(--activeText);
   // transform: scale(1.1, 1.1);
 }
 
 .radioNotSelected {
-  color: #73ffca;
+  // color: #73ffca;
+  color: var(--secondaryText);
 }
 
 input[type='radio'] {

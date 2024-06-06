@@ -58,7 +58,7 @@ const Settings = () => {
     setCardBack,
   } = useContext(GameSettingsContext);
 
-  const { appBackground, setAppBackground, theme, setTheme, toggleTheme } =
+  const { appBackground, setAppBackground, theme, toggleTheme } =
     useContext(ThemeContext);
 
   const isFeatureEnabled = false;
@@ -110,6 +110,15 @@ const Settings = () => {
   };
 
   // APP VISUAL SETTINGS HANDLES
+
+  // App Theme handler
+  const handleThemeChange = (event) => {
+    const [themeName, mode] = event.target.value.split('-');
+    toggleTheme(themeName, mode);
+    console.log('Theme enabled in settings: ', themeName, mode);
+  };
+
+  // App Background handler
   const handleAppBackgroundChange = (event) => {
     setAppBackground(event.target.value);
     console.log('app background changed to:', event.target.value);
@@ -131,13 +140,6 @@ const Settings = () => {
     setIsGameOver(false);
     setTurns(0);
     navigate('/game');
-  };
-
-  // APP THEME HANDLE
-  const handleThemeChange = (event) => {
-    const [themeName, mode] = event.target.value.split('-');
-    toggleTheme(themeName, mode);
-    console.log('Theme enabled in settings: ', themeName, mode);
   };
 
   // 3D perspective effect with Vanilla Tilt
@@ -460,10 +462,10 @@ const Settings = () => {
               <div className="settings-input-group app-theme-group">
                 {/* Dark Themes */}
                 <div className="dark-themes-group">
-                  {/* =========================DARK APP THEME */}
+                  {/* =========================DEFAULT DARK APP THEME */}
                   <RadioInput
                     id="defaultDarkTheme"
-                    labelText="Dark Theme"
+                    labelText="Default Dark"
                     selectedValueType={`${theme.name}-${theme.mode}`}
                     selectedValue="default-dark"
                     onChangeHandler={handleThemeChange}
@@ -476,13 +478,37 @@ const Settings = () => {
                     selectedValue="retro-dark"
                     onChangeHandler={handleThemeChange}
                   />
+                  {/* =========================NEON DARK APP THEME */}
+                  <RadioInput
+                    id="neonDarkTheme"
+                    labelText="Neon Dark"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="neon-dark"
+                    onChangeHandler={handleThemeChange}
+                  />
+                  {/* =========================COOL DARK APP THEME */}
+                  <RadioInput
+                    id="coolDarkTheme"
+                    labelText="Cool Dark"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="cool-dark"
+                    onChangeHandler={handleThemeChange}
+                  />
+                  {/* =========================WARM DARK APP THEME */}
+                  <RadioInput
+                    id="warmDarkTheme"
+                    labelText="Warm Dark"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="warm-dark"
+                    onChangeHandler={handleThemeChange}
+                  />
                 </div>
                 {/* Light Themes */}
                 <div className="light-themes-group">
-                  {/* =========================LIGHT APP THEME */}
+                  {/* =========================DEFAULT LIGHT APP THEME */}
                   <RadioInput
                     id="defaultLightTheme"
-                    labelText="Light Theme"
+                    labelText="Default Light"
                     selectedValueType={`${theme.name}-${theme.mode}`}
                     selectedValue="default-light"
                     onChangeHandler={handleThemeChange}
@@ -493,6 +519,30 @@ const Settings = () => {
                     labelText="Retro Light"
                     selectedValueType={`${theme.name}-${theme.mode}`}
                     selectedValue="retro-light"
+                    onChangeHandler={handleThemeChange}
+                  />
+                  {/* =========================NEON LIGHT APP THEME */}
+                  <RadioInput
+                    id="neonLightTheme"
+                    labelText="Neon Light"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="neon-light"
+                    onChangeHandler={handleThemeChange}
+                  />
+                  {/* =========================COOL LIGHT APP THEME */}
+                  <RadioInput
+                    id="coolLightTheme"
+                    labelText="Cool Light"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="cool-light"
+                    onChangeHandler={handleThemeChange}
+                  />
+                  {/* =========================WARM LIGHT APP THEME */}
+                  <RadioInput
+                    id="warmLightTheme"
+                    labelText="Warm Light"
+                    selectedValueType={`${theme.name}-${theme.mode}`}
+                    selectedValue="warm-light"
                     onChangeHandler={handleThemeChange}
                   />
                 </div>

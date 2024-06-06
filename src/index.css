@@ -10,16 +10,22 @@
 
 /* Update these variables based on the active theme */
 body.light {
-  /* --background: var(--background-light); */
   --background-image: url('./assets/bg/bg-default-light.png');
 }
 
 body.dark {
-  /* --background: var(--background-dark); */
   --background-image: url('./assets/bg/bg-default-dark.png');
 }
 
 /* Background patterns */
+body.bg-default-light {
+  --background-image: url('./assets/bg/bg-default-light.png');
+}
+
+body.bg-default-dark {
+  --background-image: url('./assets/bg/bg-default-dark.png');
+}
+
 body.bg-solid-light {
   --background-image: none;
   background-color: #bfe0e0;

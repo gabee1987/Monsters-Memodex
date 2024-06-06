@@ -2,7 +2,8 @@
   font-family: 'Mouse Memoirs', sans-serif;
   //   color: #95dada;
   // color: #ffff00;
-  color: #ffff00;
+  // color: #ffff00;
+  color: var(--title);
   font-size: 2rem;
   text-shadow: rgba(0, 0, 0, 0.5) 5px 5px 10px;
   margin: 0 auto;
@@ -25,7 +26,8 @@
   padding-top: 6.2rem;
   padding-bottom: 3.5rem;
   user-select: none;
-  background-color: #009485;
+  // background-color: #009485;
+  background-color: var(--menu);
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.08) 0px 15px 12px;
@@ -47,14 +49,16 @@
       padding: 1rem 1.5rem;
       font-size: 2rem;
       cursor: pointer;
-      color: #73ffca;
+      // color: #73ffca;
+      color: var(--primaryText);
       margin-right: 0.5rem;
       transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
         color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
       text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
 
       &:hover {
-        color: #ffff00;
+        // color: #ffff00;
+        color: var(--hoverText);
         text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
         transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
           rotate(1.4deg);
@@ -67,7 +71,8 @@
     }
 
     .active-tab {
-      color: #ffff00;
+      // color: #ffff00;
+      color: var(--activeText);
     }
   }
 
@@ -90,7 +95,8 @@
       bottom: 0rem;
       left: 0.5rem;
       border-radius: 15px;
-      border: dotted 4px #ffff00;
+      // border: dotted 4px #ffff00;
+      border: dotted 4px var(--menuBorder);
       transform: translateZ(50px);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
@@ -116,7 +122,8 @@
       display: inline-block;
       font-size: 3.5rem;
       text-decoration: none;
-      color: #73ffca;
+      // color: #73ffca;
+      color: var(--primaryText);
       transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
         color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
       text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
@@ -146,7 +153,8 @@
       }
 
       &:hover span {
-        color: #ffff00;
+        // color: #ffff00;
+        color: var(--hoverText);
       }
     }
 
@@ -163,12 +171,14 @@
       }
 
       &::-webkit-scrollbar-track {
-        border: 4px dotted #ffff00;
+        // border: 4px dotted #ffff00;
+        border: dotted 4px var(--menuBorder);
         border-radius: 10px;
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: #ffff00;
+        // background-color: #ffff00;
+        background-color: var(--menuBorder);
         border-radius: 10px;
         height: 10px;
       }
@@ -190,7 +200,8 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: #73ffca;
+      // color: #73ffca;
+      color: var(--primaryText);
       padding: 0rem;
       padding-top: 1rem;
       transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
@@ -198,7 +209,8 @@
       text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
 
       &:hover {
-        color: #ffff00;
+        // color: #ffff00;
+        color: var(--hoverText);
         text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
         transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
           rotate(1.4deg);
@@ -229,7 +241,8 @@ input[type='range'] {
     right: 2rem;
     bottom: 2.45rem;
     left: 2rem;
-    border-bottom: dotted 4px #ffff00;
+    // border-bottom: dotted 4px #ffff00;
+    border-bottom: dotted 4px var(--menuBorder);
   }
 
   &:hover {
@@ -253,7 +266,8 @@ input[type='range'] {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background-color: #ffff00;
+    // background-color: #ffff00;
+    background-color: var(--menuBorder);
     transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms;
     box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 7px;
   }

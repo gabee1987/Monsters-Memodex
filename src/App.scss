@@ -66,8 +66,10 @@ body {
   // transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.675) 250ms,
   //   background-color cubic-bezier(0.175, 0.185, 0.32, 1.175) 200ms;
   // transform: scale(0.95, 0.95);
-  background-color: #009485;
-  color: #ffff00;
+  // background-color: #009485;
+  background-color: var(--menu);
+  // color: #ffff00;
+  color: var(--primaryText);
   border: none;
   // box-shadow: rgba(251, 255, 0, 0.95) 0px 10px 10px -20px;
   // box-shadow: rgba(251, 255, 0, 0.25) 5px 5px 12px 5px;

@@ -28,8 +28,12 @@ export const ThemeProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    applyTheme(theme, appBackground);
-  }, [theme, appBackground]);
+    applyTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    applyBackground(appBackground);
+  }, [appBackground]);
 
   const toggleTheme = (themeName, mode) => {
     const newTheme = themes[themeName][mode];
@@ -44,6 +48,11 @@ export const ThemeProvider = ({ children }) => {
     document.body.className = `${theme.mode} ${background}`;
     // document.body.style.backgroundImage = theme.backgroundImage;
     console.log('bg applied from context: ', theme.backgroundImage);
+  };
+
+  const applyBackground = (background) => {
+    document.body.className = background;
+    // document.body.style.backgroundImage = theme.backgroundImage;
   };
 
   const value = {
