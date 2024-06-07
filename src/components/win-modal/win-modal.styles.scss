@@ -8,12 +8,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #73ffca;
+  // color: #73ffca;
+  color: var(--primaryText);
 
   .modal-content {
     width: 50%;
     max-width: 700px;
-    background-color: #009485;
+    // background-color: #009485;
+    background-color: var(--menu);
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
       rgba(0, 0, 0, 0.08) 0px 15px 12px;
@@ -58,7 +60,8 @@
         bottom: 3rem;
         left: 3rem;
         border-radius: 15px;
-        border: dotted 4px #ffff00;
+        // border: dotted 4px #ffff00;
+        border: dotted 4px var(--menuBorder);
         transform: translateZ(50px);
         // perspective: 1000;
         z-index: -1;
@@ -68,7 +71,8 @@
 
   .modal-header {
     padding: 0.1rem;
-    color: #ffff00;
+    // color: #ffff00;
+    color: var(--title);
     font-size: 2rem;
 
     // 3D hover
@@ -89,7 +93,8 @@
 
     span {
       padding: 0.3rem;
-      color: #ffff00;
+      // color: #ffff00;
+      color: var(--title);
     }
   }
 
@@ -108,7 +113,8 @@
     margin: 0 0.5em;
     background: none;
     border: none;
-    color: #73ffca;
+    // color: #73ffca;
+    color: var(--primaryText);
     transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -117,7 +123,8 @@
     text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
 
     &:hover {
-      color: #ffff00;
+      // color: #ffff00;
+      color: var(--hoverText);
       //   text-shadow: rgba($color: #000000, $alpha: 0.5) 1px 1px 5px 1px;
       transform: translateY(-0.09em) scale(1.2, 1.2) rotate(1.8deg);
       text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
@@ -173,21 +180,21 @@
   background:
     /* random backgrounds */ radial-gradient(
         circle,
-        #ff0 0.2vmin,
+        var(--title) 0.2vmin,
         #0000 0
       )
       50% 00%,
-    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 00% 50%,
-    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 50% 99%,
-    radial-gradient(circle, #ff0 0.2vmin, #0000 0) 99% 50%,
-    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 80% 90%,
-    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 95% 90%,
-    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 10% 60%,
-    radial-gradient(circle, #ff0 0.2vmin, #0000 0) 31% 80%,
-    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 80% 10%,
-    radial-gradient(circle, #ff0 0.2vmin, #0000 0) 90% 23%,
-    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 45% 20%,
-    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 13% 24%;
+    radial-gradient(circle, var(--title) 0.3vmin, #0000 0) 00% 50%,
+    radial-gradient(circle, var(--title) 0.5vmin, #0000 0) 50% 99%,
+    radial-gradient(circle, var(--title) 0.2vmin, #0000 0) 99% 50%,
+    radial-gradient(circle, var(--title) 0.3vmin, #0000 0) 80% 90%,
+    radial-gradient(circle, var(--title) 0.5vmin, #0000 0) 95% 90%,
+    radial-gradient(circle, var(--title) 0.5vmin, #0000 0) 10% 60%,
+    radial-gradient(circle, var(--title) 0.2vmin, #0000 0) 31% 80%,
+    radial-gradient(circle, var(--title) 0.3vmin, #0000 0) 80% 10%,
+    radial-gradient(circle, var(--title) 0.2vmin, #0000 0) 90% 23%,
+    radial-gradient(circle, var(--title) 0.3vmin, #0000 0) 45% 20%,
+    radial-gradient(circle, var(--title) 0.5vmin, #0000 0) 13% 24%;
   background-size: 0.5vmin 0.5vmin;
   background-repeat: no-repeat;
   animation: firework 2s normal;
