@@ -360,6 +360,17 @@ const Settings = () => {
                   cardSetPicId={null}
                 />
 
+                {/* =========================RETRO CARD BACK */}
+                <RadioInputPicLabel
+                  id="cardBackRetro"
+                  labelText="Retro"
+                  selectedValueType={cardBack}
+                  selectedValue={CARBACK_SETTING_TYPES.RETRO}
+                  onChangeHandler={handleCardBackChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                />
+
                 {/* =========================HEXAGON CARD BACK */}
                 <RadioInputPicLabel
                   id="cardBackHexagon"

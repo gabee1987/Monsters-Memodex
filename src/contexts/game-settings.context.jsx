@@ -34,6 +34,7 @@ export const CARDSET_ROBOHASH_IDS = {
 
 export const CARBACK_SETTING_TYPES = {
   BASIC: 'basic',
+  RETRO: 'retro',
   HEXAGON: 'hexagon',
   BUBBLES: 'bubbles',
   CIRCLES: 'circles',
