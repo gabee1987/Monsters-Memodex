@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 
@@ -12,6 +12,7 @@ import {
   CARD_CLICK_ANIMATION,
   CARD_HOVER_TRANSITION,
 } from '../../utilities/animation-helper.js';
+import VanillaTilt from 'vanilla-tilt';
 
 import './card.styles.scss';
 
@@ -51,6 +52,25 @@ const Card = ({
     }
   };
 
+  // 3D perspective effect with Vanilla Tilt
+  // const tilt = useRef(null);
+  // useEffect(() => {
+  //   if (!flipped) {
+  //     VanillaTilt.init(tilt.current, {
+  //       max: 10,
+  //       scale: 1.05,
+  //       speed: 600,
+  //       easing: 'cubic-bezier(.03,.98,.52,.99)',
+  //     });
+  //   } else {
+  //     VanillaTilt.init(tilt.current, {
+  //       max: 0,
+  //       scale: 1,
+  //       speed: 0,
+  //     });
+  //   }
+  // }, [flipped]);
+
   return (
     <motion.div
       className={`card-container ${isPaired ? 'isPaired' : ''}  ${
@@ -68,6 +88,7 @@ const Card = ({
           onShuffleComplete(); // Inform state component that shuffling is done
         }
       }}
+
       // TODO need to create click animation here
     >
       <div className={`card-body ${flipped ? 'flipped' : ''}`}>

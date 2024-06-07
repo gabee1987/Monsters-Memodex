@@ -50,7 +50,8 @@
 
   .card-body {
     border-radius: 10px;
-    background-color: #009485;
+    background-color: var(--menu);
+    // background-color: #009485;
     // background-color: #4ad1af; // brighter
     // background-color: #cddd2b; // Yellow
     // background-color: #35a8f3; // Blue
@@ -81,20 +82,6 @@
     backface-visibility: hidden;
     transform-style: preserve-3d;
     background-size: contain;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      bottom: 1.5rem;
-      left: 1.5rem;
-      border-radius: 15px;
-      border: dotted 4px var(--menuBorder);
-      transform: translateZ(50px);
-      perspective: 1000;
-      z-index: -1;
-    }
   }
 
   .card-front {
@@ -102,9 +89,23 @@
     overflow: hidden;
   }
 
-  // .card-back {
-  //   background-image: url('/assets/card-back-hexagon.png');
-  // }
+  .card-back {
+    // background-image: url('/assets/card-back-hexagon.png');
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1.7rem;
+      right: 1.7rem;
+      bottom: 1.7rem;
+      left: 1.7rem;
+      border-radius: 15px;
+      border: dotted 4px var(--menuBorder);
+      transform: translateZ(50px);
+      perspective: 0px;
+      z-index: -1;
+    }
+  }
 
   .type-basic {
     // background-image: url('/assets/card/card-back-basic.png');
@@ -171,13 +172,16 @@
 
 @keyframes popColor {
   0% {
-    background-color: #009485;
+    // background-color: #009485;
+    background-color: var(--menu);
   }
   50% {
-    background-color: #ffff00;
+    // background-color: #ffff00;
+    background-color: var(--menuBorder);
   }
   100% {
-    background-color: #009485;
+    // background-color: #009485;
+    background-color: var(--menu);
   }
 }
 
