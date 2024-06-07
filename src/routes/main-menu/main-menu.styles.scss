@@ -1,10 +1,10 @@
 .main-menu {
-  position: absolute;
-  width: 50%;
-  left: 50%;
-  top: 50%;
-  max-width: 700px;
-  transform: translateY(-65%) translateX(-50%); // Adjusts for both X and Y centering
+  position: relative;
+  width: 40%;
+  // left: 50%;
+  // top: 50%;
+  // max-width: 700px;
+  // transform: translateY(-65%) translateX(-50%); // Adjusts for both X and Y centering
   margin: auto;
   // perspective: 1000px;
 }

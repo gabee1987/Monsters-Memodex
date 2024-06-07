@@ -650,6 +650,17 @@ const Settings = () => {
                   cardSetPicId={null}
                   isAppBackground={true}
                 />
+                {/* =========================CONCENTRIC CIRCLES 3 PATTERN APP BACKGROUND */}
+                <RadioInputPicLabel
+                  id="appBgConcentricCircles3"
+                  labelText="ConcentricCircles3"
+                  selectedValueType={appBackground}
+                  selectedValue={APP_BACKGROUND_TYPES.BG_CONCENTRIC_CIRCLES_3}
+                  onChangeHandler={handleAppBackgroundChange}
+                  cardSetId={null}
+                  cardSetPicId={null}
+                  isAppBackground={true}
+                />
               </div>
             </div>
           </div>

@@ -10,6 +10,63 @@ const RadioInputPicLabel = ({
   cardSetPicId,
   isAppBackground,
 }) => {
+  // Utility function to determine the correct image path for card backs
+  const getCardBackImagePath = (path) => {
+    try {
+      return require(`../../assets/card/${path}.png`);
+    } catch {
+      try {
+        return require(`../../assets/card/${path}.svg`);
+      } catch {
+        console.error(`Image not found: ${path}`);
+        return null;
+      }
+    }
+  };
+
+  // Utility function to determine the correct image path
+  const getAppBackgroundImagePath = (path) => {
+    try {
+      return require(`../../assets/bg/${path}.png`);
+    } catch {
+      try {
+        return require(`../../assets/bg/${path}.svg`);
+      } catch {
+        console.error(`Image not found: ${path}`);
+        return null;
+      }
+    }
+  };
+
+  // Determine the image path based on the type of tile
+  const imagePath = isAppBackground
+    ? getAppBackgroundImagePath(selectedValue)
+    : cardSetPicId !== null
+    ? `https://robohash.org/${cardSetPicId}?set=set${cardSetId}&size=100x100`
+    : getCardBackImagePath(`card-back-${selectedValue}`);
+
+  // Generate fallback SVG
+  const fallbackSVG = (
+    <svg
+      width="100"
+      height="100"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+    >
+      <rect width="100" height="100" fill="gray" />
+      <text
+        x="50%"
+        y="50%"
+        dominantBaseline="middle"
+        textAnchor="middle"
+        fill="white"
+        fontSize="10"
+      >
+        Image Not Found
+      </text>
+    </svg>
+  );
+
   return (
     <label
       htmlFor={id}
@@ -24,30 +81,16 @@ const RadioInputPicLabel = ({
           selectedValueType === selectedValue ? 'selected-card-set' : ''
         }`}
       >
-        {isAppBackground ? (
+        {imagePath ? (
           <img
-            className={`app-bg-radio-img ${
-              selectedValueType === selectedValue ? 'selected-app-bg' : ''
-            }`}
-            alt={`app-bg-${labelText}`}
-            src={require(`../../assets/bg/${selectedValue}.png`)}
-          />
-        ) : cardSetPicId !== null ? (
-          <img
-            className={`card-set-radio-img ${
-              selectedValueType === selectedValue ? 'selected-card-set' : ''
-            }`}
-            alt={`card-set-${labelText}`}
-            src={`https://robohash.org/${cardSetPicId}?set=set${cardSetId}&size=100x100`}
+            className={`${
+              isAppBackground ? 'app-bg-radio-img' : 'card-back-radio-img'
+            } ${selectedValueType === selectedValue ? 'selected-app-bg' : ''}`}
+            alt={`${isAppBackground ? 'app-bg' : 'card-back'}-${labelText}`}
+            src={imagePath}
           />
         ) : (
-          <img
-            className={`card-back-radio-img ${
-              selectedValueType === selectedValue ? 'selected-card-back' : ''
-            }`}
-            alt={`card-back-${labelText}`}
-            src={require(`../../assets/card-back-${selectedValue}.png`)}
-          />
+          fallbackSVG
         )}
       </div>
       <input

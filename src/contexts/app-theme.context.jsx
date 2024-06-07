@@ -11,6 +11,7 @@ export const APP_BACKGROUND_TYPES = {
   BG_JAPANESE_2: 'bg-pattern-japanese-2',
   BG_HEXAGON: 'bg-pattern-hexagon',
   BG_GEOMETRIC_4: 'bg-pattern-geometric-4',
+  BG_CONCENTRIC_CIRCLES_3: 'bg-pattern-concentric-circles-3',
   // TODO More backgrounds will come here...
 };
 

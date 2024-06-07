@@ -1,55 +1,19 @@
-body {
-  // background-repeat: repeat;
-  background-size: auto;
-  background-position: top left;
-  text-align: center;
-  padding: 1em;
-  // overflow: hidden;
+// body {
+//   // background-repeat: repeat;
+//   background-size: auto;
+//   background-position: top left;
+//   text-align: center;
+//   padding: 1em;
+//   // overflow: hidden;
 
-  // font-family: 'Cairo', sans-serif;
-  font-family: 'Montserrat', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  // -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  // -webkit-transform: translateZ(0);
-  // -webkit-backface-visibility: hidden;
-
-  // &.light {
-  //   background-color: var(--background-light);
-  // }
-
-  // &.dark {
-  //   background-color: var(--background-dark);
-  // }
-
-  // &.bg-default {
-  //   background: url('assets/bg/bg-default-dark.png');
-  // }
-
-  // &.bg-solid-light {
-  //   background-color: #bfe0e0;
-  // }
-
-  // &.bg-solid-dark {
-  //   background-color: #0b2425;
-  // }
-
-  // &.bg-pattern-geometric-4 {
-  //   background: url('assets/bg/bg-pattern-geometric-4.png');
-  // }
-
-  // &.bg-pattern-japanese {
-  //   background: url('assets/bg/bg-pattern-japanese.png');
-  // }
-
-  // &.bg-pattern-japanese-2 {
-  //   background: url('assets/bg/bg-pattern-japanese-2.png');
-  // }
-
-  // &.bg-pattern-hexagon {
-  //   background: url('assets/bg/bg-pattern-hexagon.png');
-  // }
-}
+//   // font-family: 'Cairo', sans-serif;
+//   font-family: 'Montserrat', sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   // -webkit-font-smoothing: subpixel-antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   // -webkit-transform: translateZ(0);
+//   // -webkit-backface-visibility: hidden;
+// }
 
 * {
   box-sizing: border-box;
