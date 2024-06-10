@@ -16,6 +16,8 @@ export const APP_BACKGROUND_TYPES = {
 };
 
 export const ThemeContext = createContext({
+  isDarkMode: false,
+  setIsDarkMode: () => {},
   theme: themes.default.dark,
   setTheme: () => {},
   appBackground: APP_BACKGROUND_TYPES.BG_DEFAULT_DARK,
@@ -23,6 +25,7 @@ export const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }) => {
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [theme, setTheme] = useState(themes.default.dark);
   const [appBackground, setAppBackground] = useState(
     APP_BACKGROUND_TYPES.BG_DEFAULT_DARK
@@ -36,9 +39,13 @@ export const ThemeProvider = ({ children }) => {
     applyBackground(appBackground);
   }, [appBackground]);
 
+  useEffect(() => {
+    toggleTheme(theme.name, isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode, theme.name]);
+
   const toggleTheme = (themeName, mode) => {
     const newTheme = themes[themeName][mode];
-    console.log('Theme selected in context: ', newTheme);
+    // console.log('Theme selected in context: ', newTheme);
     setTheme(newTheme);
   };
 
@@ -48,7 +55,7 @@ export const ThemeProvider = ({ children }) => {
     });
     document.body.className = `${theme.mode} ${background}`;
     // document.body.style.backgroundImage = theme.backgroundImage;
-    console.log('bg applied from context: ', theme.backgroundImage);
+    // console.log('bg applied from context: ', theme.backgroundImage);
   };
 
   const applyBackground = (background) => {
@@ -57,6 +64,8 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const value = {
+    isDarkMode,
+    setIsDarkMode,
     appBackground,
     setAppBackground,
     theme,

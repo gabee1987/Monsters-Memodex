@@ -1,5 +1,6 @@
 export const themes = {
   default: {
+    label: 'Default',
     light: {
       name: 'default',
       mode: 'light',
@@ -30,6 +31,7 @@ export const themes = {
     },
   },
   retro: {
+    label: 'Retro',
     light: {
       name: 'retro',
       mode: 'light',
@@ -60,6 +62,7 @@ export const themes = {
     },
   },
   neon: {
+    label: 'Neon',
     light: {
       name: 'neon',
       mode: 'light',
@@ -90,6 +93,7 @@ export const themes = {
     },
   },
   cool: {
+    label: 'Cool',
     light: {
       name: 'cool',
       mode: 'light',
@@ -120,6 +124,7 @@ export const themes = {
     },
   },
   warm: {
+    label: 'Warm',
     light: {
       name: 'warm',
       mode: 'light',

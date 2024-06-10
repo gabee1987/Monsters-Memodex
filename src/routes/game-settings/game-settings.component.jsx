@@ -21,6 +21,7 @@ import {
   ThemeContext,
   APP_BACKGROUND_TYPES,
 } from '../../contexts/app-theme.context';
+import { themes } from '../../app-themes/app-themes';
 
 import VanillaTilt from 'vanilla-tilt';
 import {
@@ -58,8 +59,14 @@ const Settings = () => {
     setCardBack,
   } = useContext(GameSettingsContext);
 
-  const { appBackground, setAppBackground, theme, toggleTheme } =
-    useContext(ThemeContext);
+  const {
+    isDarkMode,
+    setIsDarkMode,
+    appBackground,
+    setAppBackground,
+    theme,
+    toggleTheme,
+  } = useContext(ThemeContext);
 
   const isFeatureEnabled = false;
 
@@ -109,13 +116,25 @@ const Settings = () => {
     console.log('cardBack changed to:', event.target.value);
   };
 
-  // APP VISUAL SETTINGS HANDLES
+  // APP VISUAL SETTINGS HANDLERS
+
+  // Light/Dark mode handler
+  const handleDarkModeChange = (event) => {
+    const mode = event.target.value;
+    setIsDarkMode(mode === 'dark');
+    toggleTheme(theme.name, mode ? 'dark' : 'light');
+  };
 
   // App Theme handler
   const handleThemeChange = (event) => {
-    const [themeName, mode] = event.target.value.split('-');
-    toggleTheme(themeName, mode);
-    console.log('Theme enabled in settings: ', themeName, mode);
+    const themeName = event.target.value;
+    console.log(event.target.value);
+    toggleTheme(themeName, isDarkMode ? 'dark' : 'light');
+    console.log(
+      'Theme enabled in settings: ',
+      themeName,
+      isDarkMode ? 'dark' : 'light'
+    );
   };
 
   // App Background handler
@@ -162,6 +181,8 @@ const Settings = () => {
       disableHorizontalScrolling('.horizontal-scroll-container');
     };
   }, []);
+
+  const themeEntries = Object.entries(themes);
 
   return (
     <div className="settings">
@@ -361,15 +382,6 @@ const Settings = () => {
                 />
 
                 {/* =========================RETRO CARD BACK */}
-                <RadioInputPicLabel
-                  id="cardBackRetro"
-                  labelText="Retro"
-                  selectedValueType={cardBack}
-                  selectedValue={CARBACK_SETTING_TYPES.RETRO}
-                  onChangeHandler={handleCardBackChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                />
 
                 {/* =========================HEXAGON CARD BACK */}
                 <RadioInputPicLabel
@@ -467,96 +479,43 @@ const Settings = () => {
               activeTab === TAB_VALUES.APP_VISUALS_TAB ? 'active-settings' : ''
             }`}
           >
+            {/* App Dark Mode Settings */}
+            <div className="settings-category app-darkmode-settings">
+              <span>Dark/Light Mode</span>
+              <div className="settings-input-group app-darkmode-group">
+                <RadioInput
+                  id="darkmode"
+                  labelText="Dark Mode"
+                  selectedValueType={isDarkMode ? 'dark' : 'light'}
+                  selectedValue="dark"
+                  onChangeHandler={handleDarkModeChange}
+                />
+
+                <RadioInput
+                  id="lightmode"
+                  labelText="Light Mode"
+                  selectedValueType={isDarkMode ? 'dark' : 'light'}
+                  selectedValue="light"
+                  onChangeHandler={handleDarkModeChange}
+                />
+              </div>
+            </div>
             {/* App Theme Settings */}
             <div className="settings-category app-theme-settings">
               <span>App Theme</span>
               <div className="settings-input-group app-theme-group">
-                {/* Dark Themes */}
-                <div className="dark-themes-group">
-                  {/* =========================DEFAULT DARK APP THEME */}
+                {/* =========================APP THEME RADIO BUTTONS */}
+                {themeEntries.map(([themeKey, themeValue]) => (
                   <RadioInput
-                    id="defaultDarkTheme"
-                    labelText="Default Dark"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="default-dark"
+                    key={themeKey}
+                    id={`theme-${themeKey}`}
+                    name="appTheme"
+                    labelText={themeValue.label}
+                    selectedValueType={theme.name}
+                    selectedValue={themeKey}
                     onChangeHandler={handleThemeChange}
                   />
-                  {/* =========================RETRO DARK APP THEME */}
-                  <RadioInput
-                    id="retroDarkTheme"
-                    labelText="Retro Dark"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="retro-dark"
-                    onChangeHandler={handleThemeChange}
-                  />
-                  {/* =========================NEON DARK APP THEME */}
-                  <RadioInput
-                    id="neonDarkTheme"
-                    labelText="Neon Dark"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="neon-dark"
-                    onChangeHandler={handleThemeChange}
-                  />
-                  {/* =========================COOL DARK APP THEME */}
-                  <RadioInput
-                    id="coolDarkTheme"
-                    labelText="Cool Dark"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="cool-dark"
-                    onChangeHandler={handleThemeChange}
-                  />
-                  {/* =========================WARM DARK APP THEME */}
-                  <RadioInput
-                    id="warmDarkTheme"
-                    labelText="Warm Dark"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="warm-dark"
-                    onChangeHandler={handleThemeChange}
-                  />
-                </div>
-                {/* Light Themes */}
-                <div className="light-themes-group">
-                  {/* =========================DEFAULT LIGHT APP THEME */}
-                  <RadioInput
-                    id="defaultLightTheme"
-                    labelText="Default Light"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="default-light"
-                    onChangeHandler={handleThemeChange}
-                  />
-                  {/* =========================RETRO LIGHT APP THEME */}
-                  <RadioInput
-                    id="retroLightTheme"
-                    labelText="Retro Light"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="retro-light"
-                    onChangeHandler={handleThemeChange}
-                  />
-                  {/* =========================NEON LIGHT APP THEME */}
-                  <RadioInput
-                    id="neonLightTheme"
-                    labelText="Neon Light"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="neon-light"
-                    onChangeHandler={handleThemeChange}
-                  />
-                  {/* =========================COOL LIGHT APP THEME */}
-                  <RadioInput
-                    id="coolLightTheme"
-                    labelText="Cool Light"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="cool-light"
-                    onChangeHandler={handleThemeChange}
-                  />
-                  {/* =========================WARM LIGHT APP THEME */}
-                  <RadioInput
-                    id="warmLightTheme"
-                    labelText="Warm Light"
-                    selectedValueType={`${theme.name}-${theme.mode}`}
-                    selectedValue="warm-light"
-                    onChangeHandler={handleThemeChange}
-                  />
-                </div>
+                ))}
               </div>
             </div>
             {/* App Background Settings */}
