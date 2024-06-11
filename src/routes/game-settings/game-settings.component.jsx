@@ -17,10 +17,7 @@ import {
   TAB_VALUES,
   CARBACK_SETTING_TYPES,
 } from '../../contexts/game-settings.context';
-import {
-  ThemeContext,
-  APP_BACKGROUND_TYPES,
-} from '../../contexts/app-theme.context';
+import { ThemeContext } from '../../contexts/app-theme.context';
 import { themes } from '../../app-themes/app-themes';
 
 import VanillaTilt from 'vanilla-tilt';
@@ -530,7 +527,7 @@ const Settings = () => {
                   id="appBgDefaultDark"
                   labelText="Default Dark"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_DEFAULT_DARK}
+                  selectedValue={themes.default.dark.backgroundImage}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -542,7 +539,7 @@ const Settings = () => {
                   id="appBgDefaultLight"
                   labelText="Default Light"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_DEFAULT_LIGHT}
+                  selectedValue={themes.default.light.backgroundImage}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -554,7 +551,7 @@ const Settings = () => {
                   id="appBgSolidLight"
                   labelText="SolidLight"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_SOLID_LIGHT}
+                  selectedValue={themes.default.dark.background}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -566,7 +563,7 @@ const Settings = () => {
                   id="appBgSolidDark"
                   labelText="SolidDark"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_SOLID_DARK}
+                  selectedValue={themes.default.dark.background}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -578,7 +575,7 @@ const Settings = () => {
                   id="appBgJapanese"
                   labelText="Japanese"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_JAPANESE}
+                  selectedValue={themes.default.dark.backgroundImage}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -590,7 +587,7 @@ const Settings = () => {
                   id="appBgJapanese2"
                   labelText="Japanese2"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_JAPANESE_2}
+                  selectedValue={themes.default.dark.backgroundImage}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -602,7 +599,7 @@ const Settings = () => {
                   id="appBgHexagon"
                   labelText="HExagon"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_HEXAGON}
+                  selectedValue={themes.default.dark.backgroundImage}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -614,7 +611,7 @@ const Settings = () => {
                   id="appBgGeometric4"
                   labelText="Geometric"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_GEOMETRIC_4}
+                  selectedValue={themes.default.dark.backgroundImage}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}
@@ -625,7 +622,7 @@ const Settings = () => {
                   id="appBgConcentricCircles3"
                   labelText="ConcentricCircles3"
                   selectedValueType={appBackground}
-                  selectedValue={APP_BACKGROUND_TYPES.BG_CONCENTRIC_CIRCLES_3}
+                  selectedValue={themes.default.dark.backgroundImage}
                   onChangeHandler={handleAppBackgroundChange}
                   cardSetId={null}
                   cardSetPicId={null}

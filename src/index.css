@@ -26,52 +26,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body.light {
-  --background-image: url('./assets/bg/bg-default-light.png');
-}
-
-body.dark {
-  --background-image: url('./assets/bg/bg-default-dark.png');
-}
-
-/* Background patterns */
 body.bg-default-light {
-  --background-image: url('./assets/bg/bg-default-light.png');
+  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='70' height='70' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(182, 45%, 71%, 1)'/><path d='M-4.8 4.44L4 16.59 16.14 7.8M32 30.54l-13.23 7.07 7.06 13.23M-9 38.04l-3.81 14.5 14.5 3.81M65.22 4.44L74 16.59 86.15 7.8M61 38.04l-3.81 14.5 14.5 3.81'  stroke-linecap='square' stroke-width='1' stroke='hsla(258.5,59.4%,59.4%,1)' fill='none'/><path d='M59.71 62.88v3h3M4.84 25.54L2.87 27.8l2.26 1.97m7.65 16.4l-2.21-2.03-2.03 2.21m29.26 7.13l.56 2.95 2.95-.55'  stroke-linecap='square' stroke-width='1' stroke='hsla(339.6,82.2%,51.6%,1)' fill='none'/><path d='M58.98 27.57l-2.35-10.74-10.75 2.36M31.98-4.87l2.74 10.65 10.65-2.73M31.98 65.13l2.74 10.66 10.65-2.74'  stroke-linecap='square' stroke-width='1' stroke='hsla(198.7,97.6%,48.4%,1)' fill='none'/><path d='M8.42 62.57l6.4 2.82 2.82-6.41m33.13-15.24l-4.86-5.03-5.03 4.86m-14-19.64l4.84-5.06-5.06-4.84'  stroke-linecap='square' stroke-width='1' stroke='hsla(60, 100%, 50%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
 }
 
 body.bg-default-dark {
-  --background-image: url('./assets/bg/bg-default-dark.png');
+  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='70' height='70' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(180, 52%, 9%, 1)'/><path d='M-4.8 4.44L4 16.59 16.14 7.8M32 30.54l-13.23 7.07 7.06 13.23M-9 38.04l-3.81 14.5 14.5 3.81M65.22 4.44L74 16.59 86.15 7.8M61 38.04l-3.81 14.5 14.5 3.81'  stroke-linecap='square' stroke-width='0.5' stroke='hsla(258.5,59.4%,59.4%,1)' fill='none'/><path d='M59.71 62.88v3h3M4.84 25.54L2.87 27.8l2.26 1.97m7.65 16.4l-2.21-2.03-2.03 2.21m29.26 7.13l.56 2.95 2.95-.55'  stroke-linecap='square' stroke-width='0.5' stroke='hsla(339.6,82.2%,51.6%,1)' fill='none'/><path d='M58.98 27.57l-2.35-10.74-10.75 2.36M31.98-4.87l2.74 10.65 10.65-2.73M31.98 65.13l2.74 10.66 10.65-2.74'  stroke-linecap='square' stroke-width='0.5' stroke='hsla(198.7,97.6%,48.4%,1)' fill='none'/><path d='M8.42 62.57l6.4 2.82 2.82-6.41m33.13-15.24l-4.86-5.03-5.03 4.86m-14-19.64l4.84-5.06-5.06-4.84'  stroke-linecap='square' stroke-width='0.5' stroke='hsla(47,80.9%,61%,1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
 }
 
-body.bg-solid-light {
-  --background-image: none;
-  background-color: #bfe0e0;
+body.bg-retro-light {
+  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='40' height='80' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(122, 10%, 18%, 1)'/><path d='M-4.798 13.573C-3.149 12.533-1.446 11.306 0 10c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(26, 87%, 51%, 1)' fill='none'/><path d='M-4.798 33.573C-3.149 32.533-1.446 31.306 0 30c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(16, 100%, 50%, 1)' fill='none'/><path d='M-4.798 53.573C-3.149 52.533-1.446 51.306 0 50c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(180, 25%, 25%, 1)' fill='none'/><path d='M-4.798 73.573C-3.149 72.533-1.446 71.306 0 70c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(0, 0%, 100%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(#a)'/></svg>");
 }
 
-body.bg-solid-dark {
-  --background-image: none;
-  background-color: #0b2425;
-}
-
-body.bg-pattern-geometric-4 {
-  --background-image: url('./assets/bg/bg-pattern-geometric-4.png');
-}
-
-body.bg-pattern-japanese {
-  --background-image: url('./assets/bg/bg-pattern-japanese.png');
-}
-
-body.bg-pattern-japanese-2 {
-  --background-image: url('./assets/bg/bg-pattern-japanese-2.png');
-}
-
-body.bg-pattern-hexagon {
-  --background-image: url('./assets/bg/bg-pattern-hexagon.png');
-}
-
-body.bg-pattern-concentric-circles-3 {
-  --background-image: url('./assets/bg/bg-pattern-concentric-circles-3.svg');
-  /* background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='46.5' height='46.5' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(182, 54%, 9%, 1)'/><path d='M27.31-2.917a5 5 0 010 5.834m-8.12 0a5 5 0 010-5.834m-4.827 7.501a10 10 0 010-9.169m17.774.001a10 10 0 010 9.169M10.181 7.36a15 15 0 01-.001-14.722m26.14 0a15 15 0 010 14.724m-9.01 36.22a5 5 0 010 5.835m-8.12 0a5 5 0 010-5.834m-4.827 7.501a10 10 0 010-9.169m17.774.001a10 10 0 010 9.169M10.181 53.86a15 15 0 01-.001-14.723m26.14 0a15 15 0 010 14.724m6.12-27.693a5 5 0 010-5.834m-4.827 7.5a10 10 0 010-9.169M33.431 30.61a15 15 0 01-.001-14.722M4.06 20.332a5 5 0 010 5.835m4.827-7.501a10 10 0 010 9.169m4.183-11.947a15 15 0 010 14.724'  stroke-linecap='square' stroke-width='1' stroke='hsla(174, 100%, 20%, 1)' fill='none'/><path d='M43.582 42.44a5 5 0 015.835 0m-7.501-4.827a10 10 0 019.169 0M39.138 33.43a15 15 0 0114.724 0m-56.781 9.01a5 5 0 015.836 0m-7.501-4.827a10 10 0 019.169 0M-7.362 33.43a15 15 0 0114.724 0M49.417 4.06a5 5 0 01-5.834 0m7.501 4.827a10 10 0 01-9.169 0m11.946 4.182a15 15 0 01-14.723.001M2.917 4.06a5 5 0 01-5.834 0m7.501 4.827a10 10 0 01-9.169 0M7.36 13.069a15 15 0 01-14.722.001m27.694 6.12a5 5 0 015.835 0m0 8.12a5 5 0 01-5.834 0m7.5 4.827a10 10 0 01-9.168 0m.001-17.774a10 10 0 019.169 0m2.776 21.956a15 15 0 01-14.723.001m0-26.14a15 15 0 0114.724 0'  stroke-linecap='square' stroke-width='1' stroke='hsla(174, 100%, 29%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>"); */
+body.bg-retro-dark {
+  /* background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='40' height='80' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(122, 10%, 18%, 1)'/><path d='M-4.798 13.573C-3.149 12.533-1.446 11.306 0 10c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(26, 87%, 51%, 1)' fill='none'/><path d='M-4.798 33.573C-3.149 32.533-1.446 31.306 0 30c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(16, 100%, 50%, 1)' fill='none'/><path d='M-4.798 53.573C-3.149 52.533-1.446 51.306 0 50c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(180, 25%, 25%, 1)' fill='none'/><path d='M-4.798 73.573C-3.149 72.533-1.446 71.306 0 70c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(0, 0%, 100%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>"); */
+  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='40' height='80' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(120, 11%, 18%, 1)'/><path d='M-4.798 13.573C-3.149 12.533-1.446 11.306 0 10c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(26, 78%, 29%, 1)' fill='none'/><path d='M-4.798 33.573C-3.149 32.533-1.446 31.306 0 30c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(16, 97%, 29%, 1)' fill='none'/><path d='M-4.798 53.573C-3.149 52.533-1.446 51.306 0 50c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(180, 25%, 25%, 1)' fill='none'/><path d='M-4.798 73.573C-3.149 72.533-1.446 71.306 0 70c2.812-2.758 6.18-4.974 10-5 4.183.336 7.193 2.456 10 5 2.86 2.687 6.216 4.952 10 5 4.185-.315 7.35-2.48 10-5 1.452-1.386 3.107-3.085 4.793-4.176'  stroke-width='1' stroke='hsla(0, 0%, 50%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
 }
 
 code {
