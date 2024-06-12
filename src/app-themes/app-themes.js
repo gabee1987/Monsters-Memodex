@@ -80,7 +80,8 @@ export const themes = {
     dark: {
       name: 'neon',
       mode: 'dark',
-      menu: '#1A1A2E',
+      // menu: '#1A1A2E',
+      menu: '#2D2D4F',
       menuBorder: '#00FFAB',
       title: '#00D4FF',
       primaryText: '#F72585',
