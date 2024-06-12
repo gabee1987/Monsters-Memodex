@@ -1,4 +1,5 @@
 import './radio-input-pic-label.styles.scss';
+import { backgrounds } from '../../app-themes/app-backgrounds';
 
 const RadioInputPicLabel = ({
   id,
@@ -10,6 +11,13 @@ const RadioInputPicLabel = ({
   cardSetPicId,
   isAppBackground,
 }) => {
+  // Utility function to get the SVG background as a blob URL
+  const getSvgBackground = (backgroundKey) => {
+    // console.log('bg in radio: ', backgroundKey);
+    const background = backgrounds[backgroundKey];
+    return background && background.svg ? background.svg : null;
+  };
+
   // Utility function to determine the correct image path for card backs
   const getCardBackImagePath = (path) => {
     try {
@@ -24,23 +32,9 @@ const RadioInputPicLabel = ({
     }
   };
 
-  // Utility function to determine the correct image path
-  const getAppBackgroundImagePath = (path) => {
-    try {
-      return require(`../../assets/bg/${path}.png`);
-    } catch {
-      try {
-        return require(`../../assets/bg/${path}.svg`);
-      } catch {
-        console.error(`Image not found: ${path}`);
-        return null;
-      }
-    }
-  };
-
   // Determine the image path based on the type of tile
   const imagePath = isAppBackground
-    ? getAppBackgroundImagePath(selectedValue)
+    ? getSvgBackground(selectedValue)
     : cardSetPicId !== null
     ? `https://robohash.org/${cardSetPicId}?set=set${cardSetId}&size=100x100`
     : getCardBackImagePath(`card-back-${selectedValue}`);

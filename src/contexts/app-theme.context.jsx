@@ -1,27 +1,32 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { themes } from '../app-themes/app-themes';
+import { backgrounds } from '../app-themes/app-backgrounds';
+import { insertBackgroundCSSClass } from '../utilities/background-helper';
 
 export const ThemeContext = createContext({
   isDarkMode: false,
   setIsDarkMode: () => {},
   theme: themes.default.dark,
   setTheme: () => {},
-  appBackground: themes.default.dark,
+  appBackground: backgrounds[themes.default.dark.backgroundClass],
   setAppBackground: () => {},
 });
 
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [theme, setTheme] = useState(themes.default.dark);
-  const [appBackground, setAppBackground] = useState(themes.default.dark);
+  const [appBackground, setAppBackground] = useState(
+    backgrounds[themes.default.dark.backgroundClass]
+  );
 
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
 
   useEffect(() => {
-    applyBackground(appBackground);
+    applyBackground(appBackground.className);
+    // console.log('appBackground in context: ', appBackground);
   }, [appBackground]);
 
   useEffect(() => {
@@ -33,6 +38,7 @@ export const ThemeProvider = ({ children }) => {
     // console.log('Theme selected in context: ', newTheme);
     setTheme(newTheme);
     applyTheme(newTheme);
+    applyBackground(newTheme.backgroundClass);
   };
 
   const applyTheme = (theme, background) => {
@@ -42,12 +48,17 @@ export const ThemeProvider = ({ children }) => {
       }
     });
     document.body.className = `${theme.mode} ${theme.backgroundClass}`;
-    console.log('Theme applied: ', theme);
+    // console.log('Theme applied: ', theme);
   };
 
-  const applyBackground = (background) => {
-    document.body.className = background;
-    // document.body.style.backgroundImage = theme.backgroundImage;
+  const applyBackground = (backgroundClassName) => {
+    const newBackground = backgrounds[backgroundClassName];
+
+    // Insert the CSS class dynamically
+    insertBackgroundCSSClass(newBackground.className, newBackground.svg);
+
+    // Apply the CSS class to the body
+    document.body.className = `${theme.name}-${theme.mode} ${newBackground.className}`;
   };
 
   const value = {

@@ -18,7 +18,6 @@ import {
   CARBACK_SETTING_TYPES,
 } from '../../contexts/game-settings.context';
 import { ThemeContext } from '../../contexts/app-theme.context';
-import { themes } from '../../app-themes/app-themes';
 
 import VanillaTilt from 'vanilla-tilt';
 import {
@@ -26,6 +25,8 @@ import {
   disableHorizontalScrolling,
 } from '../../component-helpers/horizontal-scrolling';
 
+import { themes } from '../../app-themes/app-themes';
+import { backgrounds } from '../../app-themes/app-backgrounds';
 import './game-settings.styles.scss';
 
 const cardSetPictureId = Math.floor(Math.random() * 100);
@@ -120,24 +121,21 @@ const Settings = () => {
     const mode = event.target.value;
     setIsDarkMode(mode === 'dark');
     toggleTheme(theme.name, mode ? 'dark' : 'light');
+    // TODO need to fix the class naming after mode change
   };
 
   // App Theme handler
   const handleThemeChange = (event) => {
     const themeName = event.target.value;
-    console.log(event.target.value);
     toggleTheme(themeName, isDarkMode ? 'dark' : 'light');
-    console.log(
-      'Theme enabled in settings: ',
-      themeName,
-      isDarkMode ? 'dark' : 'light'
-    );
   };
 
   // App Background handler
   const handleAppBackgroundChange = (event) => {
-    setAppBackground(event.target.value);
-    console.log('app background changed to:', event.target.value);
+    const selectedBackground = Object.values(backgrounds).find(
+      (bg) => bg.className === event.target.value
+    );
+    setAppBackground(selectedBackground);
   };
 
   // GAME BUTTON HANDLES
@@ -522,112 +520,18 @@ const Settings = () => {
                 id="appBgScrollContainer"
                 className="settings-input-group horizontal-scroll-container tile-group app-bg-group"
               >
-                {/* =========================BASIC APP DARK BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgDefaultDark"
-                  labelText="Default Dark"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.backgroundImage}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-
-                {/* =========================BASIC APP LIGHT BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgDefaultLight"
-                  labelText="Default Light"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.light.backgroundImage}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-
-                {/* =========================SOLID LIGHT APP BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgSolidLight"
-                  labelText="SolidLight"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.background}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-
-                {/* =========================SOLID DARK APP BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgSolidDark"
-                  labelText="SolidDark"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.background}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-
-                {/* =========================JAPANESE PATTERN APP BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgJapanese"
-                  labelText="Japanese"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.backgroundImage}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-
-                {/* =========================JAPANESE PATTERN 2 APP BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgJapanese2"
-                  labelText="Japanese2"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.backgroundImage}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-
-                {/* =========================HEXAGON PATTERN APP BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgHexagon"
-                  labelText="HExagon"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.backgroundImage}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-
-                {/* =========================GEOMETRIC 4 PATTERN APP BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgGeometric4"
-                  labelText="Geometric"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.backgroundImage}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
-                {/* =========================CONCENTRIC CIRCLES 3 PATTERN APP BACKGROUND */}
-                <RadioInputPicLabel
-                  id="appBgConcentricCircles3"
-                  labelText="ConcentricCircles3"
-                  selectedValueType={appBackground}
-                  selectedValue={themes.default.dark.backgroundImage}
-                  onChangeHandler={handleAppBackgroundChange}
-                  cardSetId={null}
-                  cardSetPicId={null}
-                  isAppBackground={true}
-                />
+                {/* =========================APP BACKGROUNDS */}
+                {Object.entries(backgrounds).map(([key, value]) => (
+                  <RadioInputPicLabel
+                    key={key}
+                    id={`appBg${key}`}
+                    labelText={key}
+                    selectedValueType={appBackground}
+                    selectedValue={key}
+                    onChangeHandler={handleAppBackgroundChange}
+                    isAppBackground={true}
+                  />
+                ))}
               </div>
             </div>
           </div>
