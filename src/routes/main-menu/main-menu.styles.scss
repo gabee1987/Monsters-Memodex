@@ -1,12 +1,11 @@
 .main-menu {
-  position: relative;
-  width: 40%;
-  // left: 50%;
-  // top: 50%;
+  position: absolute;
+  width: 100%;
   max-width: 750px;
-  // transform: translateY(-65%) translateX(-50%); // Adjusts for both X and Y centering
-  margin: auto;
-  // perspective: 1000px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .app-title {
