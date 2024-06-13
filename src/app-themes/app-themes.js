@@ -177,7 +177,7 @@ export const themes = {
       menu: '#5B2A86',
       menuBorder: '#FF1493',
       title: '#FF00FF',
-      primaryText: '#8A2BE2',
+      primaryText: '#9C66FF',
       secondaryText: '#DA70D6',
       hoverText: '#FFD700',
       disabledText: '#555555',
