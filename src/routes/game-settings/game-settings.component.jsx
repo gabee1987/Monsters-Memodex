@@ -282,7 +282,7 @@ const Settings = () => {
             </div>
 
             <div className="settings-category pair-number-settings">
-              <span>Number of Pairs</span>
+              <span>Pairs to Match</span>
               <div className="settings-input-group pair-number-group">
                 <label htmlFor="pairNumberSlider">
                   {numberOfPairs}
