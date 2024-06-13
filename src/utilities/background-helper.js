@@ -13,11 +13,20 @@ export const insertBackgroundCSSClass = (className, svg) => {
     document.head.appendChild(styleSheet);
   }
 
-  const cssRule = `
+  let cssRule = '';
+  if (svg) {
+    cssRule = `
     body.${className} {
       background-image: url("${svg}");
     }
   `;
+  } else {
+    cssRule = `
+    body.${className} {
+      background-color: var(--background);
+    }
+  `;
+  }
 
   styleSheet.innerHTML = cssRule;
 };
