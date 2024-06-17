@@ -32,12 +32,14 @@ const RadioInputPicLabel = ({
     }
   };
 
-  // Determine the image path based on the type of tile
+  // Determine the image path or color based on the type of tile
+  const background = backgrounds[selectedValue];
   const imagePath = isAppBackground
     ? getSvgBackground(selectedValue)
     : cardSetPicId !== null
     ? `https://robohash.org/${cardSetPicId}?set=set${cardSetId}&size=100x100`
     : getCardBackImagePath(`card-back-${selectedValue}`);
+  const solidColor = isAppBackground && background ? background.color : null;
 
   // Generate fallback SVG
   const fallbackSVG = (
@@ -61,6 +63,8 @@ const RadioInputPicLabel = ({
     </svg>
   );
 
+  const isSolidColor = backgrounds[selectedValue]?.color;
+
   return (
     <label
       htmlFor={id}
@@ -72,18 +76,19 @@ const RadioInputPicLabel = ({
     >
       <div
         className={`radio-pic-label-container ${
-          selectedValueType === selectedValue ? 'selected-card-set' : ''
+          selectedValueType === selectedValue ? 'selected-radio' : ''
         }`}
+        style={isSolidColor ? { backgroundColor: isSolidColor } : {}}
       >
         {imagePath ? (
           <img
             className={`radio-img ${
               isAppBackground ? 'app-bg-radio-img' : 'card-back-radio-img'
-            } ${selectedValueType === selectedValue ? 'selected-app-bg' : ''}`}
+            }`}
             alt={`${isAppBackground ? 'app-bg' : 'card-back'}-${labelText}`}
             src={imagePath}
           />
-        ) : (
+        ) : solidColor ? null : (
           fallbackSVG
         )}
       </div>

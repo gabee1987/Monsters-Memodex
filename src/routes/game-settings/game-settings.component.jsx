@@ -526,8 +526,8 @@ const Settings = () => {
                     key={key}
                     id={`appBg${key}`}
                     labelText={key}
-                    selectedValueType={appBackground}
-                    selectedValue={key}
+                    selectedValueType={appBackground.className}
+                    selectedValue={value.className}
                     onChangeHandler={handleAppBackgroundChange}
                     isAppBackground={true}
                   />

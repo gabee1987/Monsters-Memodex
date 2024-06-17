@@ -55,7 +55,11 @@ export const ThemeProvider = ({ children }) => {
     const newBackground = backgrounds[backgroundClassName];
 
     // Insert the CSS class dynamically
-    insertBackgroundCSSClass(newBackground.className, newBackground.svg);
+    insertBackgroundCSSClass(
+      newBackground.className,
+      newBackground.svg,
+      newBackground.color
+    );
 
     // Apply the CSS class to the body
     document.body.className = `${theme.name}-${theme.mode} ${newBackground.className}`;

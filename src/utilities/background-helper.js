@@ -2,7 +2,7 @@ const encodeSVG = (svg) => {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 };
 
-export const insertBackgroundCSSClass = (className, svg) => {
+export const insertBackgroundCSSClass = (className, svg, color) => {
   const styleSheetId = `dynamic-background-style-${className}`;
   let styleSheet = document.getElementById(styleSheetId);
 
@@ -23,7 +23,7 @@ export const insertBackgroundCSSClass = (className, svg) => {
   } else {
     cssRule = `
     body.${className} {
-      background-color: var(--background);
+      background-color: ${color};
     }
   `;
   }

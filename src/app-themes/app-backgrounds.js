@@ -49,10 +49,10 @@ export const backgrounds = {
   },
   'bg-win95-light': {
     className: 'bg-win95-light',
-    svg: '',
+    color: '#048284',
   },
   'bg-win95-dark': {
     className: 'bg-win95-dark',
-    svg: '',
+    color: '#000000',
   },
 };

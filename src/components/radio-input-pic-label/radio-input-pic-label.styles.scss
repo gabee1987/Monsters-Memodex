@@ -44,26 +44,19 @@
   }
 }
 
-.selected-card-set {
+.selected-radio {
   background-color: var(--activeText);
+  border: none;
+  outline: 3px dotted var(--hoverText);
+  outline-offset: 0px;
 }
 
 .card-back-radio-img {
   width: 100px;
-  border: 1px dotted var(--secondaryText);
-}
-
-.selected-card-back {
-  border: 3px dotted var(--activeText);
 }
 
 .app-bg-radio-img {
   width: 100px;
   height: 100px;
   padding: 0;
-  border: 1px dotted var(--primaryText);
-}
-
-.selected-app-bg {
-  border: 3px dotted var(--activeText);
 }
