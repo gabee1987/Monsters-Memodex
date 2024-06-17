@@ -215,18 +215,18 @@
       transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
         color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
       text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
+      will-change: transform, color; /* Hint to the browser for optimization */
 
       &:hover {
         // color: #ffff00;
         color: var(--hoverText);
         text-shadow: rgba(0, 0, 0, 0.3) 10px 10px 20px;
-        transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
-          rotate(1.4deg);
+        transform: translateY(-0.05em) scale(1.2) rotate(1.4deg);
       }
 
       &:active,
       :focus {
-        transform: scale(0.98, 0.98);
+        transform: scale(0.98);
       }
     }
   }
