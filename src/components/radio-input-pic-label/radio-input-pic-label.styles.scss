@@ -1,6 +1,6 @@
 .radio-pic-label {
   display: inline-block;
-  margin: 0 1rem;
+  margin: 0 0.7rem;
   position: relative;
 }
 
@@ -27,7 +27,7 @@
     z-index: -1;
     opacity: 0;
     transition: opacity cubic-bezier(0.175, 0.885, 0.32, 1.575) 250ms;
-    box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 15px;
+    box-shadow: rgba(0, 0, 0, 0.3) 8px 8px 20px;
   }
 
   &:hover::before {
