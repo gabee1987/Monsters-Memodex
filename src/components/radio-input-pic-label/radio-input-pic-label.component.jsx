@@ -64,20 +64,20 @@ const RadioInputPicLabel = ({
   return (
     <label
       htmlFor={id}
-      className={`radio-label ${
+      className={`radio-pic-label ${
         selectedValueType === selectedValue
           ? 'radioSelected'
           : 'radioNotSelected'
       }`}
     >
       <div
-        className={`settings-pic-label-container ${
+        className={`radio-pic-label-container ${
           selectedValueType === selectedValue ? 'selected-card-set' : ''
         }`}
       >
         {imagePath ? (
           <img
-            className={`${
+            className={`radio-img ${
               isAppBackground ? 'app-bg-radio-img' : 'card-back-radio-img'
             } ${selectedValueType === selectedValue ? 'selected-app-bg' : ''}`}
             alt={`${isAppBackground ? 'app-bg' : 'card-back'}-${labelText}`}

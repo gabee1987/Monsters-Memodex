@@ -11,13 +11,13 @@ label {
   cursor: pointer;
   transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.175) 250ms,
     color cubic-bezier(0.175, 0.885, 0.32, 1.175) 350ms;
-  text-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px; /* Initial state */
+  text-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px;
 
   &:hover {
     color: var(--hoverText);
     transform: translateY(-0.05em) translateZ(60px) scale(1.2, 1.2)
       rotate(1.4deg);
-    text-shadow: rgba(0, 0, 0, 0.3) 7px 7px 18px; /* Hover state */
+    text-shadow: rgba(0, 0, 0, 0.3) 7px 7px 18px;
   }
 
   &:active,
