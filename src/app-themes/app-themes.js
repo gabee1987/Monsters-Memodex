@@ -196,7 +196,7 @@ export const themes = {
       title: '#020080',
       primaryText: '#020080',
       secondaryText: '#000000',
-      hoverText: '#fbfdfd ',
+      hoverText: '#fbfdfd',
       disabledText: '#000',
       activeText: '#fbfdfd ',
       background: '#048284',

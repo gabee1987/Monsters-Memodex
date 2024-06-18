@@ -39,27 +39,72 @@ export const BUTTON_HOVER_TRANSITION = {
   mass: 0.25,
   duration: 0.25,
 };
-export const BUTTON_HOVER_ANIMATION = {
+
+// Custom easing for color transition
+export const COLOR_TRANSITION = {
+  type: 'spring',
+  stiffness: 200,
+  damping: 6,
+  mass: 0.25,
+  duration: 0.2,
+};
+
+// Tween-based color transition for exit
+export const COLOR_TRANSITION_EXIT = {
+  type: 'tween',
+  ease: 'easeInOut',
+  duration: 0.1,
+};
+
+export const getButtonHoverAnimation = (theme) => ({
   translateY: '-0.05em',
   scale: 1.08,
   rotate: 1.4,
   boxShadow: '5px 5px 20px 5px rgba(0, 0, 0, 0.5)',
-  backgroundColor: '#ffff00',
-  color: '#444444',
-  //   transition: {
-  //     duration: 0.25,
-  //     ease: [0.175, 0.885, 0.32, 1.675],
-  //   },
-};
+  backgroundColor: theme.hoverText,
+  color: theme.menu,
+  transition: {
+    scale: BUTTON_HOVER_TRANSITION,
+    rotate: BUTTON_HOVER_TRANSITION,
+    translateY: BUTTON_HOVER_TRANSITION,
+    backgroundColor: COLOR_TRANSITION,
+    color: COLOR_TRANSITION,
+  },
+});
 
-export const BUTTON_ACTIVE_ANIMATION = {
+// Define the exit animation
+export const getButtonExitAnimation = (theme) => ({
+  translateY: '0em',
+  scale: 1,
+  rotate: 0,
+  boxShadow: 'none',
+  backgroundColor: theme.primaryText,
+  color: theme.menu,
+  transition: {
+    scale: BUTTON_HOVER_TRANSITION,
+    rotate: BUTTON_HOVER_TRANSITION,
+    translateY: BUTTON_HOVER_TRANSITION,
+    backgroundColor: COLOR_TRANSITION_EXIT,
+    color: COLOR_TRANSITION_EXIT,
+  },
+});
+
+export const getButtonActiveAnimation = (theme) => ({
   scale: 1,
   rotate: -0.4,
   transition: {
-    duration: 0.25,
-    ease: [0.175, 0.885, 0.32, 1.675],
+    scale: {
+      duration: 0.15,
+      ease: [0.175, 0.885, 0.32, 1.675],
+    },
+    rotate: {
+      duration: 0.15,
+      ease: [0.175, 0.885, 0.32, 1.675],
+    },
   },
-};
+  backgroundColor: theme.activeText,
+  color: theme.disabledText,
+});
 
 // Custom Easing for Animations
 const CUSTOM_EASING = [0.175, 0.885, 0.32, 1.575];

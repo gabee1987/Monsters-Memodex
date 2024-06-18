@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../contexts/app-theme.context';
 import { motion } from 'framer-motion';
 
 import {
-  BUTTON_HOVER_ANIMATION,
-  BUTTON_ACTIVE_ANIMATION,
+  getButtonHoverAnimation,
+  getButtonActiveAnimation,
+  getButtonExitAnimation,
   BUTTON_HOVER_TRANSITION,
 } from '../../utilities/animation-helper';
 
 const MotionButton = ({ children, onClick, className, ...props }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <motion.button
       className={`btn ${className}`}
       onClick={onClick}
-      whileHover={BUTTON_HOVER_ANIMATION}
-      whileTap={BUTTON_ACTIVE_ANIMATION}
-      transition={BUTTON_HOVER_TRANSITION}
+      whileHover={getButtonHoverAnimation(theme)}
+      whileTap={getButtonActiveAnimation(theme)}
+      // initial={getButtonExitAnimation(theme)}
+      exit={getButtonExitAnimation(theme)}
+      // transition={BUTTON_HOVER_TRANSITION}
       {...props}
     >
       {children}
