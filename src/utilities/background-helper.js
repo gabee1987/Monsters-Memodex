@@ -16,13 +16,16 @@ export const insertBackgroundCSSClass = (className, svg, color) => {
   let cssRule = '';
   if (svg) {
     cssRule = `
-    body.${className} {
+    .app-background.${className} {
       background-image: url("${svg}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   `;
   } else {
     cssRule = `
-    body.${className} {
+    .app-background.${className} {
       background-color: ${color};
     }
   `;

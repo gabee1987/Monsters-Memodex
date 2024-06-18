@@ -47,7 +47,7 @@ export const ThemeProvider = ({ children }) => {
         document.documentElement.style.setProperty(`--${key}`, theme[key]);
       }
     });
-    document.body.className = `${theme.mode} ${theme.backgroundClass}`;
+    document.body.className = `${theme.name}-${theme.mode}`;
     // console.log('Theme applied: ', theme);
   };
 
@@ -61,8 +61,10 @@ export const ThemeProvider = ({ children }) => {
       newBackground.color
     );
 
+    const appBackgroundElement = document.querySelector('.app-background');
+    appBackgroundElement.className = `app-background ${newBackground.className}`;
     // Apply the CSS class to the body
-    document.body.className = `${theme.name}-${theme.mode} ${newBackground.className}`;
+    // document.body.className = `${theme.name}-${theme.mode} ${newBackground.className}`;
   };
 
   const value = {
