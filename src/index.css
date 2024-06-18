@@ -21,8 +21,8 @@ body {
   margin: 0;
   /* padding: 1em; */
   text-align: center;
-  height: 100dvh;
-  width: 100vw;
+  /* height: 100dvh;
+  width: 100vw; */
   overflow: hidden;
   /* background-image: var(--background-image); */
   background-size: auto;
