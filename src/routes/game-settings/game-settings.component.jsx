@@ -120,8 +120,6 @@ const Settings = () => {
   const handleDarkModeChange = (event) => {
     const mode = event.target.value;
     setIsDarkMode(mode === 'dark');
-    toggleTheme(theme.name, mode ? 'dark' : 'light');
-    // TODO need to fix the class naming after mode change
   };
 
   // App Theme handler

@@ -3,9 +3,10 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { themes } from '../app-themes/app-themes';
 import { backgrounds } from '../app-themes/app-backgrounds';
 import { insertBackgroundCSSClass } from '../utilities/background-helper';
+import { localStorageService } from '../services/local-storage.service';
 
 export const ThemeContext = createContext({
-  isDarkMode: false,
+  isDarkMode: true,
   setIsDarkMode: () => {},
   theme: themes.default.dark,
   setTheme: () => {},
@@ -14,8 +15,11 @@ export const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }) => {
+  const storedTheme = localStorageService.loadTheme() || themes.default.dark;
+  const storedDarkMode = localStorageService.loadDarkMode() || true;
+
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [theme, setTheme] = useState(themes.default.dark);
+  const [theme, setTheme] = useState(storedTheme);
   const [appBackground, setAppBackground] = useState(
     backgrounds[themes.default.dark.backgroundClass]
   );
@@ -39,6 +43,7 @@ export const ThemeProvider = ({ children }) => {
     setTheme(newTheme);
     applyTheme(newTheme);
     applyBackground(newTheme.backgroundClass);
+    localStorageService.saveTheme(newTheme);
   };
 
   const applyTheme = (theme, background) => {
@@ -67,9 +72,14 @@ export const ThemeProvider = ({ children }) => {
     // document.body.className = `${theme.name}-${theme.mode} ${newBackground.className}`;
   };
 
+  const toggleDarkMode = (isDarkMode) => {
+    setIsDarkMode(isDarkMode);
+    localStorageService.saveDarkMode(isDarkMode);
+  };
+
   const value = {
     isDarkMode,
-    setIsDarkMode,
+    setIsDarkMode: toggleDarkMode,
     appBackground,
     setAppBackground,
     theme,

@@ -3,7 +3,8 @@ const saveToLocalStorage = (key, value) => {
     const serializedValue = JSON.stringify(value);
     localStorage.setItem(key, serializedValue);
   } catch (error) {
-    // Handle write error
+    console.error(`Error saving to local storage: ${error}`);
+    // TODO Handle write error possibly with logs also
   }
 };
 
@@ -12,12 +13,30 @@ const loadFromLocalStorage = (key) => {
     const serializedValue = localStorage.getItem(key);
     return serializedValue ? JSON.parse(serializedValue) : null;
   } catch (error) {
-    // Handle read error
+    console.error(`Error loading from local storage: ${error}`);
+    // TODO Handle read error possibly with logs also
     return null;
   }
 };
 
+const saveCardDeck = (cardDeck) =>
+  saveToLocalStorage('inProgressDeck', cardDeck);
+const loadCardDeck = () => loadFromLocalStorage('inProgressDeck');
+
+const saveTheme = (theme) => saveToLocalStorage('selectedTheme', theme);
+const loadTheme = () => loadFromLocalStorage('selectedTheme');
+
+const saveDarkMode = (isDarkMode) =>
+  saveToLocalStorage('isDarkMode', isDarkMode);
+const loadDarkMode = () => loadFromLocalStorage('isDarkMode');
+
 export const localStorageService = {
   save: saveToLocalStorage,
   load: loadFromLocalStorage,
+  saveCardDeck,
+  loadCardDeck,
+  saveTheme,
+  loadTheme,
+  saveDarkMode,
+  loadDarkMode,
 };
