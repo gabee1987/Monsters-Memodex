@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   // color: #73ffca;
-  color: var(--primaryText);
+  color: var(--secondaryText);
 
   .modal-content {
     width: 50%;
@@ -72,12 +72,12 @@
   .modal-header {
     padding: 0.1rem;
     // color: #ffff00;
-    color: var(--title);
+    color: var(--secondaryText);
     font-size: 2rem;
 
     // 3D hover
     transform: translateZ(40px);
-    text-shadow: rgba(0, 0, 0, 0.2) 5px 5px 10px;
+    text-shadow: rgba(0, 0, 0, 0.3) 2px 2px 15px;
   }
 
   .modal-body {
@@ -94,7 +94,7 @@
     span {
       padding: 0.3rem;
       // color: #ffff00;
-      color: var(--title);
+      color: var(--primaryText);
     }
   }
 
