@@ -64,6 +64,8 @@ const Settings = () => {
     setAppBackground,
     theme,
     toggleTheme,
+    backgroundClassName,
+    setBackgroundClassName,
   } = useContext(ThemeContext);
 
   const isFeatureEnabled = false;
@@ -125,7 +127,10 @@ const Settings = () => {
   // App Theme handler
   const handleThemeChange = (event) => {
     const themeName = event.target.value;
-    toggleTheme(themeName, isDarkMode ? 'dark' : 'light');
+    const darkMode = isDarkMode ? 'dark' : 'light';
+    const newTheme = themes[themeName][darkMode];
+    toggleTheme(themeName, darkMode);
+    setAppBackground(backgrounds[newTheme.backgroundClass]);
   };
 
   // App Background handler
@@ -133,6 +138,7 @@ const Settings = () => {
     const selectedBackground = Object.values(backgrounds).find(
       (bg) => bg.className === event.target.value
     );
+    console.log('selectedBackground: ', selectedBackground);
     setAppBackground(selectedBackground);
   };
 

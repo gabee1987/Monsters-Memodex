@@ -30,16 +30,16 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     applyBackground(appBackground.className);
-    // console.log('appBackground in context: ', appBackground);
   }, [appBackground]);
 
   useEffect(() => {
-    toggleTheme(theme.name, isDarkMode ? 'dark' : 'light');
+    const mode = isDarkMode ? 'dark' : 'light';
+    toggleTheme(theme.name, mode);
+    setAppBackground(backgrounds[themes[theme.name][mode].backgroundClass]);
   }, [isDarkMode, theme.name]);
 
   const toggleTheme = (themeName, mode) => {
     const newTheme = themes[themeName][mode];
-    // console.log('Theme selected in context: ', newTheme);
     setTheme(newTheme);
     applyTheme(newTheme);
     applyBackground(newTheme.backgroundClass);
@@ -68,8 +68,6 @@ export const ThemeProvider = ({ children }) => {
 
     const appBackgroundElement = document.querySelector('.app-background');
     appBackgroundElement.className = `app-background ${newBackground.className}`;
-    // Apply the CSS class to the body
-    // document.body.className = `${theme.name}-${theme.mode} ${newBackground.className}`;
   };
 
   const toggleDarkMode = (isDarkMode) => {
