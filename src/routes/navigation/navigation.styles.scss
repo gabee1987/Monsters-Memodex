@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-self: center;
-  top: 1em;
+  top: 1rem;
   overflow: hidden;
   z-index: 1;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
@@ -19,8 +19,8 @@
   // background-color: #009485;
   background-color: var(--menu);
   border-radius: 10px;
-  padding: 0 1em;
-  margin: 0.5em auto;
+  padding: 0 1rem;
+  margin: 0 auto;
 
   // transform-style: preserve-3d;
   // perspective: 1000px;
