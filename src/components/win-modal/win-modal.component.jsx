@@ -53,15 +53,15 @@ const WinModal = (props) => {
               {formatMessage(winMessage)}
               <br />
               <br />
-              You completed the game in
+              You've finished the game in
               {gameMode === MODE_SETTING_TYPES.TIME_BASED && (
                 <div>
-                  <span>{timer}</span> <br /> and it took
+                  <span>{timer}</span> <br /> taking
                 </div>
               )}
               {gameMode === MODE_SETTING_TYPES.FREE && (
                 <div>
-                  <span>{stopWatch}</span> <br /> and it took
+                  <span>{stopWatch}</span> <br />
                 </div>
               )}
               <span>{turns}</span> turns
