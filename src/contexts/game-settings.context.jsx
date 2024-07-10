@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+import { localStorageService } from '../services/local-storage.service';
 
 export const TAB_VALUES = {
   GAME_TAB: 'GAME_TAB',
@@ -148,11 +149,23 @@ export const GameSettingsContext = createContext({
 
 export const GameSettingsProvider = ({ children }) => {
   const [activeTab, setActiveTab] = useState(TAB_VALUES.GAME_TAB);
-  const [gameMode, setGameMode] = useState(MODE_SETTING_TYPES.FREE);
+  const [gameMode, setGameMode] = useState(
+    localStorageService.loadGameMode() || MODE_SETTING_TYPES.FREE
+  );
   const [difficulty, setDifficulty] = useState(DIFFICULTY_SETTING_TYPES.EASY);
-  const [numberOfPairs, setNumberOfPairs] = useState(10);
+  const [numberOfPairs, setNumberOfPairs] = useState(
+    localStorageService.loadNumberOfPairs() || 10
+  );
   const [cardSet, setCardSet] = useState(CARDSET_SETTING_TYPES.MONSTERS);
   const [cardBack, setCardBack] = useState(CARBACK_SETTING_TYPES.BASIC);
+
+  useEffect(() => {
+    localStorageService.saveGameMode(gameMode);
+  }, [gameMode]);
+
+  useEffect(() => {
+    localStorageService.saveNumberOfPairs(numberOfPairs);
+  }, [numberOfPairs]);
 
   const value = {
     activeTab,

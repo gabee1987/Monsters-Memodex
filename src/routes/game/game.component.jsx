@@ -45,11 +45,13 @@ const Game = (props) => {
   const { numberOfPairs, gameMode, difficulty, GetTurnsCount } =
     useContext(GameSettingsContext);
 
-  // Timer related code
-  const { needToStartTimer, setNeedToStartTimer } = useContext(TimeContext);
-  const { setNeedToRestartTimer, timerState, stopwatchState } =
-    useContext(TimeContext);
+  // Timer and stopwatch related code
   const {
+    needToStartTimer,
+    setNeedToStartTimer,
+    setNeedToRestartTimer,
+    timerState,
+    stopwatchState,
     needToStartStopwatch,
     setNeedToStartStopwatch,
     setNeedToResetStopwatch,

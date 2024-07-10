@@ -23,6 +23,13 @@ const saveCardDeck = (cardDeck) =>
   saveToLocalStorage('inProgressDeck', cardDeck);
 const loadCardDeck = () => loadFromLocalStorage('inProgressDeck');
 
+const saveGameMode = (gameMode) => saveToLocalStorage('gameMode', gameMode);
+const loadGameMode = () => loadFromLocalStorage('gameMode');
+
+const saveNumberOfPairs = (numberOfPairs) =>
+  saveToLocalStorage('numberOfPairs', numberOfPairs);
+const loadNumberOfPairs = () => loadFromLocalStorage('numberOfPairs');
+
 const saveTheme = (theme) => saveToLocalStorage('selectedTheme', theme);
 const loadTheme = () => loadFromLocalStorage('selectedTheme');
 
@@ -35,6 +42,11 @@ export const localStorageService = {
   load: loadFromLocalStorage,
   saveCardDeck,
   loadCardDeck,
+  saveGameMode,
+  loadGameMode,
+  saveNumberOfPairs,
+  loadNumberOfPairs,
+  // theme
   saveTheme,
   loadTheme,
   saveDarkMode,
