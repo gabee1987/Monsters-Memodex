@@ -1,11 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 import { GameStateContext } from '../../contexts/game-state.context.jsx';
 import {
   GameSettingsContext,
-  DEFAULT_TURN_VALUES,
   MODE_SETTING_TYPES,
 } from '../../contexts/game-settings.context.jsx';
 import { TimeContext } from '../../contexts/time-context.jsx';
@@ -17,6 +14,7 @@ import CardList from '../../components/card-list/card-list.component.jsx';
 import GameControls from '../../components/game-control/game-control.component.jsx';
 import WinModal from '../../components/win-modal/win-modal.component.jsx';
 import GameOverModal from '../../components/game-over-modal/game-over-modal.component.jsx';
+import GameContinueModal from '../../components/game-continue-modal/game-continue-modal.component.jsx';
 
 import './game.styles.scss';
 
@@ -27,6 +25,7 @@ const Game = (props) => {
   const [cardDisabled, setCardDisabled] = useState(false);
   const [showWinModal, setShowWinModal] = useState(false);
   const [showGameOverModal, setGameOverModal] = useState(false);
+  const [showContinuePrompt, setShowContinuePrompt] = useState(false);
 
   const { turns, setTurns } = useContext(GameStateContext);
   const { isGamePaused, setIsGamePaused } = useContext(GameStateContext);
@@ -55,6 +54,8 @@ const Game = (props) => {
     needToStartStopwatch,
     setNeedToStartStopwatch,
     setNeedToResetStopwatch,
+    setTimerState,
+    restartSavedTimer,
   } = useContext(TimeContext);
 
   // Handle game over logic
@@ -64,16 +65,34 @@ const Game = (props) => {
   //   }
   // }, [isTimeUp]);
 
-  // Create initial card deck on first page load or load a previous state if was one
+  // Load saved game state if there is any, otherwise initiate a new game
   useEffect(() => {
     const savedCards = localStorageService.load('inProgressDeck');
+    const savedGameMode = localStorageService.load('gameMode');
+    const savedNumberOfPairs = localStorageService.load('numberOfPairs');
+    const savedTimerState = localStorageService.load('timerState');
+
     if (savedCards && savedCards.length > 0) {
-      console.log('Deck is loaded from a previous state.');
+      setShowContinuePrompt(true);
       setCardDeck(savedCards);
+      setNeedToRestartTimer(false);
+      setTimerState(savedTimerState);
+      console.log('Deck is loaded from a previous state.');
     } else {
       initiateNewGame();
     }
   }, []);
+
+  // Create initial card deck on first page load or load a previous state if was one
+  // useEffect(() => {
+  //   const savedCards = localStorageService.load('inProgressDeck');
+  //   if (savedCards && savedCards.length > 0) {
+  //     console.log('Deck is loaded from a previous state.');
+  //     setCardDeck(savedCards);
+  //   } else {
+  //     initiateNewGame();
+  //   }
+  // }, []);
 
   const initiateNewGame = () => {
     const newCardDeck = CardDeckService.createNewDeck(numberOfPairs);
@@ -106,11 +125,27 @@ const Game = (props) => {
     setTimeout(() => setIsShufflingActive(false), 1000);
   };
 
+  // Handle to continue a previous game
+  const handleContinue = () => {
+    const savedCards = localStorageService.load('inProgressDeck');
+    // const savedTimerState = localStorageService.load('timerState');
+    // console.log('saved timer: ', savedTimerState);
+
+    setCardDeck(savedCards);
+    // setTimerState(savedTimerState);
+
+    restartSavedTimer();
+    setShowContinuePrompt(false);
+  };
+
   // Start a New Game on click
   const handleNewGameClick = () => {
     if (!isNewGameButtonDisabled) {
       // setIsShufflingActive(true); // Set the shuffle animation state
+      localStorageService.save('inProgressDeck', []);
+      localStorageService.save('timerState', {});
       initiateNewGame();
+      setShowContinuePrompt(false);
     }
   };
 
@@ -187,7 +222,7 @@ const Game = (props) => {
     return () => clearTimeout(timeoutId);
   }, [cardDeck]);
 
-  // Check win condition
+  // Check win condition hook
   useEffect(() => {
     const winState = checkWinCondition(cardDeck);
     setIsWon(winState);
@@ -236,6 +271,11 @@ const Game = (props) => {
       setTimeout(() => setGameOverModal(isGameOver), 100);
     }
   }, [isGameOver]);
+
+  // Handle the close of the Game Continue modal
+  const handleGameContinueModalClose = () => {
+    setShowContinuePrompt(false);
+  };
 
   // Handle the close of the win modal
   const handleWinModalClose = () => {
@@ -296,6 +336,16 @@ const Game = (props) => {
         isShufflingActive={isShufflingActive}
         disabled={cardDisabled}
       />
+      {showContinuePrompt && (
+        // <GameContinueModal
+        //   show={showContinuePrompt}
+        //   onHide={() => setShowContinuePrompt(false)}
+        //   onClose={handleGameContinueModalClose}
+        //   handleNewGame={handleNewGameClick}
+        //   handleContinue={handleContinue}
+        // />
+        <div></div>
+      )}
       {showWinModal && (
         <WinModal
           show={showWinModal}

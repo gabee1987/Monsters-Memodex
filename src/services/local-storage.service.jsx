@@ -30,6 +30,10 @@ const saveNumberOfPairs = (numberOfPairs) =>
   saveToLocalStorage('numberOfPairs', numberOfPairs);
 const loadNumberOfPairs = () => loadFromLocalStorage('numberOfPairs');
 
+const saveTimerState = (timerState) =>
+  saveToLocalStorage('timerState', timerState);
+const loadTimerState = () => loadFromLocalStorage('timerState');
+
 const saveTheme = (theme) => saveToLocalStorage('selectedTheme', theme);
 const loadTheme = () => loadFromLocalStorage('selectedTheme');
 
@@ -51,4 +55,7 @@ export const localStorageService = {
   loadTheme,
   saveDarkMode,
   loadDarkMode,
+  // timer
+  saveTimerState,
+  loadTimerState,
 };

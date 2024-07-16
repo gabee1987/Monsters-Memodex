@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
   useMemo,
+  useRef,
   useCallback,
 } from 'react';
 
@@ -83,6 +84,12 @@ export const TimeContext = createContext({
   setStopWatchState: () => {},
 });
 
+const calculateRemainingTime = (expiryTimestamp) => {
+  const now = new Date();
+  const remainingTime = expiryTimestamp - now;
+  return remainingTime > 0 ? remainingTime / 1000 : 0;
+};
+
 export const TimeProvider = ({ children }) => {
   const { numberOfPairs, gameMode } = useContext(GameSettingsContext);
   const [expiryTimestamp] = useState(
@@ -98,6 +105,7 @@ export const TimeProvider = ({ children }) => {
       winTime: null,
     }
   );
+  console.log('saved timer state in context: ', timerState);
   const {
     isGameInProgress,
     setIsGameInProgress,
@@ -106,9 +114,12 @@ export const TimeProvider = ({ children }) => {
     isGamePaused,
   } = useContext(GameStateContext);
 
+  const initializedRef = useRef(false); // Use ref to track initialization
+
   const saveTimerState = (state) => {
     setTimerState(state);
     localStorageService.save('timerState', state);
+    console.log('save timer state in context in saveTimer func -> ', state);
   };
 
   // ================ TIMER RELATED LOGIC ================
@@ -133,42 +144,68 @@ export const TimeProvider = ({ children }) => {
     onExpire: () => handleExpire(),
   });
 
-  // Set initial timer value
+  useEffect(() => {
+    saveTimerState(timerState);
+  }, [timerState]);
+
+  // Initialize timer state once on component mount
+  useEffect(() => {
+    if (!initializedRef.current) {
+      const remainingTime = calculateRemainingTime(timerState.startTime);
+      if (remainingTime > 0) {
+        restartTimer(
+          new Date(new Date().getTime() + remainingTime * 1000),
+          false
+        );
+      } else {
+        const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
+        restartTimer(newExpiryTime, false);
+        setTimerState((prevState) => ({
+          ...prevState,
+          startTime: newExpiryTime,
+        }));
+      }
+      saveTimerState(timerState);
+      initializedRef.current = true;
+    }
+  }, [numberOfPairs, restartTimer, saveTimerState, timerState.startTime]);
+
+  // Handle timer state updates
+  useEffect(() => {
+    if (initializedRef.current) {
+      saveTimerState(timerState);
+    }
+  }, [timerState, saveTimerState]);
+
+  // Update timer state whenever number of pairs or timer state changes
   // useEffect(() => {
-  //   const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
-  //   restartTimer(newExpiryTime, false);
-  //   setTimerState((prevState) => ({ ...prevState, startTime: newExpiryTime }));
+  //   if (initializedRef.current) {
+  //     const remainingTime = calculateRemainingTime(timerState.startTime);
+  //     if (remainingTime > 0) {
+  //       restartTimer(
+  //         new Date(new Date().getTime() + remainingTime * 1000),
+  //         false
+  //       );
+  //     } else {
+  //       const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
+  //       restartTimer(newExpiryTime, false);
+  //       setTimerState((prevState) => ({
+  //         ...prevState,
+  //         startTime: newExpiryTime,
+  //       }));
+  //     }
+  //     saveTimerState(timerState);
+  //   }
   // }, [numberOfPairs]);
 
-  const calculateRemainingTime = (expiryTimestamp) => {
-    const now = new Date();
-    const remainingTime = expiryTimestamp - now;
-    return remainingTime > 0 ? remainingTime / 1000 : 0;
-  };
-
-  useEffect(() => {
-    const remainingTime = calculateRemainingTime(timerState.startTime);
-    if (remainingTime > 0) {
-      restartTimer(
-        new Date(new Date().getTime() + remainingTime * 1000),
-        false
-      );
-    } else {
-      const newExpiryTime = setExpiryTimeForTimer(numberOfPairs);
-      restartTimer(newExpiryTime, false);
-      setTimerState((prevState) => ({
-        ...prevState,
-        startTime: newExpiryTime,
-      }));
-    }
-  }, [numberOfPairs]);
-
+  // Timer Expire handler
   const handleExpire = useCallback(() => {
     setIsGameInProgress(false);
     console.log('Time is expired!');
     setIsGameOver(true);
   }, [setIsGameOver, setIsGameInProgress]);
 
+  // Timer stop handler
   const handleTimerStopEndGame = useCallback(() => {
     const formattedTime = `${timerMinutes
       .toString()
@@ -233,6 +270,20 @@ export const TimeProvider = ({ children }) => {
       }
     }
   }, [isGamePaused, isGameInProgress, gameMode]);
+
+  const restartSavedTimer = useCallback(() => {
+    const savedTimerState = localStorageService.load('timerState');
+    if (savedTimerState) {
+      const remainingTime = calculateRemainingTime(
+        new Date(savedTimerState.remainingTime)
+      );
+      console.log('saved timer after restart: ', remainingTime);
+      if (remainingTime > 0) {
+        restartTimer(new Date(Date.now() + remainingTime * 1000), false);
+        // setIsGamePaused(false);
+      }
+    }
+  }, [restartTimer]);
 
   // ================ STOPWATCH RELATED LOGIC ================
   const [needToStartStopwatch, setNeedToStartStopwatch] = useState(false);
@@ -311,6 +362,7 @@ export const TimeProvider = ({ children }) => {
     setNeedToStartTimer,
     needToRestartTimer,
     setNeedToRestartTimer,
+    restartSavedTimer,
     // Stopwatch
     needToStartStopwatch,
     setNeedToStartStopwatch,
