@@ -46,6 +46,12 @@ This project is configured for deployment on Vercel, enabling automatic deployme
 3. Configure your project settings to deploy from the main branch.
 4. Vercel will automatically deploy your application and provide you with a URL to access it.
 
+## Using the RoboHash API
+
+Monsters Memodex incorporates the RoboHash API to generate unique, robotic-themed monster images for each card in the memory game. RoboHash is an easy-to-use service that generates custom robot images based on user inputs. In my game, these inputs are derived from the card identifiers, ensuring that each card has a distinct and visually engaging picture.
+
+For more information on RoboHash and its capabilities, visit [RoboHash.org](https://robohash.org).
+
 ### Project Dependencies (external libraries to add)
 
 ├── @testing-library/jest-dom@5.16.5\
