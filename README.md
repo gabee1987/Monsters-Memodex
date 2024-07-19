@@ -1,85 +1,62 @@
-# Getting Started with Create React App
+# Monsters Memodex
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Monsters Memodex is an interactive memory game built with React, designed to challenge users to match pairs of monstrous cards. The game features a dynamic grid of cards that players flip, aiming to find pairs of matching monsters. It's a perfect blend of fun and memory training, suitable for all ages.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Dynamic Card Grid**: The game grid adjusts dynamically based on the difficulty level and the available screen space, which can be selected by the player.
+- **Multiple Game Modes**: Players can choose between Free, Time-based, and Turn-based modes. In Free mode, the players can match pairs without any restrictions. In Time-Based mode, there is a time limit, and in Turn-Based mode there is a turn limit.
+- **Multiple Difficulty Levels**: Players can choose between Easy, Medium, and Hard levels, changing the number of cards on the grid.
+- **Score Tracking**: The game tracks the number of moves a player makes, encouraging players to improve their memory and reduce the number of moves.
+- **Interactive UI**: A lively and responsive user interface that provides feedback for each action, enhancing the gaming experience.
+- **Mobile Responsive**: Fully optimized for mobile devices, allowing players to enjoy the game on the go. (Work in progress)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technology Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React**: Utilized for building the user interface with efficient updates and state management.
+- **CSS**: Custom styles for responsive design and animations.
+- **Vercel**: Chosen for hosting and seamless deployment from GitHub repositories.
 
-### `npm test`
+## Local Development
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To set up Monsters Memodex locally, follow these steps:
 
-### `npm run build`
+1. Clone the repository:
+   git clone https://github.com/gabee1987/Monsters-Memodex.git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Navigate to the project directory:
+   cd Monsters-Memodex
+   
+4. Install dependencies:
+   npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Run the application:
+   npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application will be available at `http://localhost:3000`.
 
-### `npm run eject`
+## Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This project is configured for deployment on Vercel, enabling automatic deployments upon commits to the main branch. Follow the steps below to configure your deployment:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Visit [Vercel](https://vercel.com/) and sign in with your GitHub account.
+2. Click on "New Project" and select the "Monsters-Memodex" repository.
+3. Configure your project settings to deploy from the main branch.
+4. Vercel will automatically deploy your application and provide you with a URL to access it.
 
 ### Project Dependencies (external libraries to add)
 
-monsters-memodex@0.1.0  
-├── @testing-library/jest-dom@5.16.5  
-├── @testing-library/react@13.3.0  
-├── @testing-library/user-event@13.5.0  
-├── react-dom@18.2.0  
-├── react-router-dom@6.3.0  
-├── react-scripts@5.0.1  
-├── react-useTimer (yarn add use-timer)  
-├── react@18.2.0  
-├── sass@1.54.4 (yarn add sass)  
-├── vanilla-tilt@1.7.2 (yarn add vanilla-tilt)  
-└── web-vitals@2.1.4  
+├── @testing-library/jest-dom@5.16.5
+├── @testing-library/react@13.3.0
+├── @testing-library/user-event@13.5.0
+├── framer-motion@11.0.24
+├── react-dom@18.2.0
+├── react-router-dom@6.3.0
+├── react-scripts@5.0.1
+├── react-timer-hook@3.0.5
+├── react@18.2.0
+├── sass@1.54.4
+├── vanilla-tilt@1.7.2
+└── web-vitals@2.1.4
